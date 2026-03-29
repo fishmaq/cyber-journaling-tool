@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event Logger</title>
+    <link rel="stylesheet" href="/public/styles.css" />
+    <link rel="icon" type="image/png" href="/public/favicon.png" />
+  </head>
+  <body>
+    <div class="ambient ambient-a" aria-hidden="true"></div>
+    <div class="ambient ambient-b" aria-hidden="true"></div>
+
+    <header class="hero reveal delay-1">
+      <div>
+        <p class="eyebrow">Events</p>
+        <h1>Event Logger</h1>
+        <p class="subtitle">
+          Log timeline events and connect them to existing cases. New case creation is explicit.
+        </p>
+      </div>
+      <div class="hero-meta">
+        <nav class="top-nav" aria-label="Logger navigation">
+          <a href="/event-logger" class="link-btn primary-btn">Event Logger</a>
+          <a href="/case-logger" class="link-btn secondary-btn">Case Logger</a>
+          <a href="/timelines" class="link-btn secondary-btn">Timelines</a>
+          <a href="/network" class="link-btn secondary-btn">Network</a>
+          <a href="/wiki" class="link-btn secondary-btn" target="_blank" rel="noopener noreferrer">Wiki</a>
+        </nav>
+        <p class="hero-label">Current Time</p>
+        <time id="header-clock" class="hero-clock">--</time>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="stack">
+        <article class="panel reveal delay-2">
+          <div class="panel-head">
+            <h2>New Event</h2>
+            <span class="hint-chip">Timeline Entry</span>
+          </div>
+
+          <form id="event-form" class="form-grid">
+            <label>
+              Case
+              <select id="main-case-id">
+                <option value="">Select existing case...</option>
+              </select>
+              <span class="hint">Choose a case, or explicitly enable new case creation below.</span>
+            </label>
+            <label class="toggle-inline">
+              <input id="allow-auto-case-create" type="checkbox" />
+              Create new case if no case is selected
+            </label>
+
+            <div class="field-grid cols-2">
+              <label class="field-with-add">
+                Time
+                <div class="input-with-add">
+                  <input id="time" type="datetime-local" step="1" required />
+                  <button id="reset-time" class="ghost-btn time-now-btn" type="button">
+                    Now
+                  </button>
+                </div>
+              </label>
+
+              <label>
+                Severity
+                <select id="severity" required>
+                  <option>Low</option>
+                  <option>Medium</option>
+                  <option>High</option>
+                  <option>Critical</option>
+                </select>
+              </label>
+
+              <label>
+                Team Number
+                <select id="team-number" required>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                </select>
+              </label>
+
+              <label>
+                Event Type
+                <select id="event-type" required>
+                  <option>Finding/ Evidence</option>
+                  <option>Action</option>
+                  <option>Decision</option>
+                  <option>Meeting</option>
+                  <option>Join/Leave</option>
+                  <option>Comms</option>
+                  <option>Note</option>
+                </select>
+              </label>
+            </div>
+
+            <label>
+              Summary
+              <input id="summary" type="text" maxlength="250" required placeholder="Short event description" />
+            </label>
+
+            <label>
+              Details
+              <textarea id="details" placeholder="Evidence, timeline context, decisions..."></textarea>
+            </label>
+
+            <div class="field-grid cols-2 context-fields-grid">
+              <label class="field-with-add">
+                Services Affected
+                <div class="input-with-add">
+                  <input id="services" list="services-list" placeholder="API Gateway, VPN, SIEM" />
+                  <button class="add-chip" type="button" data-add-input="services" data-add-type="services" aria-label="Add services to reusable list">+</button>
+                </div>
+                <datalist id="services-list"></datalist>
+                <span class="hint hint-placeholder" aria-hidden="true">placeholder</span>
+              </label>
+
+              <label class="field-with-add">
+                Hosts Affected
+                <div class="input-with-add">
+                  <input id="hosts" list="hosts-list" placeholder="srv-001, firewall-2" />
+                  <button class="add-chip" type="button" data-add-input="hosts" data-add-type="hosts" aria-label="Add hosts to reusable list">+</button>
+                </div>
+                <datalist id="hosts-list"></datalist>
+                <span class="hint">Autocomplete includes imported network devices.</span>
+              </label>
+
+              <label class="field-with-add">
+                Owner
+                <div class="input-with-add">
+                  <input id="owners" list="owners-list" placeholder="SOC Lead, IR Team" />
+                  <button class="add-chip" type="button" data-add-input="owners" data-add-type="owners" aria-label="Add owners to reusable list">+</button>
+                </div>
+                <datalist id="owners-list"></datalist>
+                <span class="hint hint-placeholder" aria-hidden="true">placeholder</span>
+              </label>
+
+              <label class="field-with-add">
+                Tags
+                <div class="input-with-add">
+                  <input id="tags" list="tags-list" placeholder="phishing, lateral-movement" />
+                  <button class="add-chip" type="button" data-add-input="tags" data-add-type="tags" aria-label="Add tags to reusable list">+</button>
+                </div>
+                <datalist id="tags-list"></datalist>
+                <span class="hint">Network markers also work via Device Status below.</span>
+              </label>
+
+              <label>
+                Device Status
+                <select id="device-status-action">
+                  <option value="">No status marker</option>
+                  <option value="out">Device out / offline</option>
+                  <option value="compromised">Device compromised</option>
+                  <option value="outCompromised">Device out + compromised</option>
+                  <option value="upAgain">Device up again (clear outage)</option>
+                  <option value="clean">Device clean (clear compromise)</option>
+                  <option value="upAgainClean">Device up again + clean</option>
+                </select>
+                <span class="hint">Applies to Hosts Affected and adds status tags automatically.</span>
+              </label>
+            </div>
+
+            <div class="actions">
+              <button id="save-event-btn" class="primary-btn" type="submit">Save Event</button>
+            </div>
+            <div id="event-status" class="status" aria-live="polite"></div>
+          </form>
+        </article>
+
+        <article class="panel quick-add-panel reveal delay-3">
+          <div class="panel-head">
+            <h2>Quick Add Reusable Values</h2>
+          </div>
+
+          <form id="quick-add-form" class="form-grid compact">
+            <div class="field-grid cols-2">
+              <label>
+                Field
+                <select id="catalog-type" required>
+                  <option value="services">Services Affected</option>
+                  <option value="hosts">Hosts Affected</option>
+                  <option value="owners">Owner</option>
+                  <option value="tags">Tags</option>
+                </select>
+              </label>
+
+              <label>
+                Value
+                <input id="catalog-name" type="text" required placeholder="Add value for future quick use" />
+              </label>
+            </div>
+
+            <div class="actions">
+              <button class="secondary-btn" type="submit">Add Value</button>
+            </div>
+          </form>
+
+          <form id="quick-delete-form" class="form-grid compact">
+            <div class="field-grid cols-2">
+              <label>
+                Field
+                <select id="catalog-delete-type" required>
+                  <option value="services">Services Affected</option>
+                  <option value="hosts">Hosts Affected</option>
+                  <option value="owners">Owner</option>
+                  <option value="tags">Tags</option>
+                </select>
+              </label>
+
+              <label>
+                Value
+                <select id="catalog-delete-name" required>
+                  <option value="">Select value to delete...</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="actions">
+              <button class="danger-btn" type="submit">Delete Value</button>
+            </div>
+          </form>
+          <div id="catalog-status" class="status" aria-live="polite"></div>
+        </article>
+      </section>
+
+      <section class="panel timeline reveal delay-4">
+        <div class="panel-head timeline-head">
+          <h2>Event Search</h2>
+          <div class="timeline-tools">
+            <span id="events-last-sync" class="muted">Last sync: --</span>
+            <button id="refresh-events" class="ghost-btn" type="button">Refresh</button>
+          </div>
+        </div>
+
+        <div class="search-grid search-grid-7">
+          <label>
+            Search Events
+            <input id="event-search" type="search" placeholder="Search by case id, text, tag, host, service..." />
+          </label>
+          <label>
+            Filter by Case
+            <select id="event-main-case-filter">
+              <option value="">All Cases</option>
+            </select>
+          </label>
+          <label>
+            Severity
+            <select id="event-severity-filter">
+              <option value="">All</option>
+              <option>Low</option>
+              <option>Medium</option>
+              <option>High</option>
+              <option>Critical</option>
+            </select>
+          </label>
+          <label>
+            Team
+            <select id="event-team-filter">
+              <option value="">All</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+            </select>
+          </label>
+          <label>
+            Event Type
+            <select id="event-type-filter">
+              <option value="">All</option>
+              <option>Finding/ Evidence</option>
+              <option>Action</option>
+              <option>Decision</option>
+              <option>Meeting</option>
+              <option>Join/Leave</option>
+              <option>Comms</option>
+              <option>Note</option>
+            </select>
+          </label>
+          <label>
+            Sort By
+            <select id="event-sort-by">
+              <option value="createdAt">Created Time</option>
+              <option value="occurredAt">Event Time</option>
+              <option value="severity">Severity</option>
+              <option value="teamNumber">Team</option>
+              <option value="eventType">Event Type</option>
+              <option value="caseId">Event Case ID</option>
+              <option value="caseRef">Case Reference</option>
+              <option value="summary">Summary</option>
+            </select>
+          </label>
+          <label>
+            Order
+            <select id="event-sort-dir">
+              <option value="desc">Descending</option>
+              <option value="asc">Ascending</option>
+            </select>
+          </label>
+        </div>
+
+        <details class="filter-panel">
+          <summary>More Field Filters</summary>
+          <div class="search-grid search-grid-3">
+            <label>
+              Event Case ID
+              <input id="event-case-id-filter" type="search" placeholder="CASE-..." />
+            </label>
+            <label>
+              Case Reference
+              <input id="event-case-ref-filter" type="search" placeholder="CASE-...-R..." />
+            </label>
+            <label>
+              Summary
+              <input id="event-summary-filter" type="search" placeholder="Summary text" />
+            </label>
+            <label>
+              Details
+              <input id="event-details-filter" type="search" placeholder="Details text" />
+            </label>
+            <label>
+              Service
+              <input id="event-service-filter" type="search" placeholder="Service name" />
+            </label>
+            <label>
+              Host
+              <input id="event-host-filter" type="search" placeholder="Host name" />
+            </label>
+            <label>
+              Owner
+              <input id="event-owner-filter" type="search" placeholder="Owner name" />
+            </label>
+            <label>
+              Tag
+              <input id="event-tag-filter" type="search" placeholder="Tag value" />
+            </label>
+            <label>
+              Time From
+              <input id="event-time-from-filter" type="datetime-local" step="1" />
+            </label>
+            <label>
+              Time To
+              <input id="event-time-to-filter" type="datetime-local" step="1" />
+            </label>
+          </div>
+          <div class="actions">
+            <button id="clear-event-filters" class="secondary-btn" type="button">Clear Filters</button>
+          </div>
+        </details>
+
+        <section class="split-panel">
+          <h3>Recent Events</h3>
+          <div id="events-body" class="entry-list"></div>
+        </section>
+      </section>
+    </main>
+
+    <script type="module" src="/public/event-logger.ts"></script>
+  </body>
+</html>

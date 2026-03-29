@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Network</title>
+    <link rel="stylesheet" href="/public/styles.css" />
+    <link rel="icon" type="image/png" href="/public/favicon.png" />
+  </head>
+  <body>
+    <div class="ambient ambient-a" aria-hidden="true"></div>
+    <div class="ambient ambient-b" aria-hidden="true"></div>
+
+    <header class="hero reveal delay-1">
+      <div>
+        <p class="eyebrow">Topology</p>
+        <h1>Network View</h1>
+        <p class="subtitle">
+          Import your network layout and track host status from Event Logger markings.
+        </p>
+      </div>
+      <div class="hero-meta">
+        <nav class="top-nav" aria-label="Logger navigation">
+          <a href="/event-logger" class="link-btn secondary-btn">Event Logger</a>
+          <a href="/case-logger" class="link-btn secondary-btn">Case Logger</a>
+          <a href="/timelines" class="link-btn secondary-btn">Timelines</a>
+          <a href="/network" class="link-btn primary-btn">Network</a>
+          <a href="/wiki" class="link-btn secondary-btn" target="_blank" rel="noopener noreferrer">Wiki</a>
+        </nav>
+        <div class="actions">
+          <button id="network-fullscreen-btn" class="ghost-btn icon-btn" type="button">
+            Fullscreen
+          </button>
+          <button id="network-admin-toggle" class="ghost-btn icon-btn" type="button" aria-label="Open admin tools">
+            Admin
+          </button>
+        </div>
+        <div id="network-admin-popover" class="admin-popover hidden">
+          <form id="network-admin-form" class="form-grid compact">
+            <label>
+              Admin Password
+              <input id="network-admin-password" type="password" placeholder="Enter admin password" />
+              <span class="hint">Edit mode allows renaming machines. Set `.env`: <code>ADMIN_PASSWORD=...</code>.</span>
+            </label>
+            <div class="actions">
+              <button id="network-edit-enable-btn" class="secondary-btn" type="button">Enable Edit Mode</button>
+              <button id="network-edit-disable-btn" class="ghost-btn" type="button">Disable</button>
+            </div>
+            <div id="network-admin-status" class="status" aria-live="polite"></div>
+          </form>
+        </div>
+        <p class="hero-label">Current Time</p>
+        <time id="header-clock" class="hero-clock">--</time>
+      </div>
+    </header>
+
+    <main class="editor-layout network-page">
+      <section class="panel reveal delay-2 network-import-panel">
+        <div class="panel-head">
+          <h2>Import Structure</h2>
+          <span id="network-last-sync" class="muted">Last sync: --</span>
+        </div>
+        <p class="hint">
+          JSON format: <code>devices: [{ name, type, ipAddress, team, zone, x, y }]</code>,
+          optional <code>links: [{ from, fromTeam, to, toTeam, label }]</code>, and type in
+          <code>Internet, Router, Firewall, DMZ, Server, Workstations</code>.
+        </p>
+        <textarea
+          id="network-import-json"
+          class="network-import-text"
+          placeholder='{"devices":[{"name":"FW-1","type":"Firewall","ipAddress":"10.0.0.1"}]}'
+        ></textarea>
+        <div class="actions">
+          <button id="network-load-cygwdex" class="secondary-btn" type="button">
+            Load CyGWDEx Template
+          </button>
+          <button id="network-load-sample" class="secondary-btn" type="button">
+            Load Sample
+          </button>
+          <button id="network-import-btn" class="primary-btn" type="button">
+            Import Network
+          </button>
+          <button id="network-refresh-btn" class="ghost-btn" type="button">
+            Refresh Status
+          </button>
+        </div>
+        <p class="hint">
+          Status source: latest event per host. Tag events with
+          <code>out/offline/down</code> for outage or <code>compromised/breach/infected</code>
+          for compromise. Recovery tags: <code>online/restored</code>. Clean tags:
+          <code>clean/remediated</code>.
+        </p>
+        <div class="network-legend">
+          <span class="network-legend-item">
+            <span class="legend-device legend-compromised"></span>
+            Compromised (circle)
+          </span>
+          <span class="network-legend-item">
+            <span class="legend-device legend-out"></span>
+            Out (cross)
+          </span>
+        </div>
+        <div id="network-status" class="status" aria-live="polite"></div>
+      </section>
+
+      <section id="network-board-panel" class="panel reveal delay-3 network-board-panel">
+        <div class="panel-head">
+          <h2>Network Board</h2>
+          <span class="hint-chip">Live from Events</span>
+        </div>
+        <div id="network-board" class="network-board"></div>
+      </section>
+    </main>
+
+    <dialog id="network-device-events-dialog" class="network-events-dialog">
+      <div class="network-events-dialog-shell">
+        <div class="network-events-dialog-head">
+          <h3 id="network-device-events-title">Device Events</h3>
+          <button id="network-device-events-close" class="ghost-btn" type="button">Close</button>
+        </div>
+        <div id="network-device-events-status" class="status" aria-live="polite"></div>
+        <div id="network-device-events-list" class="network-events-list"></div>
+      </div>
+    </dialog>
+
+    <script type="module" src="/public/network.ts"></script>
+  </body>
+</html>

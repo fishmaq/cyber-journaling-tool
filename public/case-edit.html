@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Case</title>
+    <link rel="stylesheet" href="/public/styles.css" />
+    <link rel="icon" type="image/png" href="/public/favicon.png" />
+  </head>
+  <body>
+    <div class="ambient ambient-a" aria-hidden="true"></div>
+    <div class="ambient ambient-b" aria-hidden="true"></div>
+
+    <header class="hero editor-header reveal delay-1">
+      <div>
+        <p class="eyebrow">Case Editor</p>
+        <h1>Edit Case</h1>
+        <p class="subtitle">
+          Update case ownership, status, and summary details.
+        </p>
+      </div>
+      <a href="/case-logger" class="secondary-btn link-btn back-link">Back to Case Logger</a>
+    </header>
+
+    <main class="editor-layout">
+      <section class="panel reveal delay-2">
+        <p id="case-edit-meta" class="muted">Loading case...</p>
+
+        <form id="edit-case-form" class="form-grid">
+          <div class="field-grid cols-2">
+            <label>
+              Team Number
+              <select id="case-team-number" required>
+                <option value="1">1</option>
+                <option value="2">2</option>
+              </select>
+            </label>
+
+            <label>
+              Severity
+              <select id="case-severity" required>
+                <option>Low</option>
+                <option>Medium</option>
+                <option>High</option>
+                <option>Critical</option>
+              </select>
+            </label>
+
+            <label>
+              Status
+              <select id="case-status" required>
+                <option>Triage</option>
+                <option>Event</option>
+                <option>Incident</option>
+                <option>Critical</option>
+                <option>Review</option>
+                <option>Closed</option>
+              </select>
+            </label>
+
+            <label class="field-with-add">
+              Owner
+              <div class="input-with-add">
+                <input id="case-owner" list="owners-list" type="text" required />
+                <button class="add-chip" type="button" data-add-input="case-owner" data-add-type="owners">+</button>
+              </div>
+              <datalist id="owners-list"></datalist>
+            </label>
+          </div>
+
+          <label>
+            Current Action / Next Steps
+            <input id="case-current-action" type="text" />
+          </label>
+
+          <label>
+            Summary
+            <input id="case-summary" type="text" maxlength="260" required />
+          </label>
+
+          <label>
+            Details
+            <textarea id="case-details"></textarea>
+          </label>
+
+          <div class="actions">
+            <button id="save-case-btn" class="primary-btn" type="submit">Save Changes</button>
+          </div>
+          <div id="case-edit-status" class="status" aria-live="polite"></div>
+        </form>
+      </section>
+    </main>
+
+    <script type="module" src="/public/case-edit.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Case Timelines</title>
+    <link rel="stylesheet" href="/public/styles.css" />
+    <link rel="icon" type="image/png" href="/public/favicon.png" />
+  </head>
+  <body>
+    <div class="ambient ambient-a" aria-hidden="true"></div>
+    <div class="ambient ambient-b" aria-hidden="true"></div>
+
+    <header class="hero reveal delay-1">
+      <div>
+        <p class="eyebrow">Timeline Board</p>
+        <h1>Case Timelines</h1>
+        <p class="subtitle">
+          Each case has its own visual event timeline in chronological order.
+        </p>
+      </div>
+      <div class="hero-meta">
+        <nav class="top-nav" aria-label="Logger navigation">
+          <a href="/event-logger" class="link-btn secondary-btn">Event Logger</a>
+          <a href="/case-logger" class="link-btn secondary-btn">Case Logger</a>
+          <a href="/timelines" class="link-btn primary-btn">Timelines</a>
+          <a href="/network" class="link-btn secondary-btn">Network</a>
+          <a href="/wiki" class="link-btn secondary-btn" target="_blank" rel="noopener noreferrer">Wiki</a>
+        </nav>
+        <p class="hero-label">Current Time</p>
+        <time id="header-clock" class="hero-clock">--</time>
+      </div>
+    </header>
+
+    <main class="editor-layout timeline-page">
+      <section class="panel reveal delay-2">
+        <div class="panel-head timeline-head">
+          <h2>Case Timeline View</h2>
+          <div class="timeline-tools">
+            <span id="timeline-last-sync" class="muted">Last sync: --</span>
+            <div class="timeline-density-controls">
+              <label class="toggle-inline" for="timeline-compact-toggle">
+                <input id="timeline-compact-toggle" type="checkbox" />
+                Compact View
+              </label>
+              <label class="range-inline" for="timeline-compact-slider">
+                Density
+                <input
+                  id="timeline-compact-slider"
+                  type="range"
+                  min="0"
+                  max="100"
+                  step="5"
+                  value="50"
+                />
+                <span id="timeline-compact-value" class="compact-value">50%</span>
+              </label>
+            </div>
+            <button id="toggle-autoscroll" class="secondary-btn" type="button" aria-pressed="true">
+              Auto-scroll: On
+            </button>
+            <button id="toggle-overview-detach" class="secondary-btn" type="button">
+              Detach Overview
+            </button>
+            <button id="toggle-cases-fullscreen" class="secondary-btn" type="button">
+              Cases Fullscreen
+            </button>
+            <button id="toggle-events-fullscreen" class="secondary-btn" type="button">
+              Event Fullscreen
+            </button>
+            <button id="refresh-timelines" class="ghost-btn" type="button">Refresh</button>
+          </div>
+        </div>
+
+        <div class="search-grid search-grid-6">
+          <label>
+            Search
+            <input id="timeline-search" type="search" placeholder="Search by case ref, summary, owner, details..." />
+          </label>
+          <label>
+            Severity
+            <select id="timeline-severity">
+              <option value="">All</option>
+              <option>Low</option>
+              <option>Medium</option>
+              <option>High</option>
+              <option>Critical</option>
+            </select>
+          </label>
+          <label>
+            Team
+            <select id="timeline-team">
+              <option value="">All</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+            </select>
+          </label>
+          <label>
+            Status
+            <select id="timeline-status-filter">
+              <option value="">All</option>
+              <option>Triage</option>
+              <option>Event</option>
+              <option>Incident</option>
+              <option>Critical</option>
+              <option>Review</option>
+              <option>Closed</option>
+            </select>
+          </label>
+          <label>
+            Timeline Direction
+            <select id="timeline-order">
+              <option value="asc">Oldest to Newest</option>
+              <option value="desc">Newest to Oldest</option>
+            </select>
+          </label>
+          <label>
+            <span aria-hidden="true">&nbsp;</span>
+            <button id="clear-timeline-filters" class="secondary-btn" type="button">Clear Filters</button>
+          </label>
+        </div>
+
+        <div id="timeline-status" class="status" aria-live="polite"></div>
+        <div id="overview-dock" class="overview-dock">
+          <section class="timeline-overview-panel">
+            <div class="panel-head timeline-overview-head">
+              <h3>Quick Overview</h3>
+              <span class="muted">Top 6 by severity, parallel view</span>
+            </div>
+            <div id="timeline-overview"></div>
+          </section>
+          <section id="timeline-events-overview-panel" class="timeline-events-overview-panel">
+            <div class="panel-head timeline-overview-head">
+              <h3>Event Overview</h3>
+              <span class="muted">Top 6 by severity (when more than 6)</span>
+            </div>
+            <div id="timeline-events-overview"></div>
+          </section>
+        </div>
+        <section id="cases-timeline" class="timeline-case-root"></section>
+      </section>
+    </main>
+
+    <script type="module" src="/public/timelines.ts"></script>
+  </body>
+</html>

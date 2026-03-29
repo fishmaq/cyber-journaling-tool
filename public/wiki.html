@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wiki</title>
+    <link rel="stylesheet" href="/public/styles.css" />
+    <link rel="icon" type="image/png" href="/public/favicon.png" />
+  </head>
+  <body>
+    <div class="ambient ambient-a" aria-hidden="true"></div>
+    <div class="ambient ambient-b" aria-hidden="true"></div>
+
+    <header class="hero reveal delay-1">
+      <div>
+        <p class="eyebrow">Knowledge Base</p>
+        <h1>Operational Wiki</h1>
+        <p class="subtitle">
+          Notion-style workspace for shared incident knowledge and task tracking.
+        </p>
+      </div>
+      <div class="hero-meta">
+        <nav class="top-nav" aria-label="Logger navigation">
+          <a href="/event-logger" class="link-btn secondary-btn">Event Logger</a>
+          <a href="/case-logger" class="link-btn secondary-btn">Case Logger</a>
+          <a href="/timelines" class="link-btn secondary-btn">Timelines</a>
+          <a href="/network" class="link-btn secondary-btn">Network</a>
+          <a href="/wiki" class="link-btn primary-btn" target="_blank" rel="noopener noreferrer">Wiki</a>
+        </nav>
+        <p class="hero-label">Current Time</p>
+        <time id="header-clock" class="hero-clock">--</time>
+      </div>
+    </header>
+
+    <main class="editor-layout wiki-page">
+      <section class="wiki-shell">
+        <aside class="panel reveal delay-2 wiki-sidebar">
+          <div class="wiki-sidebar-head">
+            <h2>Pages</h2>
+            <button id="wiki-new-page" class="secondary-btn wiki-mini-btn" type="button">
+              New
+            </button>
+          </div>
+
+          <label class="wiki-search-label">
+            Search Pages
+            <input
+              id="wiki-page-search"
+              type="search"
+              placeholder="Find by title or content..."
+            />
+          </label>
+
+          <div class="wiki-sidebar-actions">
+            <button id="wiki-refresh" class="ghost-btn wiki-mini-btn" type="button">
+              Refresh
+            </button>
+          </div>
+
+          <div id="wiki-pages-list" class="wiki-pages-list"></div>
+        </aside>
+
+        <section class="wiki-workspace">
+          <article class="panel reveal delay-3 wiki-document-panel">
+            <form id="wiki-page-form" class="wiki-doc-form">
+              <div class="wiki-doc-toolbar">
+                <div class="wiki-doc-meta">
+                  <p id="wiki-page-meta" class="muted">No page selected.</p>
+                  <div id="wiki-page-status" class="status" aria-live="polite"></div>
+                </div>
+                <div class="actions">
+                  <button class="primary-btn" type="submit">Save Page</button>
+                  <button id="wiki-delete-page" class="danger-btn" type="button">
+                    Delete
+                  </button>
+                </div>
+              </div>
+
+              <input
+                id="wiki-page-title"
+                class="wiki-doc-title"
+                type="text"
+                maxlength="180"
+                required
+                placeholder="Untitled"
+              />
+
+              <textarea
+                id="wiki-page-content"
+                class="wiki-doc-editor"
+                placeholder="Write your notes, procedures, and references..."
+              ></textarea>
+            </form>
+          </article>
+
+          <article class="panel reveal delay-4 wiki-checklist-panel">
+            <div class="panel-head">
+              <h2>Checklist</h2>
+              <span id="wiki-checklist-summary" class="muted">0 open · 0 done</span>
+            </div>
+
+            <form id="wiki-checklist-form" class="wiki-check-composer">
+              <input
+                id="wiki-check-text"
+                type="text"
+                maxlength="240"
+                required
+                placeholder="Task"
+              />
+              <input
+                id="wiki-check-details"
+                type="text"
+                maxlength="280"
+                placeholder="Details (optional)"
+              />
+              <button class="secondary-btn" type="submit">Add</button>
+            </form>
+
+            <div id="wiki-checklist-list" class="wiki-checklist-list"></div>
+            <div id="wiki-checklist-status" class="status" aria-live="polite"></div>
+          </article>
+        </section>
+      </section>
+    </main>
+
+    <script type="module" src="/public/wiki.ts"></script>
+  </body>
+</html>
