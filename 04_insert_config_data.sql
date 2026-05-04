@@ -1,0 +1,35 @@
+-- This script initially insert data for all tables in the "config" schema
+
+-- OWNER
+INSERT INTO config.owner (name) VALUES ('SOC Leiter (Security Operation Cell Leiter');
+INSERT INTO config.owner (name) VALUES ('Service Owner');
+INSERT INTO config.owner (name) VALUES ('Tech Lead');
+
+-- CASE_STATE
+INSERT INTO config.case_state (name) VALUES ('Triage');
+INSERT INTO config.case_state (name) VALUES ('Event');
+INSERT INTO config.case_state (name) VALUES ('Incident');
+INSERT INTO config.case_state (name) VALUES ('Critical');
+INSERT INTO config.case_state (name) VALUES ('Review');
+INSERT INTO config.case_state (name) VALUES ('Closed');
+
+-- SEVERITY_LEVEL
+INSERT INTO config.severity_level (name) VALUES ('Low');
+INSERT INTO config.severity_level (name) VALUES ('Medium');
+INSERT INTO config.severity_level (name) VALUES ('High');
+INSERT INTO config.severity_level (name) VALUES ('Critical');
+
+-- DEVICE HEALTH
+INSERT INTO config.device_health (name, color_code) VALUES ('Device Offline (Healthy)');
+INSERT INTO config.device_health (name, color_code) VALUES ('Device Offline (Compromised)');
+INSERT INTO config.device_health (name, color_code) VALUES ('Device Online (Healthy)');
+INSERT INTO config.device_health (name, color_code) VALUES ('Device Online (Compromised)');
+
+-- EVENT_TYPE
+INSERT INTO config.event_type (name) VALUES ('Finding/Evidence');
+INSERT INTO config.event_type (name) VALUES ('Action');
+INSERT INTO config.event_type (name) VALUES ('Decision');
+INSERT INTO config.event_type (name) VALUES ('Meeting');
+INSERT INTO config.event_type (name) VALUES ('Join/Leave');
+INSERT INTO config.event_type (name) VALUES ('Comms');
+INSERT INTO config.event_type (name) VALUES ('Note');
