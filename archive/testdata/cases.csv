@@ -1,0 +1,74 @@
+case_ref,team_number,severity,status,owner,current_action,summary,details,first_reported,last_updated,event_count
+CASE-0018,1,High,Event,Unassigned,Review auto-created case and assign owner.,Auto Case: Linux WS 5 not reachable,"Auto-generated from event because no case was selected.
+
+Event Summary: Linux WS 5 not reachable
+Event Details: SSH connection not working",Thu Mar 19 2026 17:54:31 GMT+0100 (Central European Standard Time),Thu Mar 19 2026 18:01:02 GMT+0100 (Central European Standard Time),2
+CASE-0017,1,Critical,Closed,GAS,Review auto-created case and assign owner.,Auto Case: Linux Systems down,"Auto-generated from event because no case was selected.
+
+Event Summary: Linux Systems down
+Event Details: Could be network, no ping response 
+No proof of malicious intervention",Thu Mar 19 2026 17:44:35 GMT+0100 (Central European Standard Time),Thu Mar 19 2026 17:48:18 GMT+0100 (Central European Standard Time),2
+CASE-0016,1,High,Critical,WLA,Review auto-created case and assign owner.,Auto Case: Reverse shell detected,"Auto-generated from event because no case was selected.
+
+Event Summary: Reverse shell detected
+Event Details: Killing reverse shell has no effect - immediately comes back",Thu Mar 19 2026 17:38:37 GMT+0100 (Central European Standard Time),Thu Mar 19 2026 18:01:59 GMT+0100 (Central European Standard Time),2
+CASE-0015,1,Critical,Closed,PLO,Review auto-created case and assign owner.,Auto Case: Access lost,"Auto-generated from event because no case was selected.
+
+Event Summary: Access lost
+Event Details: Login credentials were changed - malicious intervention",Thu Mar 19 2026 17:28:15 GMT+0100 (Central European Standard Time),Thu Mar 19 2026 17:40:21 GMT+0100 (Central European Standard Time),0
+CASE-0014,1,Critical,Critical,STA,Review auto-created case and assign owner.,Auto Case: EXE or DLL download detected,"Auto-generated from event because no case was selected.
+
+Event Summary: EXE or DLL download detected
+Event Details: Could be malicious",Thu Mar 19 2026 17:01:42 GMT+0100 (Central European Standard Time),Thu Mar 19 2026 17:41:06 GMT+0100 (Central European Standard Time),3
+CASE-0013,1,High,Closed,WAL,Review auto-created case and assign owner.,Auto Case: No ping response,"Auto-generated from event because no case was selected.
+
+Event Summary: No ping response
+Event Details: Machine could be down, or slow connection
+Further investigation needed",Thu Mar 19 2026 16:54:27 GMT+0100 (Central European Standard Time),Thu Mar 19 2026 17:37:27 GMT+0100 (Central European Standard Time),2
+CASE-0012,2,Medium,Closed,ZSO,Review auto-created case and assign owner.,Auto Case: Network very slow probably DOS attack,"Auto-generated from event because no case was selected.
+
+Event Summary: Network very slow probably DOS attack
+Event Details: All Clients/Servers are working very slowly and its not a network issue from our side",Thu Mar 19 2026 10:04:25 GMT+0100 (Central European Standard Time),Thu Mar 19 2026 10:32:34 GMT+0100 (Central European Standard Time),3
+CASE-0011,2,Low,Closed,HEI,Review auto-created case and assign owner.,Auto Case: RDP-UDP dummy packets received,"Auto-generated from event because no case was selected.
+
+Event Summary: RDP-UDP dummy packets received
+Event Details: From IP 172.16.102.49
+Potential DoS attack
+
+Wireshark Event Log is saved on PC",Thu Mar 19 2026 10:00:04 GMT+0100 (Central European Standard Time),Thu Mar 19 2026 10:57:41 GMT+0100 (Central European Standard Time),1
+CASE-0010,1,High,Closed,Unassigned,Review auto-created case and assign owner.,Auto Case: 10.1.1.51 linux workstation is compleetly down,"Auto-generated from event because no case was selected.
+
+Event Summary: 10.1.1.51 linux workstation is compleetly down
+Event Details: unable to ping or ssh in to linux 10.1.1.51",Thu Mar 19 2026 09:35:25 GMT+0100 (Central European Standard Time),Thu Mar 19 2026 10:10:19 GMT+0100 (Central European Standard Time),2
+CASE-0009,1,Low,Closed,PAM,PAM: further invesitgation,New TCP connection established,"Event Summary: New TCP connection established
+Event Details: Further investigation starting",Thu Mar 19 2026 09:37:14 GMT+0100 (Central European Standard Time),Thu Mar 19 2026 10:54:08 GMT+0100 (Central European Standard Time),2
+CASE-0008,2,Medium,Closed,STA,STA: Monitor for further attempted binary exe downloads,Network traffic from suspicious IP-Ranges,"Event Summary: Suspicious IP-Range blocked
+Event Details: Binary execution file downloaded onto hosts and webserver
+source IP: 194.36.32.207
+Action: IP range blocked",Thu Mar 19 2026 09:23:01 GMT+0100 (Central European Standard Time),Thu Mar 19 2026 16:06:59 GMT+0100 (Central European Standard Time),3
+CASE-0007,2,Low,Closed,STA,,Binary Executable on ws102,"Binary Executable on ws102
+Executable Download
+Attacker IP.: 194.36.32.207",Thu Mar 19 2026 09:37:36 GMT+0100 (Central European Standard Time),Thu Mar 19 2026 09:42:48 GMT+0100 (Central European Standard Time),0
+CASE-0006,1,Medium,Closed,FUE,,Suspicious amount of https connections found,"Event Summary: Suspicious amount of https connections found
+Event Details: Investigation into severity and further action running",Thu Mar 19 2026 09:01:21 GMT+0100 (Central European Standard Time),Thu Mar 19 2026 09:41:14 GMT+0100 (Central European Standard Time),2
+CASE-0005,1,Low,Closed,WEI,CLOSED [GNE] -- Test event,Test Case: Machine compromised,"Auto-generated from event because no case was selected.
+
+Event Summary: Test Case: Machine compromised
+Event Details: fgbnm",Thu Mar 19 2026 08:54:07 GMT+0100 (Central European Standard Time),Thu Mar 19 2026 09:06:19 GMT+0100 (Central European Standard Time),3
+CASE-0004,2,Low,Closed,ZSO,Review auto-created case and assign owner.,Auto Case: Executed Linux hardening script on .53,"Auto-generated from event because no case was selected.
+
+Event Summary: Executed Linux hardening script on .53
+Event Details: Executed hardning script successfully",Thu Mar 19 2026 08:45:48 GMT+0100 (Central European Standard Time),Thu Mar 19 2026 09:04:12 GMT+0100 (Central European Standard Time),1
+CASE-0003,2,Low,Closed,STA,CLOSED [GNE] -- Hardening action,SSH keys added and passwd,"Auto-generated from event because no case was selected.
+
+Event Summary: SSH keys added and passwd
+Event Details: Added public keys to authorized_keys file and changed default credentials",Thu Mar 19 2026 08:43:11 GMT+0100 (Central European Standard Time),Thu Mar 19 2026 09:05:56 GMT+0100 (Central European Standard Time),1
+CASE-0002,1,Low,Closed,PLO,Review auto-created case and assign owner.,Auto Case: Suspicious inbound rules found on Win FW,"Auto-generated from event because no case was selected.
+
+Event Summary: Suspicious inbound rules found on Win FW
+Event Details: Workplace / School Account & Your account
+--> Will be disabled",Thu Mar 19 2026 08:49:42 GMT+0100 (Central European Standard Time),Thu Mar 19 2026 09:44:55 GMT+0100 (Central European Standard Time),2
+CASE-0001,1,Low,Closed,Wes,CLOSED -- Virus removed,Auto Case: Virus found,"Auto-generated from event because no case was selected.
+
+Event Summary: Virus found
+Event Details: Virus ""Not a soft stack"" auf Windows gefunden",Thu Mar 19 2026 08:27:30 GMT+0100 (Central European Standard Time),Thu Mar 19 2026 09:07:36 GMT+0100 (Central European Standard Time),2
