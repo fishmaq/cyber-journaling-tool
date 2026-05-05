@@ -20,6 +20,12 @@
 - [Node.js](https://nodejs.org/en)
 - [Docker](https://www.docker.com/)
 
+```sh
+npm install -D typescript ts-node-dev @types/node @types/express
+
+cd cyber-journaling-backend
+npx prisma generate
+```
 ### Launch commands
 
 Launch commands can be found in the 'scripts' section in  (Frontend/Backend/shared)/package.json
