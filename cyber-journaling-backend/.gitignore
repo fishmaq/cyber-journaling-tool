@@ -1,0 +1,8 @@
+node_modules
+# Keep environment variables out of version control
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# As this app is not live or anything we can just push the password etc. for the db connection
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+#.env
+
+/src/generated/prisma
