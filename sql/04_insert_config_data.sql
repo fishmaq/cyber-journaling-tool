@@ -14,16 +14,16 @@ INSERT INTO config.case_state (name) VALUES ('Review');
 INSERT INTO config.case_state (name) VALUES ('Closed');
 
 -- SEVERITY_LEVEL
-INSERT INTO config.severity_level (name) VALUES ('Low');
-INSERT INTO config.severity_level (name) VALUES ('Medium');
-INSERT INTO config.severity_level (name) VALUES ('High');
-INSERT INTO config.severity_level (name) VALUES ('Critical');
+INSERT INTO config.severity_level (name, color_code) VALUES ('Low', '#f9c74f');
+INSERT INTO config.severity_level (name, color_code) VALUES ('Medium', '#f3722c');
+INSERT INTO config.severity_level (name, color_code) VALUES ('High', '#bc4749');
+INSERT INTO config.severity_level (name, color_code) VALUES ('Critical', '#6f1d1b');
 
 -- DEVICE HEALTH
-INSERT INTO config.device_health (name, color_code) VALUES ('Device Offline (Healthy)');
-INSERT INTO config.device_health (name, color_code) VALUES ('Device Offline (Compromised)');
-INSERT INTO config.device_health (name, color_code) VALUES ('Device Online (Healthy)');
-INSERT INTO config.device_health (name, color_code) VALUES ('Device Online (Compromised)');
+INSERT INTO config.device_health (name, color_code) VALUES ('Device Offline (Healthy)', '#c0d197');
+INSERT INTO config.device_health (name, color_code) VALUES ('Device Offline (Compromised)', '#b37273');
+INSERT INTO config.device_health (name, color_code) VALUES ('Device Online (Healthy)', '#a7c957');
+INSERT INTO config.device_health (name, color_code) VALUES ('Device Online (Compromised)', '#bc4749');
 
 -- EVENT_TYPE
 INSERT INTO config.event_type (name) VALUES ('Finding/Evidence');
