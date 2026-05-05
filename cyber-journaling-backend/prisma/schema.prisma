@@ -1,8 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
   provider = "prisma-client"
   output   = "../src/generated/prisma"
@@ -10,4 +5,138 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+  schemas  = ["config", "data"]
+}
+
+model case_state {
+  id           Int            @id @default(autoincrement())
+  name         String         @unique @db.VarChar(255)
+  journal_case journal_case[]
+
+  @@schema("config")
+}
+
+model device_health {
+  id            Int             @id @default(autoincrement())
+  name          String          @unique @db.VarChar(255)
+  color_code    String?         @db.VarChar(9)
+  journal_event journal_event[]
+
+  @@schema("config")
+}
+
+model event_type {
+  id            Int             @id @default(autoincrement())
+  name          String          @unique @db.VarChar(255)
+  journal_event journal_event[]
+
+  @@schema("config")
+}
+
+model owner {
+  id           Int            @id @default(autoincrement())
+  name         String         @unique @db.VarChar(255)
+  journal_case journal_case[]
+
+  @@schema("config")
+}
+
+model severity_level {
+  id            Int             @id @default(autoincrement())
+  name          String          @unique @db.VarChar(255)
+  color_code    String?         @db.VarChar(9)
+  journal_event journal_event[]
+
+  @@schema("config")
+}
+
+model team {
+  id            Int             @id @default(autoincrement())
+  name          String          @unique @db.VarChar(255)
+  color_code    String?         @db.VarChar(9)
+  journal_case  journal_case[]
+  netplan_group netplan_group[]
+
+  @@schema("config")
+}
+
+model host {
+  id                    Int           @id @default(autoincrement())
+  netplan_group_id      Int
+  name                  String        @db.VarChar(255)
+  ip_description        String        @db.VarChar(1024)
+  description           String?       @db.VarChar(2048)
+  background_color_code String?       @db.VarChar(9)
+  netplan_group         netplan_group @relation(fields: [netplan_group_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  service               service[]
+
+  @@schema("data")
+}
+
+model netplan_group {
+  id         Int     @id @default(autoincrement())
+  team_id    Int
+  name       String  @db.VarChar(255)
+  color_code String? @db.VarChar(9)
+  host       host[]
+  team       team    @relation(fields: [team_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@schema("data")
+}
+
+model service {
+  id                      Int                       @id @default(autoincrement())
+  host_id                 Int
+  name                    String                    @db.VarChar(255)
+  description             String?                   @db.VarChar(2048)
+  port                    String                    @db.VarChar(5)
+  icon_name               String?                   @db.VarChar(255)
+  exposed                 Boolean?                  @default(true)
+  journal_events_services journal_events_services[]
+  host                    host                      @relation(fields: [host_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@schema("data")
+}
+
+model journal_case {
+  id            Int             @id @default(autoincrement())
+  team_id       Int?
+  case_state_id Int?
+  owner_id      Int?
+  title         String?         @db.VarChar(255)
+  details       String?         @db.VarChar(2048)
+  case_state    case_state?     @relation(fields: [case_state_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  owner         owner?          @relation(fields: [owner_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  team          team?           @relation(fields: [team_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  journal_event journal_event[]
+
+  @@schema("data")
+}
+
+model journal_event {
+  id                      Int                       @id @default(autoincrement())
+  severity_level_id       Int?
+  device_health_id        Int?
+  event_type_id           Int?
+  case_id                 Int?
+  timestamp               DateTime?                 @db.Timestamp(6)
+  title                   String?                   @db.VarChar(255)
+  details                 String?                   @db.VarChar(2048)
+  journal_case            journal_case?             @relation(fields: [case_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  device_health           device_health?            @relation(fields: [device_health_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  event_type              event_type?               @relation(fields: [event_type_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  severity_level          severity_level?           @relation(fields: [severity_level_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  journal_events_services journal_events_services[]
+
+  @@schema("data")
+}
+
+model journal_events_services {
+  event_id      Int
+  service_id    Int
+  journal_event journal_event @relation(fields: [event_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  service       service       @relation(fields: [service_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([event_id, service_id])
+  @@schema("data")
 }
