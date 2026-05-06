@@ -17,7 +17,7 @@ export const netplanGroupInclude = {
 
 export const hostInclude = {
     include: {
-        netplan: netplanGroupInclude
+        netplan_group: netplanGroupInclude
     }
 }
 
