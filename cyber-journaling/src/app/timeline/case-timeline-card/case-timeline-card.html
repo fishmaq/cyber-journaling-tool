@@ -1,0 +1,31 @@
+<ng-container>
+  <article class="case-card">
+    <div class="case-card-case-number"> CASE-{{ journalCase().id.toString().padStart(5, '0') }}</div>
+    <header class="case-card-header">
+      <h3 class="case-card-title">{{ journalCase().title }}</h3>
+      <p class="case-card-details">{{ journalCase().details }}</p>
+    </header>
+
+    <div class="case-card-timeline">
+      @if (journalCase().journal_event.length === 0) {
+
+        <p class="case-card-empty">
+          Keine Events vorhanden.
+        </p>
+      } @else {
+        <div class="case-card-track">
+          @for (event of journalCase().journal_event; let i = $index; let last = $last; track event.id) {
+            <event-timeline-card
+              [journalEvent]="event"
+              [index]="i"
+              [isLast]="last"
+            />
+            @if (!last) {
+              <div class="event-track"></div>
+            }
+          }
+        </div>
+      }
+    </div>
+  </article>
+</ng-container>

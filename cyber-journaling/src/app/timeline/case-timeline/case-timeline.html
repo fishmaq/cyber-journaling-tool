@@ -1,0 +1,11 @@
+<ng-container>
+  @if (!this.journalCases() || this.journalCases()!.length === 0) {
+    <p class="case-timeline-empty">Keine Fälle vorhanden.</p>
+  } @else {
+    @for (journalCase of journalCases(); track journalCase.id) {
+      <case-timeline-card
+        [journalCase]="journalCase"
+      />
+    }
+  }
+</ng-container>

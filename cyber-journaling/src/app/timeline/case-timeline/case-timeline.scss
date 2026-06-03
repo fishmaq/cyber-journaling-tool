@@ -1,0 +1,10 @@
+.case-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.case-timeline-empty {
+  color: var(--color-muted, #2c2c2c);
+  font-style: italic;
+}

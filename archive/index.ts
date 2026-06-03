@@ -4,7 +4,7 @@ const PORT = Number(process.env.PORT ?? 3000);
 const HOST = process.env.HOST ?? "0.0.0.0";
 const DATABASE_URL =
   process.env.DATABASE_URL ??
-  "postgresql://journaling:journaling@localhost:5433/journaling";
+  "postgresql://journaling:journaling@localhost:5432/journaling";
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD ?? "";
 const WIKI_DISABLED_REDIRECT_URL =
   process.env.WIKI_DISABLED_REDIRECT_URL ?? "http://10.0.255.20:3000";

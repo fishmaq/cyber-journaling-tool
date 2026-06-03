@@ -1,0 +1,33 @@
+<div class="event-card">
+
+  <div class="event-card-badge-wrapper">
+    <span class="event-card-badge">
+      {{ journalEvent().timestamp | date:'dd.MM.yyyy HH:mm' }}
+    </span>
+    <span class="event-card-badge">
+      {{ journalEvent().event_type!.name }}
+    </span>
+    <span class="event-card-badge" [ngStyle]="{'background-color': journalEvent().severity_level.color_code!}">
+      {{ journalEvent().severity_level.name }}
+    </span>
+  </div>
+
+  <div class="event-card-title">
+    {{ journalEvent().title }}
+  </div>
+
+  <div   class="event-card-details">
+    {{ journalEvent().details }}
+  </div>
+
+  @if (journalEvent().services) {
+    <div class="event-card-services">
+      @for (service of journalEvent().services; track service.id) {
+        <span class="event-card-service-tag">
+          {{ service.name }}
+        </span>
+      }
+    </div>
+  }
+
+</div>

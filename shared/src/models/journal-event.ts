@@ -3,9 +3,9 @@ import {Service} from "./service";
 import {DeviceHealth, EventType, SeverityLevel} from "./config-data";
 
 export interface JournalEvent extends BasicDbModel {
-    severityLevel: SeverityLevel,
-    deviceHealth: DeviceHealth,
-    eventType: EventType,
+    severity_level: SeverityLevel,
+    device_health: DeviceHealth,
+    event_type: EventType,
     timestamp: Date,
     title: string,
     details: string,

@@ -1,8 +1,11 @@
 import {Component} from '@angular/core';
+import {CaseTimeline} from './timeline/case-timeline/case-timeline';
 
 @Component({
   selector: 'app-root',
-  imports: [],
+  imports: [
+    CaseTimeline
+  ],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })

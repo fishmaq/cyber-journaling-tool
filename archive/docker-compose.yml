@@ -8,7 +8,7 @@
 #      POSTGRES_USER: journaling
 #      POSTGRES_PASSWORD: journaling
 #    ports:
-#      - "5433:5432"
+#      - "5432:5432"
 #    volumes:
 #      - postgres_data:/var/lib/postgresql/data
 #    healthcheck:
