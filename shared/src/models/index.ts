@@ -1,6 +1,6 @@
-export {JournalCase} from "./journal-case";
-export {JournalEvent} from "./journal-event";
-export {ConfigData, Team,Owner,DeviceHealth,SeverityLevel,EventType,Case} from "./config-data";
-export {Host} from "./host";
-export {NetplanGroup} from "./netplan-group";
-export {Service} from "./service";
+export type {JournalCase} from "./journal-case";
+export type {JournalEvent} from "./journal-event";
+export type {ConfigData, Team, Owner, DeviceHealth, SeverityLevel, EventType, Case} from "./config-data";
+export type {Host} from "./host";
+export type {NetplanGroup} from "./netplan-group";
+export type {Service} from "./service";
