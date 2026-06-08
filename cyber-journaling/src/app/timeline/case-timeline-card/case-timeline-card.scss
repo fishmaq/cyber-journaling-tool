@@ -9,8 +9,13 @@
   margin-bottom: 1.5rem;
 }
 
-.case-card-case-number {
+.case-card-case-info {
   color: #624131;
+  display: flex;
+}
+
+.case-card-case-divider {
+  padding: 0 8px;
 }
 
 .case-card-title {
@@ -21,8 +26,10 @@
 
 .case-card-details {
   margin: 0;
-  color: var(--color-muted, #2a2a2a);
+  color: #2a2a2a;
   font-size: 0.875rem;
+  border-left: 2px solid #8c8c8c;
+  padding-left: 6px;
 }
 
 .case-card-timeline {
@@ -39,7 +46,7 @@
 }
 
 .case-card-empty {
-  color: var(--color-muted, #2a2a2a);
+  color: #2a2a2a;
   font-style: italic;
   font-size: 0.875rem;
 }

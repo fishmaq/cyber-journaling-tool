@@ -1,6 +1,10 @@
 <ng-container>
   <article class="case-card">
-    <div class="case-card-case-number"> CASE-{{ journalCase().id.toString().padStart(5, '0') }}</div>
+    <div class="case-card-case-info">
+      <div>CASE-{{ journalCase().id.toString().padStart(5, '0') }}</div>
+      <div class="case-card-case-divider">|</div>
+      <div>TEAM-{{ journalCase().team!.name }}</div>
+    </div>
     <header class="case-card-header">
       <h3 class="case-card-title">{{ journalCase().title }}</h3>
       <p class="case-card-details">{{ journalCase().details }}</p>
