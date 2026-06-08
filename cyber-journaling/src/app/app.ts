@@ -1,10 +1,12 @@
 import {Component} from '@angular/core';
-import {CaseTimeline} from './timeline/case-timeline/case-timeline';
+import {Navbar} from './navbar/navbar/navbar';
+import {RouterOutlet} from '@angular/router';
 
 @Component({
   selector: 'app-root',
   imports: [
-    CaseTimeline
+    Navbar,
+    RouterOutlet
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss'
