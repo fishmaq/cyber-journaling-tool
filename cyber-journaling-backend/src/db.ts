@@ -42,6 +42,7 @@ export const journalEventInclude = {
 
 export const journalCaseInclude = {
     include: {
-        journal_event: journalEventInclude
+        journal_event: journalEventInclude,
+        team: true
     }
 }
