@@ -1,3 +1,18 @@
+.timeline-title {
+  font-size: x-large;
+  text-align: center;
+  padding-bottom: 12px;
+}
+
+.timeline-wrapper{
+  display: flex;
+  width: 95%;
+  flex-direction: column;
+  padding: 24px 12px 12px;
+  margin: auto;
+  gap: 24px;
+}
+
 .case-timeline {
   display: flex;
   flex-direction: column;

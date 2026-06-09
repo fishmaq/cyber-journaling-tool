@@ -1,11 +1,14 @@
 <ng-container>
-  @if (!this.journalCases() || this.journalCases()!.length === 0) {
-    <div class="case-timeline-empty">No Cases found.</div>
-  } @else {
-    @for (journalCase of journalCases(); track journalCase.id) {
-      <case-timeline-card
-        [journalCase]="journalCase"
-      />
+  <div class="timeline-title">Timeline Cases</div>
+  <div class="timeline-wrapper">
+    @if (!this.journalCases() || this.journalCases()!.length === 0) {
+      <div class="case-timeline-empty">No Cases found.</div>
+    } @else {
+      @for (journalCase of journalCases(); track journalCase.id) {
+        <case-timeline-card
+          [journalCase]="journalCase"
+        />
+      }
     }
-  }
+  </div>
 </ng-container>
