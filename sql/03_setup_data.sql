@@ -7,7 +7,7 @@ CREATE TABLE data.journal_case
     team_id       INTEGER REFERENCES config.team (id),
     case_state_id INTEGER REFERENCES config.case_state (id),
     owner_id      INTEGER REFERENCES config.owner (id),
-    title         VARCHAR(255),
+    title         VARCHAR(255) NOT NULL,
     details       VARCHAR(2048)
 );
 
@@ -17,7 +17,7 @@ CREATE TABLE data.journal_event
     severity_level_id INTEGER REFERENCES config.severity_level (id),
     device_health_id  INTEGER REFERENCES config.device_health (id),
     event_type_id     INTEGER REFERENCES config.event_type (id),
-    case_id           INTEGER REFERENCES data.journal_case (id),
+    case_id           INTEGER REFERENCES data.journal_case (id) ON DELETE CASCADE,
     timestamp         TIMESTAMP,
     title             VARCHAR(255),
     details           VARCHAR(2048)
