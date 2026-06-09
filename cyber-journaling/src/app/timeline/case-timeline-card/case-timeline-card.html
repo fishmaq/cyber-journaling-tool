@@ -3,7 +3,7 @@
     <div class="case-card-case-info">
       <div>CASE-{{ journalCase().id.toString().padStart(5, '0') }}</div>
       <div class="case-card-case-divider">|</div>
-      <div>TEAM-{{ journalCase().team!.name }}</div>
+      <div>TEAM-{{ journalCase().team!.name.toUpperCase() }}</div>
     </div>
     <header class="case-card-header">
       <h3 class="case-card-title">{{ journalCase().title }}</h3>
