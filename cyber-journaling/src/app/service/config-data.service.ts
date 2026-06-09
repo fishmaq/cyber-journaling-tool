@@ -15,6 +15,8 @@ export class ConfigDataService {
   private readonly _config = signal<ConfigData | undefined>(undefined);
   readonly config = this._config.asReadonly();
 
+  presenterMode = false;
+
   async load(): Promise<void> {
     try {
       // wait for data
