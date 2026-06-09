@@ -1,0 +1,26 @@
+<ng-container>
+  <form [formGroup]="formGroup">
+    <div class="edit-case-wrapper">
+      <div class="edit-case-title">{{ journalCase!.id === undefined ? 'Create' : 'Edit' }}Case {{ journalCase!.id }}
+      </div>
+      <div class="edit-case-row">
+        <mat-form-field>
+          <mat-label>Title</mat-label>
+          <input matInput formControlName="title">
+        </mat-form-field>
+
+      </div>
+      <div class="edit-case-row">
+        <mat-form-field class="colspan-2">
+          <mat-label>Description</mat-label>
+          <textarea matInput formControlName="details"></textarea>
+        </mat-form-field>
+      </div>
+      <div class="edit-case-row">
+        <button class="edit-case-button"  type="button" (click)="close()">Close</button>
+        <button class="edit-case-button"  type="button" (click)="save()" [disabled]="!formGroup.valid">Save</button>
+      </div>
+    </div>
+  </form>
+
+</ng-container>

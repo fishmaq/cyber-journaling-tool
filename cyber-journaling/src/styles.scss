@@ -48,3 +48,8 @@ html,
 button {
   font-family: 'JetBrains Mono';
 }
+
+:root {
+  // overwrite mat-dialog corner radius
+  --mat-dialog-container-shape: 0.5rem;
+}
