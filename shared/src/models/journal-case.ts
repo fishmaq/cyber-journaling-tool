@@ -3,8 +3,8 @@ import {JournalEvent} from "./journal-event";
 import {Team} from "./config-data";
 
 export interface JournalCase extends BasicDbModel {
-    journal_event: JournalEvent[],
-    team: Team,
-    title: string,
-    details: string,
+    journal_event: JournalEvent[] | undefined,
+    team: Team | undefined,
+    title: string | undefined,
+    details: string | undefined,
 }
