@@ -1,5 +1,6 @@
 import {Routes} from '@angular/router';
 import {CaseTimeline} from './timeline/case-timeline/case-timeline';
+import {Case} from './case/case/case';
 
 export const routes: Routes = [
   {
@@ -7,7 +8,7 @@ export const routes: Routes = [
     component: CaseTimeline
   },
   {
-    path: 'test',
-    component: CaseTimeline
+    path: 'case',
+    component: Case
   }
 ];
