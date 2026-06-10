@@ -43,6 +43,8 @@ export const journalEventInclude = {
 export const journalCaseInclude = {
     include: {
         journal_event: journalEventInclude,
-        team: true
+        team: true,
+        case_state: true,
+        owner: true
     }
 }
