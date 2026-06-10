@@ -9,16 +9,46 @@
           <input matInput formControlName="title">
         </mat-form-field>
 
+        <mat-form-field>
+          <mat-label>Team</mat-label>
+          <mat-select formControlName="team_id">
+            @for (item of this.teamList; track item.id) {
+              <mat-option [value]="item.id">{{ item.name }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
       </div>
+
+      <div class="edit-case-row">
+        <mat-form-field>
+          <mat-label>Case State</mat-label>
+          <mat-select formControlName="case_state_id">
+            @for (item of this.caseStateList; track item.id) {
+              <mat-option [value]="item.id">{{ item.name }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Owner</mat-label>
+          <mat-select formControlName="owner_id">
+            @for (item of this.ownerList; track item.id) {
+              <mat-option [value]="item.id">{{ item.name }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+
       <div class="edit-case-row">
         <mat-form-field class="colspan-2">
           <mat-label>Description</mat-label>
           <textarea matInput formControlName="details"></textarea>
         </mat-form-field>
       </div>
+
       <div class="edit-case-row">
-        <button class="edit-case-button"  type="button" (click)="close()">Close</button>
-        <button class="edit-case-button"  type="button" (click)="save()" [disabled]="!formGroup.valid">Save</button>
+        <button class="edit-case-button" type="button" (click)="close()">Close</button>
+        <button class="edit-case-button" type="button" (click)="save()" [disabled]="!formGroup.valid">Save</button>
       </div>
     </div>
   </form>

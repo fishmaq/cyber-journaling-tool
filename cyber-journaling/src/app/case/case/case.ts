@@ -94,7 +94,8 @@ export class Case implements OnInit {
       disableClose: true
     });
 
-    dialogRef.afterClosed().subscribe(newCase => {
+    dialogRef.afterClosed().subscribe(result => {
+      const newCase: JournalCase = result;
       if (newCase !== undefined) {
         console.debug('Case: The dialogue was closed with data:');
         console.debug(newCase)

@@ -1,6 +1,6 @@
 import {inject, Injectable, signal} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {ConfigData} from 'shared/dist/models';
+import {ConfigData} from 'shared/src/models';
 import {firstValueFrom} from 'rxjs';
 
 @Injectable({
