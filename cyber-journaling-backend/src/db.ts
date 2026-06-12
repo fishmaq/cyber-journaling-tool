@@ -28,7 +28,7 @@ export const serviceInclude = {
 }
 
 export const journalEventInclude = {
-    orderBy: {timestamp: 'asc'},
+    orderBy: {timestamp: 'asc' as const},
     include: {
         severity_level: true,
         device_health: true,
@@ -42,7 +42,7 @@ export const journalEventInclude = {
 }
 
 export const journalCaseInclude = {
-    orderBy: {id: 'asc'},
+    orderBy: {id: 'asc' as const},
     include: {
         journal_event: journalEventInclude,
         team: true,
