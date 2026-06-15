@@ -1,4 +1,4 @@
-import {PrismaClient} from "./generated/prisma/client";
+import {Prisma, PrismaClient} from "./generated/prisma/client";
 import {PrismaPg} from "@prisma/adapter-pg";
 
 const adapter = new PrismaPg({
@@ -49,4 +49,12 @@ export const journalCaseInclude = {
         case_state: true,
         owner: true
     }
+}
+
+export function formatEventServiceList(journal_events: Prisma.journal_eventGetPayload<typeof journalEventInclude>[]){
+    return journal_events.map(event => ({
+        ...event,
+        services: event.journal_events_services.map(j => j.service),
+        services_ids: event.journal_events_services.map(j => j.service.id)
+    }));
 }
