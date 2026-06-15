@@ -39,6 +39,8 @@ function removeFkFieldsCase(data: any) {
     // remove all unnecessary fk fields, as prisma can't handle them
     delete data.journal_event;
     delete data.team;
+    delete data.case_state;
+    delete data.owner;
     return data;
 }
 
