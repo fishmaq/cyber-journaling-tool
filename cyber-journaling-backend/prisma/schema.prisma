@@ -134,7 +134,7 @@ model journal_event {
 model journal_events_services {
   event_id      Int
   service_id    Int
-  journal_event journal_event @relation(fields: [event_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  journal_event journal_event @relation(fields: [event_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
   service       service       @relation(fields: [service_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@id([event_id, service_id])

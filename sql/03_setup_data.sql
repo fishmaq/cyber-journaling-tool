@@ -57,7 +57,7 @@ CREATE TABLE data.service
 -- Many-To-Many Relation
 CREATE TABLE data.journal_events_services
 (
-    event_id   INTEGER REFERENCES data.journal_event,
+    event_id   INTEGER REFERENCES data.journal_event ON DELETE CASCADE,
     service_id INTEGER REFERENCES data.service,
     PRIMARY KEY (event_id, service_id)
 );
