@@ -1,0 +1,53 @@
+.edit-event-wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  justify-content: center;
+}
+
+.edit-event-title {
+  font-size: x-large;
+  text-align: center;
+  padding-bottom: 12px;
+}
+
+.edit-event-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;;
+  justify-items: center;
+  gap: 8px;
+  // all children should have min-width: 100%
+  > * {
+    min-width: 100%;
+  }
+}
+
+.colspan-2 {
+  grid-column: span 2;
+}
+
+.edit-event-button {
+  // TODO: move this style up
+  justify-content: center;
+  min-width: 90%;
+  display: flex;
+  align-items: center;
+  border-radius: 0.5rem;
+  max-width: fit-content;
+  margin-left: auto;
+  background-color: #cfcfcf;
+  padding: 0.5rem 0;
+
+  &:hover {
+    cursor: pointer;
+    background-color: #8c8c8c;
+  }
+}
+
+.chip-container {
+  align-items: center !important;
+  display: flex !important;
+}
+.chip-icon{
+margin-left: 4px;
+}

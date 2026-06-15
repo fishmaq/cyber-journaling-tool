@@ -1,0 +1,101 @@
+<ng-container>
+  <form [formGroup]="formGroup">
+    <div class="edit-event-wrapper">
+      <div class="edit-event-title">{{ journalEvent!.id === undefined ? 'Create' : 'Edit' }}
+        Event {{ journalEvent!.id }}
+      </div>
+      <div class="edit-event-row">
+        <mat-form-field>
+          <mat-label>Title</mat-label>
+          <input matInput formControlName="title">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Case</mat-label>
+          <mat-select formControlName="case_id">
+            @for (item of this.caseList; track item.id) {
+              <mat-option [value]="item.id">{{ item.title }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="edit-event-row">
+        <mat-form-field>
+          <mat-label>Event Type</mat-label>
+          <mat-select formControlName="event_type_id">
+            @for (item of this.eventTypeList; track item.id) {
+              <mat-option [value]="item.id">{{ item.name }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Severity Level</mat-label>
+          <mat-select formControlName="severity_level_id">
+            @for (item of this.severityLevelList; track item.id) {
+              <mat-option [value]="item.id">{{ item.name }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="edit-event-row">
+        <mat-form-field class="colspan-2">
+          <mat-label>Affected Services</mat-label>
+          <mat-select
+            formControlName="services_ids"
+            multiple>
+            <mat-select-trigger>
+              <mat-chip-set>
+                @for (service of selectedOptions; track service.id) {
+                  <mat-chip-row
+                    removable
+                    (click)="removeChip($event, service.id)"
+                  >
+                    <div class="chip-container">
+                      {{ service.name }}
+                      <mat-icon class="chip-icon">cancel</mat-icon>
+                    </div>
+                  </mat-chip-row>
+                }
+              </mat-chip-set>
+            </mat-select-trigger>
+
+            @for (service of serviceList; track service.id) {
+              <mat-option [value]="service.id">
+                {{ service.name }}
+              </mat-option>
+            }
+
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="edit-event-row">
+        <mat-form-field class="colspan-2">
+
+          <mat-label>Device Health</mat-label>
+          <mat-select formControlName="device_health_id">
+            @for (item of this.deviceHealthList; track item.id) {
+              <mat-option [value]="item.id">{{ item.name }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="edit-event-row">
+        <mat-form-field class="colspan-2">
+          <mat-label>Description</mat-label>
+          <textarea matInput formControlName="details"></textarea>
+        </mat-form-field>
+      </div>
+
+      <div class="edit-event-row">
+        <button class="edit-event-button" type="button" (click)="close()">Close</button>
+        <button class="edit-event-button" type="button" (click)="save()" [disabled]="!formGroup.valid">Save</button>
+      </div>
+    </div>
+  </form>
+
+</ng-container>
