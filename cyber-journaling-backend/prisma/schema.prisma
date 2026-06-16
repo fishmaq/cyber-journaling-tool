@@ -67,6 +67,7 @@ model host {
   ip_description        String        @db.VarChar(1024)
   description           String?       @db.VarChar(2048)
   background_color_code String?       @db.VarChar(9)
+  priority              Int?
   netplan_group         netplan_group @relation(fields: [netplan_group_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   service               service[]
 
@@ -78,6 +79,7 @@ model netplan_group {
   team_id    Int
   name       String  @db.VarChar(255)
   color_code String? @db.VarChar(9)
+  priority   Int?
   host       host[]
   team       team    @relation(fields: [team_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
