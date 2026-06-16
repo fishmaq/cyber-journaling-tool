@@ -1,0 +1,12 @@
+<ng-container>
+  <div class="netplan-title">Netplan</div>
+  <div class="netplan-wrapper">
+    @for (team of netplanList(); track team.id) {
+      @if (team.netplan_group && team.netplan_group!.length > 0) {
+        <div class="team-wrapper">
+          <netplan-team-card [team]="team"></netplan-team-card>
+        </div>
+      }
+    }
+  </div>
+</ng-container>

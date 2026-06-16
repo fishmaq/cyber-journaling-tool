@@ -8,14 +8,14 @@
 html {
   height: 100%;
   @include mat.theme(
-    (
-      color: (
-        primary: mat.$azure-palette,
-        tertiary: mat.$blue-palette,
-      ),
-      typography: Jetbrains Mono,
-      density: 0,
-    )
+      (
+        color: (
+          primary: mat.$azure-palette,
+          tertiary: mat.$blue-palette,
+        ),
+        typography: Jetbrains Mono,
+        density: 0,
+      )
   );
 }
 
@@ -36,6 +36,7 @@ body {
   margin: 0;
   height: 100%;
 }
+
 /* You can add global styles to this file, and also import other style files */
 
 // ============================================================================
@@ -52,4 +53,8 @@ button {
 :root {
   // overwrite mat-dialog corner radius
   --mat-dialog-container-shape: 0.5rem;
+}
+
+.small-font {
+  font-size: small
 }

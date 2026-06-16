@@ -1,0 +1,18 @@
+.netplan-title {
+  font-size: x-large;
+  text-align: center;
+  padding-bottom: 12px;
+}
+
+.netplan-wrapper{
+  display: flex;
+  flex-wrap: wrap;
+  width: 90%;
+  padding: 24px 12px 12px;
+  margin: auto;
+  gap: 24px;
+}
+
+.team-wrapper {
+  flex: 1;
+}

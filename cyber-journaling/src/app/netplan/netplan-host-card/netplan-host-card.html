@@ -1,0 +1,16 @@
+<ng-container>
+<!-- TODO: refactor this card as its own component -->
+  <div class="host-card-wrapper" [ngStyle]="{
+    'background-color': 'color-mix(in srgb, ' +(host()!.background_color_code === '' ? 'black': host()!.background_color_code) + ' 50%, white)'
+  }">
+    <div class="host-card-wrapper-header"
+         [ngStyle]="{'background-color': (host()!.background_color_code=== '' ? 'black': host()!.background_color_code)}">
+      <div>{{ host()!.name.toUpperCase() }}</div>
+    </div>
+    <div class="service-list-wrapper">
+      @for (service of host()!.service; track service.id) {
+        <netplan-service-card [service]="service"></netplan-service-card>
+      }
+    </div>
+  </div>
+</ng-container>
