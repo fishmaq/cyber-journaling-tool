@@ -6,4 +6,5 @@ export interface Host extends BasicConfigModel {
     description: string,
     backgroundColorCode: string
     netplanGroup: NetplanGroup,
+    priority: string | undefined,
 }
