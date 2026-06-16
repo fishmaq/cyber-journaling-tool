@@ -1,6 +1,7 @@
 import {BasicDbModel} from "./basic-models/basic-db-model";
 import {JournalEvent} from "./journal-event";
-import {JournalCaseState, Owner, Team} from "./config-data";
+import {JournalCaseState, Owner} from "./config-data";
+import {Team} from "./team";
 
 export interface JournalCase extends BasicDbModel {
     journal_event: JournalEvent[] | undefined,

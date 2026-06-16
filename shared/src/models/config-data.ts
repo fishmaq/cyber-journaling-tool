@@ -1,4 +1,5 @@
 import {BasicConfigModel, ExtendedBasicConfigModel} from "./basic-models/basic-config-models";
+import {Team} from "./team";
 
 export interface ConfigData {
     caseStateList: JournalCaseState[],
@@ -14,4 +15,3 @@ export interface DeviceHealth extends ExtendedBasicConfigModel {}
 export interface EventType extends BasicConfigModel{}
 export interface Owner extends BasicConfigModel{}
 export interface SeverityLevel extends ExtendedBasicConfigModel{}
-export interface Team extends ExtendedBasicConfigModel{}

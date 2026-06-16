@@ -1,7 +1,9 @@
 import {ExtendedBasicConfigModel} from "./basic-models/basic-config-models";
-import {Team} from "./config-data";
+import {Team} from "./team";
+import {Host} from "./host";
 
 export interface NetplanGroup extends ExtendedBasicConfigModel {
     team: Team,
-    priority: string | undefined,
+    host: Host[] | undefined,
+    priority: number | undefined,
 }
