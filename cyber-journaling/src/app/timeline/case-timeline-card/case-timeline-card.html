@@ -1,15 +1,25 @@
 <ng-container>
   <!-- TODO: add case state and owner -->
   <article class="case-card">
-    <div class="case-card-case-info">
-      <div>CASE-{{ journalCase().id.toString().padStart(5, '0') }}</div>
-      <div class="case-card-case-divider">|</div>
-      <div>TEAM-{{ journalCase().team!.name.toUpperCase() }}</div>
+    <div class="case-card-header-container">
+      <div>
+        <div class="case-card-case-info">
+          <div>CASE-{{ journalCase().id.toString().padStart(5, '0') }}</div>
+          <div class="case-card-case-divider">|</div>
+          <div>TEAM-{{ journalCase().team!.name.toUpperCase() }}</div>
+        </div>
+        <header class="case-card-title-container">
+          <h3 class="case-card-title">{{ journalCase().title }}</h3>
+          <p class="case-card-details">{{ journalCase().details }}</p>
+        </header>
+      </div>
+      <div class="case-card-event-button">
+        <div class="new-event-button" (click)="createEvent(journalCase().id)">
+          <mat-icon aria-hidden="false" aria-label="Create" fontIcon="add"></mat-icon>
+          New Event
+        </div>
+      </div>
     </div>
-    <header class="case-card-header">
-      <h3 class="case-card-title">{{ journalCase().title }}</h3>
-      <p class="case-card-details">{{ journalCase().details }}</p>
-    </header>
 
     <div class="case-card-timeline">
       @if (journalCase().journal_event!.length === 0) {
