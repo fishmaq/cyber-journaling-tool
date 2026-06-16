@@ -9,6 +9,24 @@ const prisma = new PrismaClient({adapter: adapter})
 export default prisma
 
 // (helper) constants to make including the foreign key references in prisma easier
+export const netplanInclude = {
+    include: {
+        netplan_group: {
+            include: {
+                host: {
+                    include: {
+                        service: {
+                            include: {
+                                journal_events_services: true
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 export const netplanGroupInclude = {
     include: {
         team: true
@@ -51,7 +69,7 @@ export const journalCaseInclude = {
     }
 }
 
-export function formatEventServiceList(journal_events: Prisma.journal_eventGetPayload<typeof journalEventInclude>[]){
+export function formatEventServiceList(journal_events: Prisma.journal_eventGetPayload<typeof journalEventInclude>[]) {
     return journal_events.map(event => ({
         ...event,
         services: event.journal_events_services.map(j => j.service),
