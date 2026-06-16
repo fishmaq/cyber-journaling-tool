@@ -43,6 +43,7 @@ CREATE TABLE data.host
     ip_description        VARCHAR(1024)                              NOT NULL, -- holds ip address/es and subnets
     description           VARCHAR(2048),
     background_color_code VARCHAR(9)                                           -- hexCode with '#' included
+    -- TODO: rename to color_code
 );
 
 CREATE TABLE data.service
