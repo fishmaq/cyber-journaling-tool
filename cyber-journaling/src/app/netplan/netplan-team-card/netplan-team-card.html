@@ -5,7 +5,9 @@
     [backgroundColor]="team()!.color_code ?? 'white'"
   >
       @for (netplanGroup of team()!.netplan_group; track netplanGroup.id) {
-        <netplan-netplan-group-card [netplanGroup]="netplanGroup"></netplan-netplan-group-card>
+        @if (netplanGroup.host && netplanGroup.host.length > 0) {
+          <netplan-netplan-group-card [netplanGroup]="netplanGroup"></netplan-netplan-group-card>
+        }
       }
   </netplan-card>
 </ng-container>
