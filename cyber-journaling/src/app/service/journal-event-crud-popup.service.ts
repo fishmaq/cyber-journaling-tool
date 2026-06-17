@@ -18,6 +18,7 @@ export class JournalEventCrudPopupService {
     console.debug('Event: opening dialogue with JournalEvent:')
     console.debug(oldEvent)
 
+    // lists for select lists
     const caseList = await firstValueFrom(this.#journalCaseService.getJournalCases());
     const serviceList = await firstValueFrom(this.#journalServiceService.getServices());
 
