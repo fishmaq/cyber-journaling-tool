@@ -1,0 +1,16 @@
+.host-details-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.align-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 10px;
+}
+
+.service-list-wrapper {
+  padding-top: 24px;
+}

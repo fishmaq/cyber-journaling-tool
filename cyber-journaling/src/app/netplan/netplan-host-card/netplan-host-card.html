@@ -2,9 +2,20 @@
   <netplan-card
     [title]="host()!.name.toUpperCase()"
     [backgroundColor]="host()!.background_color_code"
+    [childPaddingTop]="0"
   >
-      @for (service of host()!.service; track service.id) {
-        <netplan-service-card [service]="service"></netplan-service-card>
-      }
+    <div class="host-details-wrapper">
+      <div class="align-center">
+        <b>{{ host()!.ip_description }}</b>
+      </div>
+      <div class="align-center">
+        {{ host()!.description }}
+      </div>
+      <div class="service-list-wrapper align-center">
+        @for (service of host()!.service; track service.id) {
+          <netplan-service-card [service]="service"></netplan-service-card>
+        }
+      </div>
+    </div>
   </netplan-card>
 </ng-container>
