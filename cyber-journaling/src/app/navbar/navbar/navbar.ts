@@ -3,6 +3,7 @@ import {RouterLink, RouterLinkActive} from '@angular/router';
 import {MatSlideToggle} from '@angular/material/slide-toggle';
 import {FormsModule} from '@angular/forms';
 import {ConfigDataService} from '../../service/config-data.service';
+import {MatIcon} from '@angular/material/icon';
 
 @Component({
   selector: 'navbar',
@@ -10,7 +11,8 @@ import {ConfigDataService} from '../../service/config-data.service';
     RouterLink,
     RouterLinkActive,
     MatSlideToggle,
-    FormsModule
+    FormsModule,
+    MatIcon
   ],
   templateUrl: './navbar.html',
   styleUrl: './navbar.scss',
