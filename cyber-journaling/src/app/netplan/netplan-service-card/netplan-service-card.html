@@ -2,6 +2,7 @@
   <netplan-card
     [title]="service()!.name"
     [backgroundColor]="latestDeviceHealthColorCode()"
+    [childPaddingTop]="0"
   >
     {{ service()!.description }}
   </netplan-card>
