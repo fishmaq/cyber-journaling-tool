@@ -1,30 +1,38 @@
-import {Component, input} from '@angular/core';
-import {Service} from 'shared/src/models';
+import {Component, effect, input} from '@angular/core';
+import {DeviceHealth, Service} from 'shared/src/models';
 import {NetplanCard} from '../../ui/netplan-card/netplan-card';
+import {MatIcon} from '@angular/material/icon';
+import {NgOptimizedImage, NgStyle} from '@angular/common';
+import {MatTooltip} from '@angular/material/tooltip';
 
 @Component({
   selector: 'netplan-service-card',
   imports: [
-    NetplanCard
+    NetplanCard,
+    MatIcon,
+    NgStyle,
+    NgOptimizedImage,
+    MatTooltip
   ],
   templateUrl: './netplan-service-card.html',
   styleUrl: './netplan-service-card.scss',
 })
 export class NetplanServiceCard {
   service = input<Service>()
+  latestDeviceHealth: DeviceHealth | undefined = undefined;
 
-  latestDeviceHealthColorCode(): string {
-    if (this.service()!.journal_events && this.service()!.journal_events!.length > 0) {
+  updateLatestDeviceHealthEffect = effect(() => {
+    if (this.service()) {
+      this.latestDeviceHealth = this.#latestDeviceHealth(this.service()!)
+    }
+  })
+
+  #latestDeviceHealth(service: Service): DeviceHealth | undefined {
+    if (service.journal_events && service.journal_events!.length > 0) {
       // take the latest journal_event and return the color_code of the deviceHealth
-      const colorCode = this.service()!.journal_events!.at(0)!.device_health.color_code;
-
-      // null check
-      if (colorCode) {
-        return colorCode;
-      }
+      return service!.journal_events!.at(0)!.device_health
     }
 
-    // TODO: take this from db
-    return '#a7c957';
+    return undefined;
   }
 }

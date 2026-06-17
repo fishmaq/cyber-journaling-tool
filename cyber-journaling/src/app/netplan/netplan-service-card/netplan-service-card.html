@@ -1,10 +1,36 @@
 <ng-container>
+<!--  TODO: take default value from db-->
   <netplan-card
     [title]="service()!.name"
-    [backgroundColor]="latestDeviceHealthColorCode()"
+    [titleToolTip]="latestDeviceHealth?.name?? 'Device Online (Healthy)'"
+    [backgroundColor]="latestDeviceHealth?.color_code ?? '#a7c957'"
     [childPaddingTop]="0"
   >
-    {{ service()!.description }}
+    <div class="service-details-wrapper">
+      <div class="service-details-icons">
+        <img ngSrc="{{'/resources/icons/'+service()!.icon_name}}"
+             alt=" "
+             height="24" width="24"
+             [matTooltip]="service()!.icon_name.split('.').at(0)"
+        >
+        <mat-icon
+          [fontIcon]="service()!.exposed ? 'public' : 'public_off'"
+          [ngStyle]="{'color': service()!.exposed ? 'black' : 'grey'}"
+          [matTooltip]="'exposed: '+service()!.exposed"
+        ></mat-icon>
+        <div class="align-center"
+             [matTooltip]="'running on port:' + service()!.port"
+        >
+          <mat-icon
+            [fontIcon]="'lan'"
+          ></mat-icon>
+          :{{ service()!.port }}
+        </div>
+      </div>
+      <div class="align-center">
+        {{ service()!.description }}
+      </div>
+    </div>
   </netplan-card>
 </ng-container>
 

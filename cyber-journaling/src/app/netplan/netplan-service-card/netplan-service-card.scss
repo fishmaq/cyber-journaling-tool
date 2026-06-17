@@ -1,0 +1,17 @@
+.service-details-wrapper {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.align-center {
+  display: flex;
+  align-items: center;
+}
+
+.service-details-icons {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
