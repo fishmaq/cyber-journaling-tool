@@ -15,6 +15,7 @@ export class JournalCaseCrudPopupService {
     console.debug('Case: opening dialogue with JournalCase:')
     console.debug(oldCase)
 
+    // open dialogue with input data
     const dialogRef = this.#dialog.open(EditCase, {
       data: {
         oldJournalCase: oldCase,
