@@ -58,3 +58,13 @@ button {
 .small-font {
   font-size: small
 }
+
+.snackbar-success .mdc-snackbar__surface {
+  background-color: #4caf50 !important;
+  color: white !important;
+}
+
+.snackbar-error .mdc-snackbar__surface {
+  background: #d32f2f !important;
+  color: white !important;
+}

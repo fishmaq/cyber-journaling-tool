@@ -1,13 +1,20 @@
-import {ApplicationConfig, inject, provideAppInitializer, provideBrowserGlobalErrorListeners} from '@angular/core';
-import { provideRouter } from '@angular/router';
+import {
+  ApplicationConfig,
+  ErrorHandler,
+  inject,
+  provideAppInitializer,
+  provideBrowserGlobalErrorListeners
+} from '@angular/core';
+import {provideRouter} from '@angular/router';
 
-import { routes } from './app.routes';
+import {routes} from './app.routes';
 import {provideHttpClient} from '@angular/common/http';
 import {ConfigDataService} from './service/config-data.service';
+import {GlobalErrorHandler} from './errorhandler/global-error-handler';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideAppInitializer(async() => {
+    provideAppInitializer(async () => {
       // load the configData into the configDataService before client app startup
       const configDataService = inject(ConfigDataService);
       await configDataService.load();
@@ -16,6 +23,6 @@ export const appConfig: ApplicationConfig = {
     }),
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
-    provideHttpClient()
-  ]
+    provideHttpClient(),
+    {provide: ErrorHandler, useClass: GlobalErrorHandler}]
 };
