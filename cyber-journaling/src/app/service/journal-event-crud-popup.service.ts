@@ -20,6 +20,7 @@ export class JournalEventCrudPopupService {
 
     const caseList = await firstValueFrom(this.#journalCaseService.getJournalCases());
     const serviceList = await firstValueFrom(this.#journalServiceService.getServices());
+
     // open dialogue with input data
     const dialogRef = this.#dialog.open(EditEvent, {
       data: {
