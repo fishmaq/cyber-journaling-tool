@@ -6,7 +6,8 @@ import {
   MatHeaderCell,
   MatHeaderCellDef,
   MatHeaderRow,
-  MatHeaderRowDef, MatNoDataRow,
+  MatHeaderRowDef,
+  MatNoDataRow,
   MatRow,
   MatRowDef,
   MatTable,
@@ -16,8 +17,7 @@ import {JournalCaseService} from '../../service/journal-case.service';
 import {firstValueFrom} from 'rxjs';
 import {JournalCase} from 'shared/src/models';
 import {MatIcon} from '@angular/material/icon';
-import {MatDialog} from '@angular/material/dialog';
-import {EditCase} from '../edit-case/edit-case';
+import {JournalCaseCrudPopupService} from '../../service/journal-case-crud-popup.service';
 
 @Component({
   selector: 'case',
@@ -43,7 +43,7 @@ export class Case implements OnInit {
   dataSource = new MatTableDataSource<JournalCase>();
 
   #journalCaseService = inject(JournalCaseService)
-  #dialog = inject(MatDialog);
+  #journalCaseCrudPopupService = inject(JournalCaseCrudPopupService)
 
   async ngOnInit() {
     // load data from the service on component init
@@ -62,16 +62,21 @@ export class Case implements OnInit {
 
   // TODO: add alerts for error and success
 
-  create() {
+  async create() {
     console.debug('Case: create new')
-    // create new empty JournalCase
-    this.handleDialogue({} as JournalCase)
+    // use new empty JournalCase
+    const oldEvent = {} as JournalCase;
+    const newCase = await this.#journalCaseCrudPopupService.handleDialogue(oldEvent)
+
+    this.handleDialogOutput(newCase);
   }
 
-  edit(element: JournalCase) {
-    console.debug('Case: edit id: %d', element.id)
+  async edit(oldCase: JournalCase) {
+    console.debug('Case: edit id: %d', oldCase.id)
     // use selected JournalCase
-    this.handleDialogue(element)
+    const newCase = await this.#journalCaseCrudPopupService.handleDialogue(oldCase)
+
+    this.handleDialogOutput(newCase);
   }
 
   delete(element: JournalCase) {
@@ -84,33 +89,22 @@ export class Case implements OnInit {
     });
   }
 
-  handleDialogue(oldCase: JournalCase) {
-    console.debug('Case: opening dialogue with journalCase:')
-    console.debug(oldCase)
+  handleDialogOutput(newCase: JournalCase | undefined) {
+    if (newCase !== undefined) {
+      console.debug('Case: The dialogue was closed with data:');
+      console.debug(newCase)
 
-    const dialogRef = this.#dialog.open(EditCase, {
-      data: {oldJournalCase: oldCase},
-      width: '70%',
-      disableClose: true
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      const newCase: JournalCase = result;
-      if (newCase !== undefined) {
-        console.debug('Case: The dialogue was closed with data:');
-        console.debug(newCase)
-
-        console.debug('Case: Sending data to backend...')
-        this.#journalCaseService
-          .saveJournalCase(newCase)
-          .subscribe(async () => {
-            // wait until the data is saved and then refresh the list
-            console.debug('Case: Data was saved')
-            await this.loadData()
-          });
-      } else {
-        console.debug('Case: The dialogue was canceled!');
-      }
-    });
+      console.debug('Case: Sending data to backend...')
+      this.#journalCaseService
+        .saveJournalCase(newCase)
+        .subscribe(async () => {
+          // wait until the data is saved and then refresh the list
+          console.debug('Case: Data was saved:')
+          console.debug(newCase)
+          await this.loadData()
+        });
+    } else {
+      console.debug('Case: The dialogue was canceled!');
+    }
   }
 }

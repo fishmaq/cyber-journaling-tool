@@ -12,14 +12,14 @@ import {JournalServiceService} from './journal-service.service';
 export class JournalEventCrudPopupService {
   #dialog = inject(MatDialog);
   #journalCaseService = inject(JournalCaseService);
-  #journalService = inject(JournalServiceService);
+  #journalServiceService = inject(JournalServiceService);
 
   async handleDialogue(oldEvent: JournalEvent): Promise<JournalEvent | undefined> {
     console.debug('Event: opening dialogue with JournalEvent:')
     console.debug(oldEvent)
 
     const caseList = await firstValueFrom(this.#journalCaseService.getJournalCases());
-    const serviceList = await firstValueFrom(this.#journalService.getServices());
+    const serviceList = await firstValueFrom(this.#journalServiceService.getServices());
     const dialogRef = this.#dialog.open(EditEvent, {
       data: {
         oldJournalEvent: oldEvent,
