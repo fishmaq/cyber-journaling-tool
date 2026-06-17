@@ -7,6 +7,7 @@
       @for (journalCase of journalCases(); track journalCase.id) {
         <case-timeline-card
           [journalCase]="journalCase"
+          (eventCreated)="this.loadData()"
         />
       }
     }

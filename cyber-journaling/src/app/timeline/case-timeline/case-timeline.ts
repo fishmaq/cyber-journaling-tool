@@ -44,6 +44,8 @@ export class CaseTimeline implements OnInit, OnDestroy {
     console.debug(data)
 
     this.journalCases.set(data);
+    // wait until the list is updated
+    setTimeout(() => this.scrollTimelinesToEnd(), 500);
   }
 
   scrollTimelinesToEnd() {

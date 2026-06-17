@@ -1,7 +1,9 @@
-import {Component, input} from '@angular/core';
-import {JournalCase} from 'shared/src/models';
+import {Component, inject, input, output} from '@angular/core';
+import {JournalCase, JournalEvent} from 'shared/src/models';
 import {EventTimelineCard} from '../event-timeline-card/event-timeline-card';
 import {MatIcon} from '@angular/material/icon';
+import {JournalEventCrudPopupService} from '../../service/journal-event-crud-popup.service';
+import {JournalEventService} from '../../service/journal-event.service';
 
 @Component({
   selector: 'case-timeline-card',
@@ -14,10 +16,36 @@ import {MatIcon} from '@angular/material/icon';
 })
 export class CaseTimelineCard {
   journalCase = input.required<JournalCase>();
+  eventCreated = output();
 
-  createEvent(id: number) {
-    // TODO: implement this
-    // TODO: move this to a service or some kind
+  #journalEventCrudPopupService = inject(JournalEventCrudPopupService)
+  #journalEventService = inject(JournalEventService)
+
+  async createEvent(id: number) {
     console.debug('createEvent() %d', id)
+
+    // use new empty JournalEvent
+    const newEvent: JournalEvent | undefined =
+      await this.#journalEventCrudPopupService.handleDialogue(
+        {case_id:this.journalCase()!.id} as JournalEvent
+      )
+
+    if (newEvent !== undefined) {
+      console.debug('Timeline: The dialogue was closed with data:');
+      console.debug(newEvent)
+
+      console.debug('Timeline: Sending data to backend...')
+      this.#journalEventService
+        .saveJournalEvent(newEvent)
+        .subscribe(async () => {
+          // wait until the data is saved and then refresh the list
+          console.debug('Timeline: Data was saved:')
+          console.debug(newEvent)
+          this.eventCreated.emit();
+        });
+    } else {
+      // do nothing and just log
+      console.debug('Timeline: The dialogue was canceled!');
+    }
   }
 }
