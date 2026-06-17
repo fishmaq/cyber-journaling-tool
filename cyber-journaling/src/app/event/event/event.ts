@@ -18,6 +18,7 @@ import {JournalEvent} from 'shared/src/models';
 import {JournalEventService} from '../../service/journal-event.service';
 import {firstValueFrom} from 'rxjs';
 import {JournalEventCrudPopupService} from '../../service/journal-event-crud-popup.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'event',
@@ -44,6 +45,7 @@ export class Event implements OnInit {
 
   #journalEventService = inject(JournalEventService)
   #journalEventCrudPopupService = inject(JournalEventCrudPopupService)
+  #snackbar = inject(MatSnackBar)
 
   async ngOnInit() {
     // load data from the service on component init
@@ -84,6 +86,13 @@ export class Event implements OnInit {
       // wait until the data is saved and then refresh the list
       console.debug('Event: Data was deleted')
       await this.loadData()
+      this.#snackbar.open('Event was deleted successfully!',
+        '',
+        {
+          duration: 3000,
+          panelClass: ['snackbar-success']
+        }
+      );
     });
   }
 
@@ -101,6 +110,13 @@ export class Event implements OnInit {
           console.debug('Event: Data was saved:')
           console.debug(newEvent)
           await this.loadData();
+          this.#snackbar.open('Event was saved successfully!',
+            '',
+            {
+              duration: 3000,
+              panelClass: ['snackbar-success']
+            }
+          );
         });
     } else {
       // do nothing and just log

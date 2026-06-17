@@ -4,6 +4,7 @@ import {EventTimelineCard} from '../event-timeline-card/event-timeline-card';
 import {MatIcon} from '@angular/material/icon';
 import {JournalEventCrudPopupService} from '../../service/journal-event-crud-popup.service';
 import {JournalEventService} from '../../service/journal-event.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'case-timeline-card',
@@ -20,6 +21,7 @@ export class CaseTimelineCard {
 
   #journalEventCrudPopupService = inject(JournalEventCrudPopupService)
   #journalEventService = inject(JournalEventService)
+  #snackbar = inject(MatSnackBar)
 
   async createEvent(id: number) {
     console.debug('createEvent() %d', id)
@@ -42,6 +44,14 @@ export class CaseTimelineCard {
           console.debug('Timeline: Data was saved:')
           console.debug(newEvent)
           this.eventCreated.emit();
+
+          this.#snackbar.open('Event was saved successfully!',
+            '',
+            {
+              duration: 3000,
+              panelClass: ['snackbar-success']
+            }
+          );
         });
     } else {
       // do nothing and just log

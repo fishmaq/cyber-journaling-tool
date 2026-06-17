@@ -18,6 +18,7 @@ import {firstValueFrom} from 'rxjs';
 import {JournalCase} from 'shared/src/models';
 import {MatIcon} from '@angular/material/icon';
 import {JournalCaseCrudPopupService} from '../../service/journal-case-crud-popup.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'case',
@@ -44,6 +45,7 @@ export class Case implements OnInit {
 
   #journalCaseService = inject(JournalCaseService)
   #journalCaseCrudPopupService = inject(JournalCaseCrudPopupService)
+  #snackbar = inject(MatSnackBar)
 
   async ngOnInit() {
     // load data from the service on component init
@@ -86,6 +88,13 @@ export class Case implements OnInit {
       // wait until the data is saved and then refresh the list
       console.debug('Case: Data was deleted')
       await this.loadData()
+      this.#snackbar.open('Case was deleted successfully!',
+        '',
+        {
+          duration: 3000,
+          panelClass: ['snackbar-success']
+        }
+      );
     });
   }
 
@@ -102,6 +111,13 @@ export class Case implements OnInit {
           console.debug('Case: Data was saved:')
           console.debug(newCase)
           await this.loadData()
+          this.#snackbar.open('Case was saved successfully!',
+            '',
+            {
+              duration: 3000,
+              panelClass: ['snackbar-success']
+            }
+          );
         });
     } else {
       console.debug('Case: The dialogue was canceled!');
