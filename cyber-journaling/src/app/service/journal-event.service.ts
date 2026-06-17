@@ -1,18 +1,18 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {JournalEvent} from 'shared/src/models';
+import {apiUrl} from './api-url';
 
 @Injectable({
   providedIn: 'root',
 })
 export class JournalEventService {
   #httpClient = inject(HttpClient)
-  // TODO: remove localhost and move it to another config
-  #apiUrl = "http://localhost:3001/event"
+  #endpointUrl = apiUrl('event');
 
   getJournalEvents() {
     return this.#httpClient.get<JournalEvent[]>(
-      this.#apiUrl
+      this.#endpointUrl
     );
   }
 
@@ -20,12 +20,12 @@ export class JournalEventService {
     if (journalEvent.id) {
       // if there is already an id, we have to updates
       return this.#httpClient.put(
-        this.#apiUrl,
+        this.#endpointUrl,
         journalEvent
       );
     } else {
       return this.#httpClient.post(
-        this.#apiUrl,
+        this.#endpointUrl,
         journalEvent
       );
     }
@@ -33,7 +33,7 @@ export class JournalEventService {
 
   deleteJournalEvent(id: number) {
     return this.#httpClient.delete(
-      this.#apiUrl + '/' + id
+      this.#endpointUrl + '/' + id
     );
   }
 }
