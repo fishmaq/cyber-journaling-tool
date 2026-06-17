@@ -34,6 +34,11 @@ export const journalEventInclude = {
         severity_level: true,
         device_health: true,
         event_type: true,
+        journal_case: {
+            include:{
+                team:true
+            }
+        },
         journal_events_services: {
             include: {
                 service: serviceInclude
@@ -103,7 +108,7 @@ export function formatServiceEventList(service: Prisma.serviceGetPayload<typeof 
         journal_events: service.journal_events_services
             .map(j => j.journal_event)
             .sort((a, b) => {
-                if(a.timestamp === null || b.timestamp === null){
+                if (a.timestamp === null || b.timestamp === null) {
                     return 0;
                 }
                 return a.timestamp!.getTime() - b.timestamp!.getTime()
