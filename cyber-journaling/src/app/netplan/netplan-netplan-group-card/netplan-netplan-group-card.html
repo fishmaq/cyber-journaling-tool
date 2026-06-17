@@ -1,15 +1,11 @@
 <ng-container>
-  <div class="netplan-group-card-wrapper" [ngStyle]="{
-    'background-color': 'color-mix(in srgb, ' +(netplanGroup()!.color_code === '' ? 'black': netplanGroup()!.color_code) + ' 10%, transparent)'
-  }">
-    <div class="netplan-group-card-wrapper-header"
-         [ngStyle]="{'background-color': (netplanGroup()!.color_code === '' ? 'black': netplanGroup()!.color_code)}">
-      <div>{{ netplanGroup()!.name.toUpperCase() }}</div>
-    </div>
-    <div class="host-list-wrapper">
+  <netplan-card
+    [title]="netplanGroup()!.name.toUpperCase()"
+    [titleFontSize]="'medium'"
+    [backgroundColor]="netplanGroup()!.color_code ?? 'white'"
+  >
       @for (host of netplanGroup()!.host; track host.id) {
         <netplan-host-card [host]="host"></netplan-host-card>
       }
-    </div>
-  </div>
+  </netplan-card>
 </ng-container>

@@ -1,13 +1,13 @@
 import {Component, input} from '@angular/core';
 import {Host} from 'shared/src/models';
-import {NgStyle} from '@angular/common';
 import {NetplanServiceCard} from '../netplan-service-card/netplan-service-card';
+import {NetplanCard} from '../../ui/netplan-card/netplan-card';
 
 @Component({
   selector: 'netplan-host-card',
   imports: [
-    NgStyle,
-    NetplanServiceCard
+    NetplanServiceCard,
+    NetplanCard
   ],
   templateUrl: './netplan-host-card.html',
   styleUrl: './netplan-host-card.scss',

@@ -1,13 +1,11 @@
 <ng-container>
-  <div class="team-card-wrapper">
-    <div class="team-card-wrapper-header"
-         [ngStyle]="{'background-color': (team()!.color_code === '' ? 'black': team()!.color_code)}">
-      <div>TEAM-{{ team()!.name.toUpperCase() }}</div>
-    </div>
-    <div class="team-card-netplan-list-wrapper">
+  <netplan-card
+    [title]="team()!.name.toUpperCase()"
+    [titleFontSize]="'large'"
+    [backgroundColor]="team()!.color_code ?? 'white'"
+  >
       @for (netplanGroup of team()!.netplan_group; track netplanGroup.id) {
         <netplan-netplan-group-card [netplanGroup]="netplanGroup"></netplan-netplan-group-card>
       }
-    </div>
-  </div>
+  </netplan-card>
 </ng-container>

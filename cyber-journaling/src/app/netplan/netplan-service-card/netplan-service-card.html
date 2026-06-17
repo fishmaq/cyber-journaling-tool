@@ -1,13 +1,9 @@
 <ng-container>
-  <div class="service-card-wrapper">
-    <!-- TODO: refactor this nasty ngStyle -->
-    <div class="service-card-wrapper-header"
-         [ngStyle]="{'background-color': 'color-mix(in srgb, '+ (service()!.journal_events && service()!.journal_events!.length > 0 ? service()!.journal_events!.at(0)!.device_health.color_code: '#a7c957')+ ' 50%, white)'}">
-      <div class="small-font"><b>{{ service()!.name }}</b></div>
-    </div>
-    <div class="small-font">
-      {{ service()!.description }}
-    </div>
-  </div>
+  <netplan-card
+    [title]="service()!.name"
+    [backgroundColor]="latestDeviceHealthColorCode()"
+  >
+    {{ service()!.description }}
+  </netplan-card>
 </ng-container>
 

@@ -1,0 +1,16 @@
+<ng-container>
+  <div class="card-wrapper" [ngStyle]="{'background-color': transparentBackgroundColor()}">
+    <div class="card-wrapper-header"
+         [ngStyle]="{
+          'background-color': transparentBackgroundColor(65),
+          'font-size': titleFontSize()
+         }"
+    >
+      <div class="card-title">{{ title() }}</div>
+    </div>
+    <div class="card-body">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</ng-container>
+

@@ -1,13 +1,13 @@
 import {Component, input} from '@angular/core';
 import {NetplanGroup} from 'shared/src/models';
-import {NgStyle} from '@angular/common';
 import {NetplanHostCard} from '../netplan-host-card/netplan-host-card';
+import {NetplanCard} from '../../ui/netplan-card/netplan-card';
 
 @Component({
   selector: 'netplan-netplan-group-card',
   imports: [
-    NgStyle,
-    NetplanHostCard
+    NetplanHostCard,
+    NetplanCard
   ],
   templateUrl: './netplan-netplan-group-card.html',
   styleUrl: './netplan-netplan-group-card.scss',
