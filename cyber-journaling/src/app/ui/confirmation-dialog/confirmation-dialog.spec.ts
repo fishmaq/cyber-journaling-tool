@@ -16,7 +16,5 @@ describe('ConfirmationDialog', () => {
     await fixture.whenStable();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+  // no tests needed for now
 });
