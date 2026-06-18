@@ -22,7 +22,7 @@
     </div>
 
     <div class="case-card-timeline">
-      @if (journalCase().journal_event!.length === 0) {
+      @if (!journalCase().journal_event ||journalCase().journal_event!.length === 0) {
 
         <p class="case-card-empty">
           No Events found.
