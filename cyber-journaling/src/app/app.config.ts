@@ -10,7 +10,7 @@ import {provideRouter} from '@angular/router';
 import {routes} from './app.routes';
 import {provideHttpClient} from '@angular/common/http';
 import {ConfigDataService} from './service/config-data.service';
-import {GlobalErrorHandler} from './errorhandler/global-error-handler';
+import {GlobalErrorHandler} from './error-handler/global-error-handler';
 
 export const appConfig: ApplicationConfig = {
   providers: [
