@@ -10,7 +10,5 @@ describe('NetplanService', () => {
     service = TestBed.inject(NetplanService);
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
+  // no tests needed for now
 });

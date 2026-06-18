@@ -1,6 +1,7 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { ConfigDataService } from './config-data.service';
+import {ConfigDataService} from './config-data.service';
+
 // TODO: make some tests
 describe('ConfigData', () => {
   let service: ConfigDataService;
@@ -10,7 +11,10 @@ describe('ConfigData', () => {
     service = TestBed.inject(ConfigDataService);
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
+  it('should update config signal after loading', async () => {
+    await service.load();
+    // undefined is the default and even when there is no data in the db it should return at least an empty object
+    expect(service.config()).not.toEqual(undefined);
   });
+
 });

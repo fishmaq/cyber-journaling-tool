@@ -20,19 +20,15 @@ export class ConfigDataService {
   presenterMode = false;
 
   async load(): Promise<void> {
-    try {
-      // wait for data
-      const config = await firstValueFrom(
-        this.#httpClient.get<ConfigData>(
-          this.#endpointUrl
-        )
-      );
-      console.debug('ConfigDataService.load():');
-      console.debug(config);
+    // wait for data
+    const config = await firstValueFrom(
+      this.#httpClient.get<ConfigData>(
+        this.#endpointUrl
+      )
+    );
+    console.debug('ConfigDataService.load():');
+    console.debug(config);
 
-      this._config.set(config);
-    } catch (e) {
-      console.error('something went wrong while fetching config. maybe no connection?', e)
-    }
+    this._config.set(config);
   }
 }

@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
+import {JournalEventService} from './journal-event.service';
 
-import { JournalEvent } from './journal-event';
 
 describe('JournalEvent', () => {
-  let service: JournalEvent;
+  let service: JournalEventService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(JournalEvent);
+    service = TestBed.inject(JournalEventService);
   });
 
   it('should be created', () => {
