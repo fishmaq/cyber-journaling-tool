@@ -19,6 +19,8 @@ import {JournalCase} from 'shared/src/models';
 import {MatIcon} from '@angular/material/icon';
 import {JournalCaseCrudPopupService} from '../../service/journal-case-crud-popup.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatDialog} from '@angular/material/dialog';
+import {ConfirmationDialog} from '../../ui/confirmation-dialog/confirmation-dialog';
 
 @Component({
   selector: 'case',
@@ -45,7 +47,9 @@ export class Case implements OnInit {
 
   #journalCaseService = inject(JournalCaseService)
   #journalCaseCrudPopupService = inject(JournalCaseCrudPopupService)
+
   #snackbar = inject(MatSnackBar)
+  #dialog = inject(MatDialog);
 
   async ngOnInit() {
     // load data from the service on component init
@@ -61,8 +65,6 @@ export class Case implements OnInit {
 
     this.dataSource.data = data;
   }
-
-  // TODO: add alerts for error and success
 
   async create() {
     console.debug('Case: create new')
@@ -81,10 +83,28 @@ export class Case implements OnInit {
     this.handleDialogOutput(newCase);
   }
 
-  delete(element: JournalCase) {
-    // TODO: add confirmation dialogue
-    console.debug('Case: deleting journalCase with id: %d...', element.id)
-    this.#journalCaseService.deleteJournalCase(element.id).subscribe(async () => {
+  async delete(journalEvent: JournalCase) {
+    console.debug('Case: deleting JournalCase with id: %d...', journalEvent.id)
+    // open dialogue with input data
+    const dialogRef = this.#dialog.open(ConfirmationDialog, {
+      data: {
+        title: 'Are you sure?',
+        body: 'Are you want to delete this case?'
+      },
+      width: '70%',
+      disableClose: true
+    });
+
+    // wait until the dialog was closed and return the new Event
+    if (!await firstValueFrom(dialogRef.afterClosed())) {
+      console.debug('Case: User cancelled deleting')
+      return;
+    }
+
+    console.debug('Case: User confirmed deleting')
+
+    console.debug('Case: deleting journalCase with id: %d...', journalEvent.id)
+    this.#journalCaseService.deleteJournalCase(journalEvent.id).subscribe(async () => {
       // wait until the data is saved and then refresh the list
       console.debug('Case: Data was deleted')
       await this.loadData()

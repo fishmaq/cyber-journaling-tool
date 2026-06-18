@@ -1,0 +1,52 @@
+.dialog-button-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;;
+  justify-items: center;
+  gap: 8px;
+  // all children should have min-width: 100%
+  > * {
+    min-width: 100%;
+  }
+}.dialog-button-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;;
+  justify-items: center;
+  gap: 8px;
+  // all children should have min-width: 100%
+  > * {
+    min-width: 100%;
+  }
+}
+
+.dialog-container {
+  padding: 12px;
+}
+
+.button {
+  border: none;
+  // TODO: move this style up
+  justify-content: center;
+  min-width: 90%;
+  display: flex;
+  align-items: center;
+  border-radius: 0.5rem;
+  max-width: fit-content;
+  margin-left: auto;
+  background-color: #cfcfcf;
+  padding: 0.5rem 0;
+
+  &:hover {
+    cursor: pointer;
+    background-color: #8c8c8c;
+  }
+}
+
+.confirm {
+  background-color: #006400;
+  color: white;
+
+  &:hover{
+    background-color: #496e49;
+
+  }
+}

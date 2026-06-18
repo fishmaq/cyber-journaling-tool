@@ -19,6 +19,8 @@ import {JournalEventService} from '../../service/journal-event.service';
 import {firstValueFrom} from 'rxjs';
 import {JournalEventCrudPopupService} from '../../service/journal-event-crud-popup.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatDialog} from '@angular/material/dialog';
+import {ConfirmationDialog} from '../../ui/confirmation-dialog/confirmation-dialog';
 
 @Component({
   selector: 'event',
@@ -45,7 +47,9 @@ export class Event implements OnInit {
 
   #journalEventService = inject(JournalEventService)
   #journalEventCrudPopupService = inject(JournalEventCrudPopupService)
+
   #snackbar = inject(MatSnackBar)
+  #dialog = inject(MatDialog);
 
   async ngOnInit() {
     // load data from the service on component init
@@ -79,9 +83,26 @@ export class Event implements OnInit {
     this.handleDialogOutput(newEvent);
   }
 
-  delete(event: JournalEvent) {
-    // TODO: add confirmation dialogue
+  async delete(event: JournalEvent) {
     console.debug('Event: deleting JournalEvent with id: %d...', event.id)
+    // open dialogue with input data
+    const dialogRef = this.#dialog.open(ConfirmationDialog, {
+      data: {
+        title: 'Are you sure?',
+        body: 'Are you want to delete this event?'
+      },
+      width: '70%',
+      disableClose: true
+    });
+
+    // wait until the dialog was closed and return the new Event
+    if (!await firstValueFrom(dialogRef.afterClosed())) {
+      console.debug('Event: User cancelled deleting')
+      return;
+    }
+
+    console.debug('Event: User confirmed deleting')
+
     this.#journalEventService.deleteJournalEvent(event.id).subscribe(async () => {
       // wait until the data is saved and then refresh the list
       console.debug('Event: Data was deleted')
@@ -97,7 +118,6 @@ export class Event implements OnInit {
   }
 
   handleDialogOutput(newEvent: JournalEvent | undefined) {
-    // TODO: add alerts for error and success
     if (newEvent !== undefined) {
       console.debug('Event: The dialogue was closed with data:');
       console.debug(newEvent)

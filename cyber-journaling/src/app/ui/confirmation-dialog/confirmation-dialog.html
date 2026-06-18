@@ -1,0 +1,16 @@
+<ng-container>
+  <div class="dialog-container">
+    <h3>
+      {{ data.title }}
+    </h3>
+    <div>
+      {{ data.body }}
+    </div>
+    <div class="dialog-button-wrapper">
+      <button class="button" type="button" (click)="this.cancel()">Cancel
+      </button>
+      <button class="button confirm" type="button" (click)="this.confirm()">Confirm
+      </button>
+    </div>
+  </div>
+</ng-container>

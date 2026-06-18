@@ -20,7 +20,7 @@ router.post("/", async (req, res) => {
             ...event,
             timestamp: new Date(),
             journal_events_services: {
-                create: services_ids.map((id: number) => ({
+                create: (services_ids ?? []).map((id: number) => ({
                     service: {
                         connect: {id}
                     }
