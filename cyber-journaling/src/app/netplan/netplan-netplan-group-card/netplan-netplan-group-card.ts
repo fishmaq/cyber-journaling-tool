@@ -14,5 +14,4 @@ import {NetplanCard} from '../../ui/netplan-card/netplan-card';
 })
 export class NetplanNetplanGroupCard {
   netplanGroup = input<NetplanGroup>()
-
 }
