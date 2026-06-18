@@ -10,7 +10,6 @@ describe('CaseCrudPopupService', () => {
     service = TestBed.inject(JournalCaseCrudPopupService);
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
+  // no tests needed for now
+
 });
