@@ -11,6 +11,7 @@ describe('Netplan', () => {
   let fixture: ComponentFixture<Netplan>;
 
   beforeEach(async () => {
+    vi.resetAllMocks();
     await TestBed.configureTestingModule({
       imports: [Netplan],
       providers: [{provide: NetplanService, useValue: netplanServiceMock}]

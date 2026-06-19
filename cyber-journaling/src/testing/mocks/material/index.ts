@@ -1,1 +1,1 @@
-export {snackbarMock} from './material-mocks.mock';
+export {snackbarMock, dialogMock, matDialogRefMock} from './material-mocks.mock';

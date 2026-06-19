@@ -37,7 +37,7 @@ export class EditEvent {
   serviceList: Service[] = this.data.serviceList ?? [];
 
   #configDataService = inject(ConfigDataService);
-  #dialogRef = inject(MatDialogRef);
+  dialogRef = inject(MatDialogRef);
 
   severityLevelList: SeverityLevel[] = this.#configDataService.config()!.severityLevelList;
   deviceHealthList: DeviceHealth[] = this.#configDataService.config()!.deviceHealthList;
@@ -56,12 +56,12 @@ export class EditEvent {
 
 
   close() {
-    this.#dialogRef.close();
+    this.dialogRef.close();
   }
 
   save() {
     this.extractFormData()
-    this.#dialogRef.close(this.journalEvent);
+    this.dialogRef.close(this.journalEvent);
   }
 
   extractFormData() {
