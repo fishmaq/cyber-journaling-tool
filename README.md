@@ -58,7 +58,7 @@ The Frontend uses Angular and interacts with the backend via HTTP-Requests. Ther
 4. Presenter Mode
     - Automatically reload the data for netplan and timeline views
 
-##### Netplan View
+#### Netplan View
 
 The Netplan is completely stored inside the Database and a big nested Team Object.
 
