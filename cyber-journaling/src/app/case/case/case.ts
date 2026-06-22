@@ -89,7 +89,7 @@ export class Case implements OnInit {
     const dialogRef = this.#dialog.open(ConfirmationDialog, {
       data: {
         title: 'Are you sure?',
-        body: 'Are you want to delete this case?'
+        body: 'Are you sure you want to delete this case? All connected events will be removed as well.'
       },
       width: '70%',
       disableClose: true

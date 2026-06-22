@@ -89,7 +89,7 @@ export class Event implements OnInit {
     const dialogRef = this.#dialog.open(ConfirmationDialog, {
       data: {
         title: 'Are you sure?',
-        body: 'Are you want to delete this event?'
+        body: 'Are you sure you want to delete this event?'
       },
       width: '70%',
       disableClose: true
