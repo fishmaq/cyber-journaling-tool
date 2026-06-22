@@ -5,7 +5,12 @@
 The Cyber-Journaling Tool is a project for documenting Cybersecurity Incidents and displaying them on a big presenter
 screen.
 
-## Project Structure Overview
+##### Table of Contents
+[Project Structure](#project-structure)  
+[Setup](#setup)
+
+<a id="project-structure"></a>
+## Project Structure
 
 ### Shared DTOs
 
@@ -77,6 +82,7 @@ netplan.
 
 This contains the old files from the first prototype which was vibe-coded using Codex and was the POC for this project.
 
+<a id="setup"></a>
 ## Setup
 
 ### Project Structure
