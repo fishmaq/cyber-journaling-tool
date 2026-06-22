@@ -5,9 +5,9 @@
 The Cyber-Journaling Tool is a project for documenting Cybersecurity Incidents and displaying them on a big presenter
 screen.
 
-##### Table of Contents
-[Project Structure](#project-structure)  
-[Setup](#setup)
+### Table of Contents
+   - [Project Structure](#project-structure)  
+   - [Setup](#setup)
 
 <a id="project-structure"></a>
 ## Project Structure
