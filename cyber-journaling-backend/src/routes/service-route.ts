@@ -1,7 +1,6 @@
 import express from "express";
 import prisma, {serviceInclude} from "../db";
 
-
 const router = express.Router();
 
 router.get("/", async (req, res) => {

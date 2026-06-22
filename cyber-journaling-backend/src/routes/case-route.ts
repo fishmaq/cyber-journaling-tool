@@ -1,12 +1,12 @@
 import express from "express";
-import prisma, {formatEventServiceList, journalCaseInclude} from "../db";
+import prisma, {journalCaseInclude} from "../db";
+import {mapToJournalCase} from "../mappings";
 
 
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-    let journal_cases = await prisma.journal_case.findMany(journalCaseInclude);
-    journal_cases.map(journalCase => journalCase.journal_event = formatEventServiceList(journalCase.journal_event))
+    let journal_cases = (await prisma.journal_case.findMany(journalCaseInclude)).map(mapToJournalCase);
     return res.status(200).json(journal_cases);
 })
 

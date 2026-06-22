@@ -6,9 +6,7 @@ import {ConfigData, DeviceHealth, EventType, JournalCaseState, Owner, SeverityLe
 const router = express.Router()
 
 router.get('/', async (req, res) => {
-    // TODO: fix this and use types from shared models
-    // @ts-ignore
-    const teams: Team[] = await prisma.team.findMany();
+    const teams: Team[] = (await prisma.team.findMany()) as Team[];
     const caseStates: JournalCaseState[] = await prisma.case_state.findMany();
     const deviceHealths: DeviceHealth[] = await prisma.device_health.findMany();
     const eventTypes: EventType[] = await prisma.event_type.findMany();
