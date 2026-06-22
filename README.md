@@ -2,7 +2,8 @@
 
 ## What is this?
 
-The Cyber-Journaling Tool is a project for documenting Cybersecurity Incidents and displaying them on a big presenter screen.
+The Cyber-Journaling Tool is a project for documenting Cybersecurity Incidents and displaying them on a big presenter
+screen.
 
 ## Project Structure Overview
 
@@ -71,6 +72,10 @@ All colors are stored as hexcodes (without the #) in the database in the corresp
 To ensure the correct order of the cards, there are "priority" columns in most of the tables that are being used in the
 netplan.
 > Priority with ascending sort order --> prio 1 is the first element
+
+#### Archive
+
+This contains the old files from the first prototype which was vibe-coded using Codex and was the POC for this project.
 
 ## Setup
 
