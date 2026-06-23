@@ -17,5 +17,6 @@ services:
       timeout: 5s
       retries: 10
 
+# TODO: add container for application and setup for it
 volumes:
   postgres_data:

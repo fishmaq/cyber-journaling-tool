@@ -1,5 +1,5 @@
 import {Component, inject, input, output} from '@angular/core';
-import {JournalCase, JournalEvent} from 'shared/src/models';
+import {JournalCase, JournalEvent} from 'shared';
 import {EventTimelineCard} from '../event-timeline-card/event-timeline-card';
 import {MatIcon} from '@angular/material/icon';
 import {JournalEventCrudPopupService} from '../../service/journal-event-crud-popup.service';

@@ -1,6 +1,6 @@
 import express from "express";
 import prisma from "../db";
-import {ConfigData, DeviceHealth, EventType, JournalCaseState, Owner, SeverityLevel, Team} from "shared/src/models";
+import {ConfigData, DeviceHealth, EventType, JournalCaseState, Owner, SeverityLevel, Team} from "shared"
 
 
 const router = express.Router()

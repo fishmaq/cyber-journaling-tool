@@ -2,7 +2,7 @@ import {TestBed} from '@angular/core/testing';
 
 import {JournalCaseService} from './journal-case.service';
 import {apiUrl} from './api-url';
-import {ConfigData, JournalCase} from 'shared/src/models';
+import {ConfigData, JournalCase} from 'shared';
 import {HttpTestingController, provideHttpClientTesting} from '@angular/common/http/testing';
 import {provideHttpClient} from '@angular/common/http';
 

@@ -1,4 +1,4 @@
-import {JournalCase, JournalEvent, Service, Team} from "shared/src/models";
+import {JournalCase, JournalEvent, Service, Team} from "shared";
 
 export function mapToJournalCase(input: any) {
     let journalCase: JournalCase = {

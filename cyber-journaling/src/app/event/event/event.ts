@@ -14,7 +14,7 @@ import {
   MatTableDataSource
 } from '@angular/material/table';
 import {MatIcon} from '@angular/material/icon';
-import {JournalEvent} from 'shared/src/models';
+import {JournalEvent} from 'shared';
 import {JournalEventService} from '../../service/journal-event.service';
 import {firstValueFrom} from 'rxjs';
 import {JournalEventCrudPopupService} from '../../service/journal-event-crud-popup.service';

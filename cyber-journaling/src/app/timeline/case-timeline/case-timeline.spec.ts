@@ -1,7 +1,7 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {CaseTimeline} from './case-timeline';
-import {JournalCase} from 'shared/src/models';
+import {JournalCase} from 'shared';
 import {of} from 'rxjs';
 import {JournalCaseService} from '../../service/journal-case.service';
 import {ConfigDataService} from '../../service/config-data.service';

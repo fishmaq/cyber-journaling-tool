@@ -1,5 +1,5 @@
 import {Component, effect, input} from '@angular/core';
-import {DeviceHealth, Service} from 'shared/src/models';
+import {DeviceHealth, Service} from 'shared';
 import {NetplanCard} from '../../ui/netplan-card/netplan-card';
 import {MatIcon} from '@angular/material/icon';
 import {NgOptimizedImage, NgStyle} from '@angular/common';

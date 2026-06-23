@@ -1,5 +1,5 @@
 import {Component, inject, OnDestroy, OnInit, signal} from '@angular/core';
-import {Team} from 'shared/src/models';
+import {Team} from 'shared';
 import {firstValueFrom} from 'rxjs';
 import {NetplanService} from '../../service/netplan.service';
 import {NetplanTeamCard} from '../netplan-team-card/netplan-team-card';

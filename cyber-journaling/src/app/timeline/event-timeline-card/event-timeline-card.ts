@@ -1,5 +1,5 @@
 import {Component, input} from '@angular/core';
-import {JournalEvent} from 'shared/src/models';
+import {JournalEvent} from 'shared';
 import {DatePipe, NgStyle} from '@angular/common';
 
 @Component({

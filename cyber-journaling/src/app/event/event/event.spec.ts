@@ -1,7 +1,7 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {Event} from './event';
-import {JournalEvent} from 'shared/src/models';
+import {JournalEvent} from 'shared';
 import {journalEventCrudPopupServiceMock, journalEventServiceMock} from '../../../testing/mocks/service';
 import {of} from 'rxjs';
 import {dialogMock} from '../../../testing/mocks/material';

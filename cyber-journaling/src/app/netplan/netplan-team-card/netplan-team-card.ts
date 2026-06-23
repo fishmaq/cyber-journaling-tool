@@ -1,5 +1,5 @@
 import {Component, input} from '@angular/core';
-import {Team} from 'shared/src/models';
+import {Team} from 'shared';
 import {NetplanNetplanGroupCard} from '../netplan-netplan-group-card/netplan-netplan-group-card';
 import {NetplanCard} from '../../ui/netplan-card/netplan-card';
 

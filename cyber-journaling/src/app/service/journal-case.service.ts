@@ -1,6 +1,6 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {JournalCase} from 'shared/src/models';
+import {JournalCase} from 'shared';
 import {apiUrl} from './api-url';
 
 @Injectable({

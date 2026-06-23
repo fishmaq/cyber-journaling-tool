@@ -1,6 +1,6 @@
 import {inject, Injectable} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
-import {JournalCase} from 'shared/src/models';
+import {JournalCase} from 'shared';
 import {firstValueFrom} from 'rxjs';
 import {EditCase} from '../case/edit-case/edit-case';
 

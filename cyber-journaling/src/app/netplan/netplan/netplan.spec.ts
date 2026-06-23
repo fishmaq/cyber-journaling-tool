@@ -1,7 +1,7 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {Netplan} from './netplan';
-import {Team} from 'shared/src/models';
+import {Team} from 'shared';
 import {of} from 'rxjs';
 import {netplanServiceMock} from '../../../testing/mocks/service';
 import {NetplanService} from '../../service/netplan.service';

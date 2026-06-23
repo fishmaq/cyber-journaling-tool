@@ -1,6 +1,6 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Service} from 'shared/src/models';
+import {Service} from 'shared';
 import {apiUrl} from './api-url';
 
 @Injectable({

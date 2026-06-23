@@ -2,7 +2,7 @@ import {Component, inject} from '@angular/core';
 import {FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatFormField, MatInput, MatLabel} from '@angular/material/input';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {DeviceHealth, EventType, JournalCase, JournalEvent, Service, SeverityLevel} from 'shared/src/models';
+import {DeviceHealth, EventType, JournalCase, JournalEvent, Service, SeverityLevel} from 'shared';
 import {ConfigDataService} from '../../service/config-data.service';
 import {MatOption} from '@angular/material/core';
 import {MatSelect, MatSelectTrigger} from '@angular/material/select';

@@ -1,5 +1,5 @@
 import {Component, effect, inject, OnDestroy, OnInit, signal} from '@angular/core';
-import {JournalCase} from 'shared/src/models';
+import {JournalCase} from 'shared';
 import {CaseTimelineCard} from '../case-timeline-card/case-timeline-card';
 import {JournalCaseService} from '../../service/journal-case.service';
 import {firstValueFrom} from 'rxjs';

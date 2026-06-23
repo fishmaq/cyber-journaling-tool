@@ -1,5 +1,5 @@
 import {inject, Injectable} from '@angular/core';
-import {JournalEvent} from 'shared/src/models';
+import {JournalEvent} from 'shared';
 import {firstValueFrom} from 'rxjs';
 import {EditEvent} from '../event/edit-event/edit-event';
 import {MatDialog} from '@angular/material/dialog';

@@ -15,7 +15,7 @@ import {
 } from '@angular/material/table';
 import {JournalCaseService} from '../../service/journal-case.service';
 import {firstValueFrom} from 'rxjs';
-import {JournalCase} from 'shared/src/models';
+import {JournalCase} from 'shared';
 import {MatIcon} from '@angular/material/icon';
 import {JournalCaseCrudPopupService} from '../../service/journal-case-crud-popup.service';
 import {MatSnackBar} from '@angular/material/snack-bar';

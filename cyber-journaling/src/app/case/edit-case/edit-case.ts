@@ -1,5 +1,5 @@
 import {Component, inject} from '@angular/core';
-import {JournalCase, JournalCaseState, Owner, Team} from 'shared/src/models';
+import {JournalCase, JournalCaseState, Owner, Team} from 'shared';
 import {ConfigDataService} from '../../service/config-data.service';
 import {MatFormField, MatInput, MatLabel} from '@angular/material/input';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';

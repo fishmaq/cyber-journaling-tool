@@ -1,7 +1,7 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {CaseTimelineCard} from './case-timeline-card';
-import {JournalCase, JournalEvent} from 'shared/src/models';
+import {JournalCase, JournalEvent} from 'shared';
 import {journalEventCrudPopupServiceMock, journalEventServiceMock} from '../../../testing/mocks/service';
 import {snackbarMock} from '../../../testing/mocks/material';
 import {of} from 'rxjs';
