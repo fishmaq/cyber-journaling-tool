@@ -1,3 +1,4 @@
 export function apiUrl(endpoint: string = '') {
-  return 'http://localhost:3001/' + endpoint;
+  // TODO: dockerize this url
+  return 'http://localhost:3000/' + endpoint;
 }

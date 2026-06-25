@@ -6,7 +6,7 @@ import eventRoute from "./routes/event-route";
 import serviceRoute from "./routes/service-route";
 import netplanRoute from "./routes/netplan-route";
 
-const PORT = 3001;
+const PORT = 3000;
 const app = express();
 
 app.use(cors());
