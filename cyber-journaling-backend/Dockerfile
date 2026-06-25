@@ -7,7 +7,7 @@ COPY ./cyber-journaling-backend ./cyber-journaling-backend
 
 WORKDIR /app/shared
 RUN npm install -g typescript
-RUN npm install && npm run build
+RUN npm install && tsc
 
 WORKDIR /app/cyber-journaling-backend
 RUN npm install && npm run build
