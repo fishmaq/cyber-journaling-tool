@@ -52,8 +52,8 @@ CREATE TABLE data.service
     host_id     INTEGER REFERENCES data.host (id) NOT NULL,
     name        VARCHAR(255)                      NOT NULL,
     description VARCHAR(2048),
-    port        VARCHAR(5)                        NOT NULL, -- port that the service runs on
-    icon_name   VARCHAR(255),                               -- filename of svg in /resources/icons
+    port        VARCHAR(5),   -- port that the service runs on
+    icon_name   VARCHAR(255), -- filename of svg in /resources/icons
     exposed     BOOLEAN DEFAULT TRUE
 );
 
