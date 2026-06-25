@@ -4,7 +4,7 @@ import {JournalEvent} from "./journal-event";
 
 export interface Service extends BasicConfigModel {
     description: string,
-    port: string,
+    port: string|undefined,
     icon_name: string,
     exposed: boolean
     host: Host,

@@ -64,10 +64,10 @@ model host {
   id                    Int           @id @default(autoincrement())
   netplan_group_id      Int
   name                  String        @db.VarChar(255)
+  priority              Int?
   ip_description        String        @db.VarChar(1024)
   description           String?       @db.VarChar(2048)
   background_color_code String?       @db.VarChar(9)
-  priority              Int?
   netplan_group         netplan_group @relation(fields: [netplan_group_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   service               service[]
 
@@ -78,8 +78,8 @@ model netplan_group {
   id         Int     @id @default(autoincrement())
   team_id    Int
   name       String  @db.VarChar(255)
-  color_code String? @db.VarChar(9)
   priority   Int?
+  color_code String? @db.VarChar(9)
   host       host[]
   team       team    @relation(fields: [team_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
@@ -91,7 +91,7 @@ model service {
   host_id                 Int
   name                    String                    @db.VarChar(255)
   description             String?                   @db.VarChar(2048)
-  port                    String                    @db.VarChar(5)
+  port                    String?                   @db.VarChar(5)
   icon_name               String?                   @db.VarChar(255)
   exposed                 Boolean?                  @default(true)
   journal_events_services journal_events_services[]
