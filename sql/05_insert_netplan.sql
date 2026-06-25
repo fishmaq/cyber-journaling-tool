@@ -1,0 +1,145 @@
+-- This script initially inserts data for the netplan
+
+INSERT INTO data.netplan_group (id, team_id, name, priority, color_code)
+VALUES (1, 1, 'Perimeter', 1, '#ef8354');
+INSERT INTO data.netplan_group (id, team_id, name, priority, color_code)
+VALUES (2, 2, 'Perimeter', 1, '#ef8354');
+INSERT INTO data.netplan_group (id, team_id, name, priority, color_code)
+VALUES (3, 1, 'DMZ', 2, '#f7b538');
+INSERT INTO data.netplan_group (id, team_id, name, priority, color_code)
+VALUES (4, 2, 'DMZ', 2, '#f7b538');
+INSERT INTO data.netplan_group (id, team_id, name, priority, color_code)
+VALUES (5, 1, 'Private', 3, '#fff8a5');
+INSERT INTO data.netplan_group (id, team_id, name, priority, color_code)
+VALUES (6, 2, 'Private', 3, '#fff8a5');
+
+-- hosts and services for 'perimeter'
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (1, 1, 'Access Router', 2, '10.0.253.141/24\n10.1.0.254/24\n10.1.1.254/24', '', '#acd8aa');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (1, 1, 'Access Router',
+        'Provides connectivity between networks, directing traffic and enabling communication between users, devices, applications, and external services.',
+        'router.svg', true);
+
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (2, 2, 'Access Router', 2, '10.0.253.102/24\n10.2.0.254/24\n10.2.1.254/24', '', '#acd8aa');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (2, 2, 'Access Router',
+        'Provides connectivity between networks, directing traffic and enabling communication between users, devices, applications, and external services.',
+        'router.svg', true);
+
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (3, 1, 'Firewall', 1, '10.0.254.118/24\n10.1.0.1/24\n10.1.1.1/24', '', '#acd8aa');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (3, 3, 'Linux Firewall', 'Standard Linux Firewall to protect the network.', 'firewall.svg', true);
+
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (4, 2, 'Firewall', 1, '10.0.254.119/24\n10.2.0.1/24\n10.2.1.1/24', '', '#acd8aa');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (4, 4, 'Linux Firewall', 'Standard Linux Firewall to protect the network.', 'firewall.svg', true);
+
+-- hosts and services for 'dmz'
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (5, 3, 'Webserver', 1, '10.1.0.10/24', '', '#acd8aa');
+INSERT INTO data.service (id, host_id, name, description, port, icon_name, exposed)
+VALUES (5, 5, 'tips Webserver', 'A simple Webserver available on the public network.', 80, 'tips.svg', true);
+
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (6, 4, 'Webserver', 1, '10.2.0.10/24', '', '#acd8aa');
+INSERT INTO data.service (id, host_id, name, description, port, icon_name, exposed)
+VALUES (6, 6, 'tips Webserver', 'A simple Webserver available on the public network.', 80, 'tips.svg', true);
+
+-- hosts and services for 'private'
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (7, 5, 'linux-1', 1, '10.1.1.51', 'Linux Workstation 1', '#82c0cc');
+INSERT INTO data.service (id, host_id, name, icon_name, exposed)
+VALUES (7, 7, 'workstation', 'linux.svg', false);
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (8, 5, 'linux-2', 2, '10.1.1.52', 'Linux Workstation 2', '#82c0cc');
+INSERT INTO data.service (id, host_id, name, icon_name, exposed)
+VALUES (8, 8, 'workstation', 'linux.svg', false);
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (9, 5, 'linux-3', 3, '10.1.1.53', 'Linux Workstation 3', '#82c0cc');
+INSERT INTO data.service (id, host_id, name, icon_name, exposed)
+VALUES (9, 9, 'workstation', 'linux.svg', false);
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (10, 5, 'linux-4', 4, '10.1.1.54', 'Linux Workstation 4', '#82c0cc');
+INSERT INTO data.service (id, host_id, name, icon_name, exposed)
+VALUES (10, 10, 'workstation', 'linux.svg', false);
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (11, 5, 'linux-5', 5, '10.1.1.55', 'Linux Workstation 5', '#82c0cc');
+INSERT INTO data.service (id, host_id, name, icon_name, exposed)
+VALUES (11, 11, 'workstation', 'linux.svg', false);
+
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (12, 5, 'windows-1', 6, '10.1.1.101', 'Windows Workstation 1', '#82c0cc');
+INSERT INTO data.service (id, host_id, name, icon_name, exposed)
+VALUES (12, 12, 'workstation', 'windows.svg', false);
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (13, 5, 'windows-2', 7, '10.1.1.102', 'Windows Workstation 2', '#82c0cc');
+INSERT INTO data.service (id, host_id, name, icon_name, exposed)
+VALUES (13, 13, 'workstation', 'windows.svg', false);
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (14, 5, 'windows-3', 8, '10.1.1.103', 'Windows Workstation 3', '#82c0cc');
+INSERT INTO data.service (id, host_id, name, icon_name, exposed)
+VALUES (14, 14, 'workstation', 'windows.svg', false);
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (15, 5, 'windows-4', 9, '10.1.1.104', 'Windows Workstation 4', '#82c0cc');
+INSERT INTO data.service (id, host_id, name, icon_name, exposed)
+VALUES (15, 15, 'workstation', 'windows.svg', false);
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (16, 5, 'windows-5', 10, '10.1.1.105', 'Windows Workstation 5', '#82c0cc');
+INSERT INTO data.service (id, host_id, name, icon_name, exposed)
+VALUES (16, 16, 'workstation', 'windows.svg', false);
+
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (17, 5, 'fileserver', 11, '10.1.1.11', 'Windows Fileserver', '#82c0cc');
+INSERT INTO data.service (id, host_id, name, icon_name, exposed)
+VALUES (17, 17, 'fileserver', 'fileserver.svg', false);
+
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (18, 6, 'linux-1', 1, '10.2.1.51', 'Linux Workstation 1', '#82c0cc');
+INSERT INTO data.service (id, host_id, name, icon_name, exposed)
+VALUES (18, 18, 'workstation', 'linux.svg', false);
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (19, 6, 'linux-2', 2, '10.2.1.52', 'Linux Workstation 2', '#82c0cc');
+INSERT INTO data.service (id, host_id, name, icon_name, exposed)
+VALUES (19, 19, 'workstation', 'linux.svg', false);
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (20, 6, 'linux-3', 3, '10.2.1.53', 'Linux Workstation 3', '#82c0cc');
+INSERT INTO data.service (id, host_id, name, icon_name, exposed)
+VALUES (20, 20, 'workstation', 'linux.svg', false);
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (21, 6, 'linux-4', 4, '10.2.1.54', 'Linux Workstation 4', '#82c0cc');
+INSERT INTO data.service (id, host_id, name, icon_name, exposed)
+VALUES (21, 21, 'workstation', 'linux.svg', false);
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (22, 6, 'linux-5', 5, '10.2.1.55', 'Linux Workstation 5', '#82c0cc');
+INSERT INTO data.service (id, host_id, name, icon_name, exposed)
+VALUES (22, 22, 'workstation', 'linux.svg', false);
+
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (23, 6, 'windows-1', 6, '10.2.1.101', 'Windows Workstation 1', '#82c0cc');
+INSERT INTO data.service (id, host_id, name, icon_name, exposed)
+VALUES (23, 23, 'workstation', 'windows.svg', false);
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (24, 6, 'windows-2', 7, '10.2.1.102', 'Windows Workstation 2', '#82c0cc');
+INSERT INTO data.service (id, host_id, name, icon_name, exposed)
+VALUES (24, 24, 'workstation', 'windows.svg', false);
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (25, 6, 'windows-3', 8, '10.2.1.103', 'Windows Workstation 3', '#82c0cc');
+INSERT INTO data.service (id, host_id, name, icon_name, exposed)
+VALUES (25, 25, 'workstation', 'windows.svg', false);
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (26, 6, 'windows-4', 9, '10.2.1.104', 'Windows Workstation 4', '#82c0cc');
+INSERT INTO data.service (id, host_id, name, icon_name, exposed)
+VALUES (26, 26, 'workstation', 'windows.svg', false);
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (27, 6, 'windows-5', 10, '10.2.1.105', 'Windows Workstation 5', '#82c0cc');
+INSERT INTO data.service (id, host_id, name, icon_name, exposed)
+VALUES (27, 27, 'workstation', 'windows.svg', false);
+
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (28, 6, 'fileserver', 11, '10.2.1.11', 'Windows Fileserver', '#82c0cc');
+INSERT INTO data.service (id, host_id, name, icon_name, exposed)
+VALUES (28, 28, 'fileserver', 'fileserver.svg', false);
