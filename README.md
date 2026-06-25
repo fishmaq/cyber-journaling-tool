@@ -78,10 +78,6 @@ To ensure the correct order of the cards, there are "priority" columns in most o
 netplan.
 > Priority with ascending sort order --> prio 1 is the first element
 
-#### Archive
-
-This contains the old files from the first prototype which was vibe-coded using Codex and was the POC for this project.
-
 <a id="setup"></a>
 ## Setup
 
