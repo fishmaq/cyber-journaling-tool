@@ -4,19 +4,49 @@ services:
     container_name: cyber-journaling-postgres
     restart: unless-stopped
     environment:
-      POSTGRES_DB: cyber-journaling
-      POSTGRES_USER: cyber-journaling
-      POSTGRES_PASSWORD: cyber-journaling
+      POSTGRES_DB: ${DB_NAME:-cyber-journaling}
+      POSTGRES_USER: ${DB_USER:-cyber-journaling}
+      POSTGRES_PASSWORD: ${DB_PASS:-cyber-journaling}
     ports:
-      - "5433:5432"
+      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./sql:/docker-entrypoint-initdb.d
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U cyber-journaling -d cyber-journaling"]
+      test: [ "CMD-SHELL", "pg_isready -U cyber-journaling -d cyber-journaling" ]
       interval: 5s
       timeout: 5s
       retries: 10
 
-# TODO: add container for application and setup for it
+  frontend:
+    build:
+      context: .
+      dockerfile: ./cyber-journaling/Dockerfile
+    container_name: cyber-journaling-frontend
+    ports:
+      - "80:80"
+    environment:
+      BACKEND_URL: 'http://backend:3000/'
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: .
+      dockerfile: ./cyber-journaling-backend/Dockerfile
+    container_name: cyber-journaling-backend
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgresql://${DB_USER:-cyber-journaling}:${DB_PASS:-cyber-journaling}@postgres:5432/${DB_NAME:-cyber-journaling}
+      NODE_ENV: production
+      DEBUG: "*"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+
 volumes:
   postgres_data:
