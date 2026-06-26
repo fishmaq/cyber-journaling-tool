@@ -64,10 +64,9 @@
 
             @for (service of serviceList; track service.id) {
               <mat-option [value]="service.id">
-                {{ service.name }}
+                <div [ngStyle]="{'background-color': service.host.netplan_group.team.color_code ?? 'white'}">{{ service.name }} | {{ service.host!.name }} > {{ service.host.netplan_group.name }}</div>
               </mat-option>
             }
-
           </mat-select>
         </mat-form-field>
       </div>

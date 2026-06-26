@@ -8,6 +8,7 @@ import {MatOption} from '@angular/material/core';
 import {MatSelect, MatSelectTrigger} from '@angular/material/select';
 import {MatChipRow, MatChipSet} from '@angular/material/chips';
 import {MatIcon} from '@angular/material/icon';
+import {NgStyle} from '@angular/common';
 
 @Component({
   selector: 'edit-event',
@@ -22,7 +23,8 @@ import {MatIcon} from '@angular/material/icon';
     MatChipRow,
     MatChipSet,
     MatSelectTrigger,
-    MatIcon
+    MatIcon,
+    NgStyle
   ],
   templateUrl: './edit-event.html',
   styleUrl: './edit-event.scss',
