@@ -18,6 +18,7 @@ RUN npm install && npm run build
 # Production Stage
 FROM nginx:alpine
 
+COPY cyber-journaling/nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /app/cyber-journaling/dist/cyber-journaling/browser /usr/share/nginx/html
 
 EXPOSE 80
