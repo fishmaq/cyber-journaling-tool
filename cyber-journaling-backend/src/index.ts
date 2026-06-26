@@ -12,11 +12,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use('/configData', configDataRoute)
-app.use('/case', caseRoute)
-app.use('/event', eventRoute)
-app.use('/service', serviceRoute)
-app.use('/netplan', netplanRoute)
+app.use('/api/configData', configDataRoute)
+app.use('/api/case', caseRoute)
+app.use('/api/event', eventRoute)
+app.use('/api/service', serviceRoute)
+app.use('/api/netplan', netplanRoute)
 
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
