@@ -1,5 +1,5 @@
 <ng-container>
-<!--  TODO: take default value from db-->
+  <!--  TODO: take default value from db-->
   <netplan-card
     [title]="service()!.name"
     [titleToolTip]="latestDeviceHealth?.name?? 'Device Online (Healthy)'"
@@ -18,14 +18,16 @@
           [ngStyle]="{'color': service()!.exposed ? 'black' : 'grey'}"
           [matTooltip]="'exposed: '+service()!.exposed"
         ></mat-icon>
-        <div class="align-center"
-             [matTooltip]="'running on port:' + service()!.port"
-        >
-          <mat-icon
-            [fontIcon]="'lan'"
-          ></mat-icon>
-          :{{ service()!.port }}
-        </div>
+        @if (service()!.port) {
+          <div class="align-center"
+               [matTooltip]="'running on port:' + service()!.port"
+          >
+            <mat-icon
+              [fontIcon]="'lan'"
+            ></mat-icon>
+            :{{ service()!.port }}
+          </div>
+        }
       </div>
       <div class="align-center">
         {{ service()!.description }}

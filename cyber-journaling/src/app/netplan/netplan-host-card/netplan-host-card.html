@@ -6,7 +6,7 @@
   >
     <div class="host-details-wrapper">
       <div class="align-center">
-        <b>{{ host()!.ip_description }}</b>
+        <div class="ip-description" [innerHTML]="host()!.ip_description.replaceAll('\\n','<br/>')"></div>
       </div>
       <div class="align-center">
         {{ host()!.description }}

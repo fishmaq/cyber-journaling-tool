@@ -1,0 +1,17 @@
+.netplan-group-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  row-gap: 24px;;
+
+  > .netplan-group-card-wrapper {
+    max-width: 45%;
+  }
+
+  &:has(> .netplan-group-card-wrapper:only-child) {
+    > .netplan-group-card-wrapper {
+      max-width: 90%;
+    }
+  }
+}

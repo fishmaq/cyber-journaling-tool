@@ -4,8 +4,12 @@
     [titleFontSize]="'medium'"
     [backgroundColor]="netplanGroup()!.color_code ?? 'white'"
   >
+    <div class="netplan-group-list">
       @for (host of netplanGroup()!.host; track host.id) {
-        <netplan-host-card [host]="host"></netplan-host-card>
+        <div class="netplan-group-card-wrapper">
+          <netplan-host-card [host]="host"></netplan-host-card>
+        </div>
       }
+    </div>
   </netplan-card>
 </ng-container>

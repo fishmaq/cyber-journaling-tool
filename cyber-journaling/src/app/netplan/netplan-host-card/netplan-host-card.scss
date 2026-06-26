@@ -2,6 +2,7 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
+  align-items: center;
 }
 
 .align-center {
@@ -13,4 +14,11 @@
 
 .service-list-wrapper {
   padding-top: 24px;
+  width: 90%;
+}
+
+.ip-description {
+  display: flex;
+  text-align: center;
+  font-weight: bold;
 }
