@@ -20,8 +20,8 @@ INSERT INTO config.severity_level (name, color_code) VALUES ('High', '#bc4749');
 INSERT INTO config.severity_level (name, color_code) VALUES ('Critical', '#6f1d1b');
 
 -- DEVICE HEALTH
-INSERT INTO config.device_health (name, color_code) VALUES ('Device Offline (Healthy)', '#c0d197');
-INSERT INTO config.device_health (name, color_code) VALUES ('Device Offline (Compromised)', '#b37273');
+INSERT INTO config.device_health (name, color_code) VALUES ('Device Offline (Healthy)', '#5c7457');
+INSERT INTO config.device_health (name, color_code) VALUES ('Device Offline (Compromised)', '#8c5451');
 INSERT INTO config.device_health (name, color_code) VALUES ('Device Online (Healthy)', '#a7c957');
 INSERT INTO config.device_health (name, color_code) VALUES ('Device Online (Compromised)', '#bc4749');
 
