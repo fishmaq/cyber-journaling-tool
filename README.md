@@ -78,6 +78,14 @@ To ensure the correct order of the cards, there are "priority" columns in most o
 netplan.
 > Priority with ascending sort order --> prio 1 is the first element
 
+### Docker Compose
+
+Services for Frontend Backend and Database.
+
+The Frontend container uses a nginx server and redirects all traffic from /api to 'http://backend:3000' which is passed through an env.
+
+In both frontend and backend the shared module has to be setup and put into the correct directory as well.
+
 <a id="setup"></a>
 ## Setup
 
