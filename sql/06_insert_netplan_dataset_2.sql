@@ -1,0 +1,382 @@
+--TEAM
+INSERT INTO config.team (name, color_code) VALUES ('Transgut','#da627d');
+INSERT INTO config.team (name, color_code) VALUES ('PureSynth','#6096ba');
+INSERT INTO config.team (name, color_code) VALUES ('Wertvoll','#588157');
+INSERT INTO config.team (name, color_code) VALUES ('Austricom','#cdb4db');
+
+--NETPLAN GROUP
+INSERT INTO data.netplan_group (id, team_id, name, priority, color_code)
+VALUES (1, 1, 'External Firewall', 1, '#ef8354');
+INSERT INTO data.netplan_group (id, team_id, name, priority, color_code)
+VALUES (2, 1, 'DMZ', 2, '#c6e0b4');
+INSERT INTO data.netplan_group (id, team_id, name, priority, color_code)
+VALUES (3, 1, 'Internal Firewall', 3, '#ef8354');
+INSERT INTO data.netplan_group (id, team_id, name, priority, color_code)
+VALUES (4, 1, 'Corporate', 4, '#fff2a8');
+INSERT INTO data.netplan_group (id, team_id, name, priority, color_code)
+VALUES (5, 1, 'SOC', 5, '#fff2a8');
+INSERT INTO data.netplan_group (id, team_id, name, priority, color_code)
+VALUES (6, 1, 'Supervisory', 6, '#fff2a8');
+INSERT INTO data.netplan_group (id, team_id, name, priority, color_code)
+VALUES (7, 2, 'External Firewall', 1, '#ef8354');
+INSERT INTO data.netplan_group (id, team_id, name, priority, color_code)
+VALUES (8, 2, 'DMZ', 2, '#c6e0b4');
+INSERT INTO data.netplan_group (id, team_id, name, priority, color_code)
+VALUES (9, 2, 'Internal Firewall', 3, '#ef8354');
+INSERT INTO data.netplan_group (id, team_id, name, priority, color_code)
+VALUES (10, 2, 'Corporate', 4, '#fff2a8');
+INSERT INTO data.netplan_group (id, team_id, name, priority, color_code)
+VALUES (11, 2, 'SOC', 5, '#fff2a8');
+INSERT INTO data.netplan_group (id, team_id, name, priority, color_code)
+VALUES (12, 2, 'Supervisory', 6, '#fff2a8');
+INSERT INTO data.netplan_group (id, team_id, name, priority, color_code)
+VALUES (13, 3, 'External Firewall', 1, '#ef8354');
+INSERT INTO data.netplan_group (id, team_id, name, priority, color_code)
+VALUES (14, 3, 'DMZ', 2, '#c6e0b4');
+INSERT INTO data.netplan_group (id, team_id, name, priority, color_code)
+VALUES (15, 3, 'Internal Firewall', 3, '#ef8354');
+INSERT INTO data.netplan_group (id, team_id, name, priority, color_code)
+VALUES (16, 3, 'Corporate', 4, '#fff2a8');
+INSERT INTO data.netplan_group (id, team_id, name, priority, color_code)
+VALUES (17, 3, 'SOC', 5, '#fff2a8');
+INSERT INTO data.netplan_group (id, team_id, name, priority, color_code)
+VALUES (18, 3, 'Supervisory', 6, '#fff2a8');
+INSERT INTO data.netplan_group (id, team_id, name, priority, color_code)
+VALUES (19, 4, 'External Firewall', 1, '#ef8354');
+INSERT INTO data.netplan_group (id, team_id, name, priority, color_code)
+VALUES (20, 4, 'DMZ', 2, '#c6e0b4');
+INSERT INTO data.netplan_group (id, team_id, name, priority, color_code)
+VALUES (21, 4, 'Internal Firewall', 3, '#ef8354');
+INSERT INTO data.netplan_group (id, team_id, name, priority, color_code)
+VALUES (22, 4, 'Corporate', 4, '#fff2a8');
+INSERT INTO data.netplan_group (id, team_id, name, priority, color_code)
+VALUES (23, 4, 'SOC', 5, '#fff2a8');
+INSERT INTO data.netplan_group (id, team_id, name, priority, color_code)
+VALUES (24, 4, 'Supervisory', 6, '#fff2a8');
+
+-- hosts and services for team 1 'ext_fw'
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (1, 1, 'External Boundary Firewall', 1, '', '', '#acd8aa');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (1, 1, 'External Boundary Firewall', 'Provides DNS resolution and perimeter firewalling between the internet and the DMZ.', 'firewall.svg', true);
+
+
+-- hosts and services for team 1 'dmz'
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (2, 2, 'Public Cloud (nur Austricom)', 1, '', '', '#acd8aa');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (2, 2, 'Public Cloud (nur Austricom)', 'External cloud service reachable only via Austricom, representing outsourced infrastructure.', 'cloud.svg', true);
+
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (3, 2, 'Web Server', 2, '', '', '#acd8aa');
+INSERT INTO data.service (id, host_id, name, description, port, icon_name, exposed)
+VALUES (3, 3, 'Web Server', 'Public-facing web server reachable from the internet.', 80, 'webserver.svg', true);
+
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (4, 2, 'Reverse Proxy', 3, '', '', '#acd8aa');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (4, 4, 'Reverse Proxy', 'Forwards external requests to internal services in the DMZ.', 'proxy.svg', true);
+
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (5, 2, 'SupplyPro', 4, '', '', '#acd8aa');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (5, 5, 'SupplyPro', 'Supply chain management application exposed in the DMZ.', 'application.svg', true);
+
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (6, 2, 'Email Server', 5, '', '', '#acd8aa');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (6, 6, 'Email Server', 'Handles inbound and outbound email for the organization.', 'mail.svg', true);
+
+
+-- hosts and services for team 1 'int_fw'
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (7, 3, 'Internal Boundary Firewall', 1, '', '', '#acd8aa');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (7, 7, 'Internal Boundary Firewall', 'Separates the DMZ from the internal SOC, Supervisory, and Corporate networks.', 'firewall.svg', true);
+
+
+-- hosts and services for team 1 'corporate'
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (8, 4, 'Simulated Employees', 1, '', '', '#82c0cc');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (8, 8, 'Simulated Employees', 'Simulated employee accounts/workstations generating background user traffic.', 'user.svg', false);
+
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (9, 4, 'File Share Server', 2, '', '', '#82c0cc');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (9, 9, 'File Share Server', 'Provides shared file storage for corporate clients.', 'fileserver.svg', false);
+
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (10, 4, 'Regular Clients', 3, '', '', '#82c0cc');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (10, 10, 'Regular Clients', 'Standard corporate workstations used by regular employees.', 'workstation.svg', false);
+
+
+-- hosts and services for team 1 'soc'
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (11, 5, 'SOC Clients', 1, '', '', '#82c0cc');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (11, 11, 'SOC Clients', 'Workstations used by the Security Operations Center analysts.', 'workstation.svg', false);
+
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (12, 5, 'Kibana SIEM', 2, '', '', '#82c0cc');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (12, 12, 'Kibana SIEM', 'SIEM platform for log aggregation and security monitoring.', 'siem.svg', false);
+
+
+-- hosts and services for team 1 'supervisory'
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (13, 6, 'Sector HMI', 1, '', '', '#82c0cc');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (13, 13, 'Sector HMI', 'Human-Machine Interface used to monitor and control the sector process.', 'hmi.svg', false);
+
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (14, 6, 'Data Server', 2, '', '', '#82c0cc');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (14, 14, 'Data Server', 'Stores process and telemetry data for the supervisory layer.', 'database.svg', false);
+
+
+-- hosts and services for team 2 'ext_fw'
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (15, 7, 'External Boundary Firewall', 1, '', '', '#acd8aa');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (15, 15, 'External Boundary Firewall', 'Provides DNS resolution and perimeter firewalling between the internet and the DMZ.', 'firewall.svg', true);
+
+
+-- hosts and services for team 2 'dmz'
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (16, 8, 'Public Cloud (nur Austricom)', 1, '', '', '#acd8aa');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (16, 16, 'Public Cloud (nur Austricom)', 'External cloud service reachable only via Austricom, representing outsourced infrastructure.', 'cloud.svg', true);
+
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (17, 8, 'Web Server', 2, '', '', '#acd8aa');
+INSERT INTO data.service (id, host_id, name, description, port, icon_name, exposed)
+VALUES (17, 17, 'Web Server', 'Public-facing web server reachable from the internet.', 80, 'webserver.svg', true);
+
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (18, 8, 'Reverse Proxy', 3, '', '', '#acd8aa');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (18, 18, 'Reverse Proxy', 'Forwards external requests to internal services in the DMZ.', 'proxy.svg', true);
+
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (19, 8, 'SupplyPro', 4, '', '', '#acd8aa');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (19, 19, 'SupplyPro', 'Supply chain management application exposed in the DMZ.', 'application.svg', true);
+
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (20, 8, 'Email Server', 5, '', '', '#acd8aa');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (20, 20, 'Email Server', 'Handles inbound and outbound email for the organization.', 'mail.svg', true);
+
+
+-- hosts and services for team 2 'int_fw'
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (21, 9, 'Internal Boundary Firewall', 1, '', '', '#acd8aa');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (21, 21, 'Internal Boundary Firewall', 'Separates the DMZ from the internal SOC, Supervisory, and Corporate networks.', 'firewall.svg', true);
+
+
+-- hosts and services for team 2 'corporate'
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (22, 10, 'Simulated Employees', 1, '', '', '#82c0cc');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (22, 22, 'Simulated Employees', 'Simulated employee accounts/workstations generating background user traffic.', 'user.svg', false);
+
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (23, 10, 'File Share Server', 2, '', '', '#82c0cc');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (23, 23, 'File Share Server', 'Provides shared file storage for corporate clients.', 'fileserver.svg', false);
+
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (24, 10, 'Regular Clients', 3, '', '', '#82c0cc');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (24, 24, 'Regular Clients', 'Standard corporate workstations used by regular employees.', 'workstation.svg', false);
+
+
+-- hosts and services for team 2 'soc'
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (25, 11, 'SOC Clients', 1, '', '', '#82c0cc');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (25, 25, 'SOC Clients', 'Workstations used by the Security Operations Center analysts.', 'workstation.svg', false);
+
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (26, 11, 'Kibana SIEM', 2, '', '', '#82c0cc');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (26, 26, 'Kibana SIEM', 'SIEM platform for log aggregation and security monitoring.', 'siem.svg', false);
+
+
+-- hosts and services for team 2 'supervisory'
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (27, 12, 'Sector HMI', 1, '', '', '#82c0cc');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (27, 27, 'Sector HMI', 'Human-Machine Interface used to monitor and control the sector process.', 'hmi.svg', false);
+
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (28, 12, 'Data Server', 2, '', '', '#82c0cc');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (28, 28, 'Data Server', 'Stores process and telemetry data for the supervisory layer.', 'database.svg', false);
+
+
+-- hosts and services for team 3 'ext_fw'
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (29, 13, 'External Boundary Firewall', 1, '', '', '#acd8aa');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (29, 29, 'External Boundary Firewall', 'Provides DNS resolution and perimeter firewalling between the internet and the DMZ.', 'firewall.svg', true);
+
+
+-- hosts and services for team 3 'dmz'
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (30, 14, 'Public Cloud (nur Austricom)', 1, '', '', '#acd8aa');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (30, 30, 'Public Cloud (nur Austricom)', 'External cloud service reachable only via Austricom, representing outsourced infrastructure.', 'cloud.svg', true);
+
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (31, 14, 'Web Server', 2, '', '', '#acd8aa');
+INSERT INTO data.service (id, host_id, name, description, port, icon_name, exposed)
+VALUES (31, 31, 'Web Server', 'Public-facing web server reachable from the internet.', 80, 'webserver.svg', true);
+
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (32, 14, 'Reverse Proxy', 3, '', '', '#acd8aa');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (32, 32, 'Reverse Proxy', 'Forwards external requests to internal services in the DMZ.', 'proxy.svg', true);
+
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (33, 14, 'SupplyPro', 4, '', '', '#acd8aa');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (33, 33, 'SupplyPro', 'Supply chain management application exposed in the DMZ.', 'application.svg', true);
+
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (34, 14, 'Email Server', 5, '', '', '#acd8aa');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (34, 34, 'Email Server', 'Handles inbound and outbound email for the organization.', 'mail.svg', true);
+
+
+-- hosts and services for team 3 'int_fw'
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (35, 15, 'Internal Boundary Firewall', 1, '', '', '#acd8aa');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (35, 35, 'Internal Boundary Firewall', 'Separates the DMZ from the internal SOC, Supervisory, and Corporate networks.', 'firewall.svg', true);
+
+
+-- hosts and services for team 3 'corporate'
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (36, 16, 'Simulated Employees', 1, '', '', '#82c0cc');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (36, 36, 'Simulated Employees', 'Simulated employee accounts/workstations generating background user traffic.', 'user.svg', false);
+
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (37, 16, 'File Share Server', 2, '', '', '#82c0cc');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (37, 37, 'File Share Server', 'Provides shared file storage for corporate clients.', 'fileserver.svg', false);
+
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (38, 16, 'Regular Clients', 3, '', '', '#82c0cc');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (38, 38, 'Regular Clients', 'Standard corporate workstations used by regular employees.', 'workstation.svg', false);
+
+
+-- hosts and services for team 3 'soc'
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (39, 17, 'SOC Clients', 1, '', '', '#82c0cc');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (39, 39, 'SOC Clients', 'Workstations used by the Security Operations Center analysts.', 'workstation.svg', false);
+
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (40, 17, 'Kibana SIEM', 2, '', '', '#82c0cc');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (40, 40, 'Kibana SIEM', 'SIEM platform for log aggregation and security monitoring.', 'siem.svg', false);
+
+
+-- hosts and services for team 3 'supervisory'
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (41, 18, 'Sector HMI', 1, '', '', '#82c0cc');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (41, 41, 'Sector HMI', 'Human-Machine Interface used to monitor and control the sector process.', 'hmi.svg', false);
+
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (42, 18, 'Data Server', 2, '', '', '#82c0cc');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (42, 42, 'Data Server', 'Stores process and telemetry data for the supervisory layer.', 'database.svg', false);
+
+
+-- hosts and services for team 4 'ext_fw'
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (43, 19, 'External Boundary Firewall', 1, '', '', '#acd8aa');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (43, 43, 'External Boundary Firewall', 'Provides DNS resolution and perimeter firewalling between the internet and the DMZ.', 'firewall.svg', true);
+
+
+-- hosts and services for team 4 'dmz'
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (44, 20, 'Public Cloud (nur Austricom)', 1, '', '', '#acd8aa');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (44, 44, 'Public Cloud (nur Austricom)', 'External cloud service reachable only via Austricom, representing outsourced infrastructure.', 'cloud.svg', true);
+
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (45, 20, 'Web Server', 2, '', '', '#acd8aa');
+INSERT INTO data.service (id, host_id, name, description, port, icon_name, exposed)
+VALUES (45, 45, 'Web Server', 'Public-facing web server reachable from the internet.', 80, 'webserver.svg', true);
+
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (46, 20, 'Reverse Proxy', 3, '', '', '#acd8aa');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (46, 46, 'Reverse Proxy', 'Forwards external requests to internal services in the DMZ.', 'proxy.svg', true);
+
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (47, 20, 'SupplyPro', 4, '', '', '#acd8aa');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (47, 47, 'SupplyPro', 'Supply chain management application exposed in the DMZ.', 'application.svg', true);
+
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (48, 20, 'Email Server', 5, '', '', '#acd8aa');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (48, 48, 'Email Server', 'Handles inbound and outbound email for the organization.', 'mail.svg', true);
+
+
+-- hosts and services for team 4 'int_fw'
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (49, 21, 'Internal Boundary Firewall', 1, '', '', '#acd8aa');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (49, 49, 'Internal Boundary Firewall', 'Separates the DMZ from the internal SOC, Supervisory, and Corporate networks.', 'firewall.svg', true);
+
+
+-- hosts and services for team 4 'corporate'
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (50, 22, 'Simulated Employees', 1, '', '', '#82c0cc');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (50, 50, 'Simulated Employees', 'Simulated employee accounts/workstations generating background user traffic.', 'user.svg', false);
+
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (51, 22, 'File Share Server', 2, '', '', '#82c0cc');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (51, 51, 'File Share Server', 'Provides shared file storage for corporate clients.', 'fileserver.svg', false);
+
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (52, 22, 'Regular Clients', 3, '', '', '#82c0cc');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (52, 52, 'Regular Clients', 'Standard corporate workstations used by regular employees.', 'workstation.svg', false);
+
+
+-- hosts and services for team 4 'soc'
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (53, 23, 'SOC Clients', 1, '', '', '#82c0cc');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (53, 53, 'SOC Clients', 'Workstations used by the Security Operations Center analysts.', 'workstation.svg', false);
+
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (54, 23, 'Kibana SIEM', 2, '', '', '#82c0cc');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (54, 54, 'Kibana SIEM', 'SIEM platform for log aggregation and security monitoring.', 'siem.svg', false);
+
+
+-- hosts and services for team 4 'supervisory'
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (55, 24, 'Sector HMI', 1, '', '', '#82c0cc');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (55, 55, 'Sector HMI', 'Human-Machine Interface used to monitor and control the sector process.', 'hmi.svg', false);
+
+INSERT INTO data.host (id, netplan_group_id, name, priority, ip_description, description, background_color_code)
+VALUES (56, 24, 'Data Server', 2, '', '', '#82c0cc');
+INSERT INTO data.service (id, host_id, name, description, icon_name, exposed)
+VALUES (56, 56, 'Data Server', 'Stores process and telemetry data for the supervisory layer.', 'database.svg', false);

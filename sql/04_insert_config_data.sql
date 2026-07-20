@@ -33,7 +33,3 @@ INSERT INTO config.event_type (name) VALUES ('Meeting');
 INSERT INTO config.event_type (name) VALUES ('Join/Leave');
 INSERT INTO config.event_type (name) VALUES ('Comms');
 INSERT INTO config.event_type (name) VALUES ('Note');
-
---TEAM
-INSERT INTO config.team (name, color_code) VALUES ('Attacker','#da627d');
-INSERT INTO config.team (name, color_code) VALUES ('Defender','#6096ba');
