@@ -5,16 +5,19 @@ import { JournalCaseService } from '../../service/journal-case.service';
 import { firstValueFrom } from 'rxjs';
 import { ConfigDataService } from '../../service/config-data.service';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
+import { MatFormField, MatInput, MatLabel } from '@angular/material/input';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'case-timeline',
-  imports: [CaseTimelineCard, MatSlideToggle],
+  imports: [CaseTimelineCard, MatSlideToggle, MatFormField, MatInput, MatLabel, MatIcon],
   templateUrl: './case-timeline.html',
   styleUrl: './case-timeline.scss',
 })
 export class CaseTimeline implements OnInit, OnDestroy {
   intervalReference = 0;
   showClosedCase = signal(false);
+  searchTerm = signal('');
 
   journalCases = signal<JournalCase[]>([]);
 
@@ -24,11 +27,13 @@ export class CaseTimeline implements OnInit, OnDestroy {
   journalCasesFiltered = computed(() => {
     const selectedTeamId = this.#configDataService.selectedTeamId();
     const showClosedCase = this.showClosedCase();
+    const search = this.searchTerm().trim().toLowerCase();
     return this.journalCases().filter((journalCase) => {
       const matchesTeam = selectedTeamId == null || journalCase.team_id === selectedTeamId;
       const matchesState =
         showClosedCase || journalCase.case_state === undefined || journalCase.case_state.name !== 'Closed';
-      return matchesTeam && matchesState;
+      const matchesSearch = search === '' || this.#matchesSearch(journalCase, search);
+      return matchesTeam && matchesState && matchesSearch;
     });
   });
 
@@ -87,5 +92,23 @@ export class CaseTimeline implements OnInit, OnDestroy {
 
   caseVisibilityChanged(checked: boolean) {
     this.showClosedCase.set(checked);
+  }
+
+  searchChanged(event: Event) {
+    this.searchTerm.set((event.target as HTMLInputElement).value);
+  }
+
+  #matchesSearch(journalCase: JournalCase, search: string) {
+    const caseNumber = 'case-' + journalCase.id.toString().padStart(5, '0');
+    const eventText = (journalCase.journal_event ?? [])
+      .map(event => `${event.title ?? ''} ${event.details ?? ''}`)
+      .join(' ');
+    const haystack = [
+      journalCase.title ?? '',
+      journalCase.id.toString(),
+      caseNumber,
+      eventText
+    ].join(' ').toLowerCase();
+    return haystack.includes(search);
   }
 }
