@@ -11,6 +11,7 @@ RUN npm install && tsc
 
 WORKDIR /app/cyber-journaling-backend
 RUN npm install && npm run build:ts
+RUN npm run build
 
 EXPOSE 3000
 
