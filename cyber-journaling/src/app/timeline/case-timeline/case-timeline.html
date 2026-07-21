@@ -1,16 +1,10 @@
 <ng-container>
   <div class="timeline-title">Timeline Cases</div>
-
-  <div style="display: flex; justify-content: center">
-    <mat-slide-toggle (change)="caseVisibilityChanged($event.checked)" labelPosition="before">Show Closed Cases
-    </mat-slide-toggle>
-  </div>
-
   <div class="timeline-wrapper">
     @if (!this.journalCases() || this.journalCases()!.length === 0) {
       <div class="case-timeline-empty">No Cases found.</div>
     } @else {
-      @for (journalCase of this.journalCasesFiltered; track journalCase.id) {
+      @for (journalCase of journalCases(); track journalCase.id) {
         <case-timeline-card
           [journalCase]="journalCase"
           (eventCreated)="this.loadData()"
