@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, effect, inject, OnInit, signal} from '@angular/core';
 import {
   MatCell,
   MatCellDef,
@@ -21,6 +21,7 @@ import {JournalCaseCrudPopupService} from '../../service/journal-case-crud-popup
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatDialog} from '@angular/material/dialog';
 import {ConfirmationDialog} from '../../ui/confirmation-dialog/confirmation-dialog';
+import {ConfigDataService} from '../../service/config-data.service';
 
 @Component({
   selector: 'case',
@@ -47,9 +48,17 @@ export class Case implements OnInit {
 
   #journalCaseService = inject(JournalCaseService)
   #journalCaseCrudPopupService = inject(JournalCaseCrudPopupService)
+  #configDataService = inject(ConfigDataService)
 
   #snackbar = inject(MatSnackBar)
   #dialog = inject(MatDialog);
+
+  #allCases = signal<JournalCase[]>([]);
+
+  applyTeamFilterEffect = effect(() => {
+    const selectedTeamId = this.#configDataService.selectedTeamId();
+    this.dataSource.data = this.#filterByTeam(this.#allCases(), selectedTeamId);
+  });
 
   async ngOnInit() {
     // load data from the service on component init
@@ -63,7 +72,12 @@ export class Case implements OnInit {
     console.debug('Case: #journalCaseService.getJournalCases()')
     console.debug(data)
 
-    this.dataSource.data = data;
+    this.#allCases.set(data);
+    this.dataSource.data = this.#filterByTeam(data, this.#configDataService.selectedTeamId());
+  }
+
+  #filterByTeam(cases: JournalCase[], selectedTeamId: number | null) {
+    return selectedTeamId == null ? cases : cases.filter(journalCase => journalCase.team_id === selectedTeamId);
   }
 
   async create() {

@@ -7,10 +7,10 @@
   </div>
 
   <div class="timeline-wrapper">
-    @if (!this.journalCases() || this.journalCases()!.length === 0) {
+    @if (this.journalCasesFiltered().length === 0) {
       <div class="case-timeline-empty">No Cases found.</div>
     } @else {
-      @for (journalCase of this.journalCasesFiltered; track journalCase.id) {
+      @for (journalCase of this.journalCasesFiltered(); track journalCase.id) {
         <case-timeline-card
           [journalCase]="journalCase"
           (eventCreated)="this.loadData()"

@@ -19,6 +19,8 @@ export class ConfigDataService {
 
   presenterMode = false;
 
+  readonly selectedTeamId = signal<number | null>(null);
+
   async load(): Promise<void> {
     // wait for data
     const config = await firstValueFrom(

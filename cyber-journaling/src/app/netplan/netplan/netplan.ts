@@ -1,4 +1,4 @@
-import {Component, inject, OnDestroy, OnInit, signal} from '@angular/core';
+import {Component, computed, inject, OnDestroy, OnInit, signal} from '@angular/core';
 import {Team} from 'shared';
 import {firstValueFrom} from 'rxjs';
 import {NetplanService} from '../../service/netplan.service';
@@ -20,6 +20,12 @@ export class Netplan implements OnInit, OnDestroy {
 
   #netplanService = inject(NetplanService)
   #configDataService = inject(ConfigDataService)
+
+  filteredNetplanList = computed(() => {
+    const selectedTeamId = this.#configDataService.selectedTeamId();
+    const list = this.netplanList();
+    return selectedTeamId == null ? list : list.filter(team => team.id === selectedTeamId);
+  });
 
   async ngOnInit() {
     this.intervalReference = setInterval(async () => {

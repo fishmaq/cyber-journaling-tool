@@ -1,4 +1,4 @@
-import { Component, effect, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import { Component, computed, effect, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { JournalCase } from 'shared';
 import { CaseTimelineCard } from '../case-timeline-card/case-timeline-card';
 import { JournalCaseService } from '../../service/journal-case.service';
@@ -14,13 +14,23 @@ import { MatSlideToggle } from '@angular/material/slide-toggle';
 })
 export class CaseTimeline implements OnInit, OnDestroy {
   intervalReference = 0;
-  showClosedCase = false;
+  showClosedCase = signal(false);
 
   journalCases = signal<JournalCase[]>([]);
 
   #journalCaseService = inject(JournalCaseService);
   #configDataService = inject(ConfigDataService);
-  journalCasesFiltered = this.journalCases();
+
+  journalCasesFiltered = computed(() => {
+    const selectedTeamId = this.#configDataService.selectedTeamId();
+    const showClosedCase = this.showClosedCase();
+    return this.journalCases().filter((journalCase) => {
+      const matchesTeam = selectedTeamId == null || journalCase.team_id === selectedTeamId;
+      const matchesState =
+        showClosedCase || journalCase.case_state === undefined || journalCase.case_state.name !== 'Closed';
+      return matchesTeam && matchesState;
+    });
+  });
 
   async ngOnInit() {
     this.intervalReference = setInterval(async () => {
@@ -30,11 +40,6 @@ export class CaseTimeline implements OnInit, OnDestroy {
     // load data from the service on component init
     await this.loadData();
   }
-
-  updateFilteredListEffect = effect(() => {
-    this.journalCases();
-    this.caseVisibilityChanged(this.showClosedCase);
-  });
 
   async refreshForPresenterMode() {
     if (this.#configDataService.presenterMode) {
@@ -81,15 +86,6 @@ export class CaseTimeline implements OnInit, OnDestroy {
   }
 
   caseVisibilityChanged(checked: boolean) {
-    this.showClosedCase = checked;
-    this.journalCasesFiltered = this.journalCases().filter((journalCase) => {
-      if (journalCase.case_state === undefined || this.showClosedCase) {
-        return true;
-      } else {
-        // TODO: maybe refactor
-        return journalCase.case_state.name !== 'Closed';
-      }
-    });
-    console.debug(this.journalCasesFiltered);
+    this.showClosedCase.set(checked);
   }
 }
