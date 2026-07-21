@@ -75,7 +75,6 @@ router.delete("/:id", async (req, res) => {
 function removeFkFieldsEvent(data: any) {
     // remove all unnecessary fk fields, as prisma can't handle them
     delete data.journal_case;
-    delete data.case_id;
     delete data.severity_level;
     delete data.severity_level_id;
     delete data.device_health;

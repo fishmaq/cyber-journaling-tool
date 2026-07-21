@@ -2,6 +2,7 @@ import {Component, inject, input, output} from '@angular/core';
 import {JournalCase, JournalCaseState, JournalEvent} from 'shared';
 import {EventTimelineCard} from '../event-timeline-card/event-timeline-card';
 import {MatIcon} from '@angular/material/icon';
+import {CdkDrag, CdkDragDrop, CdkDropList} from '@angular/cdk/drag-drop';
 import {JournalEventCrudPopupService} from '../../service/journal-event-crud-popup.service';
 import {JournalEventService} from '../../service/journal-event.service';
 import {JournalCaseService} from '../../service/journal-case.service';
@@ -12,7 +13,9 @@ import {MatSnackBar} from '@angular/material/snack-bar';
   selector: 'case-timeline-card',
   imports: [
     EventTimelineCard,
-    MatIcon
+    MatIcon,
+    CdkDropList,
+    CdkDrag
   ],
   templateUrl: './case-timeline-card.html',
   styleUrl: './case-timeline-card.scss',
@@ -21,6 +24,13 @@ export class CaseTimelineCard {
   journalCase = input.required<JournalCase>();
   eventCreated = output();
   caseStateChanged = output();
+  eventMoved = output();
+
+  sameTeamPredicate = (drag: CdkDrag, drop: CdkDropList) => {
+    const sourceCase = drag.dropContainer.data as JournalCase;
+    const targetCase = drop.data as JournalCase;
+    return sourceCase?.team_id === targetCase?.team_id;
+  };
 
   #journalEventCrudPopupService = inject(JournalEventCrudPopupService)
   #journalEventService = inject(JournalEventService)
@@ -62,6 +72,37 @@ export class CaseTimelineCard {
       // do nothing and just log
       console.debug('Timeline: The dialogue was canceled!');
     }
+  }
+
+  onEventDropped(dropEvent: CdkDragDrop<JournalCase>) {
+    if (dropEvent.previousContainer === dropEvent.container) {
+      return;
+    }
+
+    const draggedEvent = dropEvent.item.data as JournalEvent;
+    const sourceCase = dropEvent.previousContainer.data as JournalCase;
+    const targetCase = dropEvent.container.data as JournalCase;
+
+    if (sourceCase.team_id !== targetCase.team_id) {
+      return;
+    }
+
+    console.debug('Timeline: moving event %d to case %d', draggedEvent.id, targetCase.id)
+
+    const movedEvent: JournalEvent = {...draggedEvent, case_id: targetCase.id};
+
+    this.#journalEventService.saveJournalEvent(movedEvent).subscribe(() => {
+      console.debug('Timeline: Event was moved')
+      this.eventMoved.emit();
+
+      this.#snackbar.open('Event was moved successfully!',
+        '',
+        {
+          duration: 3000,
+          panelClass: ['snackbar-success']
+        }
+      );
+    });
   }
 
   closeCase() {

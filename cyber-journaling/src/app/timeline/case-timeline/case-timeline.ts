@@ -7,10 +7,11 @@ import { ConfigDataService } from '../../service/config-data.service';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { MatFormField, MatInput, MatLabel } from '@angular/material/input';
 import { MatIcon } from '@angular/material/icon';
+import { CdkDropListGroup } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'case-timeline',
-  imports: [CaseTimelineCard, MatSlideToggle, MatFormField, MatInput, MatLabel, MatIcon],
+  imports: [CaseTimelineCard, MatSlideToggle, MatFormField, MatInput, MatLabel, MatIcon, CdkDropListGroup],
   templateUrl: './case-timeline.html',
   styleUrl: './case-timeline.scss',
 })

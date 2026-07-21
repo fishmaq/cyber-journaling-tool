@@ -13,7 +13,7 @@
     </mat-slide-toggle>
   </div>
 
-  <div class="timeline-wrapper">
+  <div class="timeline-wrapper" cdkDropListGroup>
     @if (this.journalCasesFiltered().length === 0) {
       <div class="case-timeline-empty">No Cases found.</div>
     } @else {
@@ -22,6 +22,7 @@
           [journalCase]="journalCase"
           (eventCreated)="this.loadData()"
           (caseStateChanged)="this.loadData()"
+          (eventMoved)="this.loadData()"
         />
       }
     }
