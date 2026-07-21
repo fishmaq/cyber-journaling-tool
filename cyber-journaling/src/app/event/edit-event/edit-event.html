@@ -21,6 +21,13 @@
       </div>
 
       <div class="edit-event-row">
+        <mat-form-field class="colspan-2">
+          <mat-label>Timestamp</mat-label>
+          <input matInput type="datetime-local" formControlName="timestamp">
+        </mat-form-field>
+      </div>
+
+      <div class="edit-event-row">
         <mat-form-field>
           <mat-label>Event Type</mat-label>
           <mat-select formControlName="event_type_id">

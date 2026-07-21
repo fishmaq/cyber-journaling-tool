@@ -53,7 +53,8 @@ export class EditEvent {
     event_type_id: [this.journalEvent.event_type_id, Validators.required],
     severity_level_id: [this.journalEvent.severity_level_id, Validators.required],
     services_ids: this.formBuilder.control<number[]>(this.journalEvent.services_ids),
-    device_health_id: [this.journalEvent.device_health_id, Validators.required]
+    device_health_id: [this.journalEvent.device_health_id, Validators.required],
+    timestamp: [this.#toLocalInputValue(this.journalEvent.timestamp), Validators.required]
   });
 
 
@@ -67,7 +68,18 @@ export class EditEvent {
   }
 
   extractFormData() {
-    this.journalEvent = {...this.journalEvent, ...this.formGroup.getRawValue(),} as JournalEvent;
+    const raw = this.formGroup.getRawValue();
+    this.journalEvent = {
+      ...this.journalEvent,
+      ...raw,
+      timestamp: raw.timestamp ? new Date(raw.timestamp) : new Date()
+    } as JournalEvent;
+  }
+
+  #toLocalInputValue(value: Date | string | undefined): string {
+    const date = value ? new Date(value) : new Date();
+    const offsetMs = date.getTimezoneOffset() * 60000;
+    return new Date(date.getTime() - offsetMs).toISOString().slice(0, 16);
   }
 
   removeChip($event: Event, value: string | number): void {

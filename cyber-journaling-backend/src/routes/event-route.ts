@@ -16,7 +16,7 @@ router.post("/", async (req, res) => {
     await prisma.journal_event.create({
         data: {
             ...event,
-            timestamp: new Date(),
+            timestamp: event.timestamp ? new Date(event.timestamp) : new Date(),
             journal_events_services: {
                 // create fk connections to service
                 create: (services_ids ?? []).map((id: number) => ({
@@ -34,6 +34,9 @@ router.post("/", async (req, res) => {
 router.put("/", async (req, res) => {
     let event = req.body;
     let services_ids = req.body.services_ids;
+    if (event.timestamp) {
+        event.timestamp = new Date(event.timestamp);
+    }
     // update fields
     await prisma.journal_event.update({
         data: removeFkFieldsEvent(event),
