@@ -28,7 +28,10 @@ export const serviceInclude = {
 }
 
 export const journalEventInclude = {
-    orderBy: {timestamp: 'asc' as const},
+    orderBy: [
+        {priority: {sort: 'asc' as const, nulls: 'last' as const}},
+        {timestamp: 'asc' as const}
+    ],
     include: {
         severity_level: true,
         device_health: true,

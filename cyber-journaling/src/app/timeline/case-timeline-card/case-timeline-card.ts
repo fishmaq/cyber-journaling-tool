@@ -2,7 +2,7 @@ import {Component, inject, input, output} from '@angular/core';
 import {JournalCase, JournalCaseState, JournalEvent} from 'shared';
 import {EventTimelineCard} from '../event-timeline-card/event-timeline-card';
 import {MatIcon} from '@angular/material/icon';
-import {CdkDrag, CdkDragDrop, CdkDropList} from '@angular/cdk/drag-drop';
+import {CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray} from '@angular/cdk/drag-drop';
 import {JournalEventCrudPopupService} from '../../service/journal-event-crud-popup.service';
 import {JournalEventService} from '../../service/journal-event.service';
 import {JournalCaseService} from '../../service/journal-case.service';
@@ -76,6 +76,19 @@ export class CaseTimelineCard {
 
   onEventDropped(dropEvent: CdkDragDrop<JournalCase>) {
     if (dropEvent.previousContainer === dropEvent.container) {
+      if (dropEvent.previousIndex === dropEvent.currentIndex) {
+        return;
+      }
+
+      const events = [...(this.journalCase().journal_event ?? [])];
+      moveItemInArray(events, dropEvent.previousIndex, dropEvent.currentIndex);
+
+      console.debug('Timeline: reordering events in case %d', this.journalCase().id)
+
+      this.#journalEventService.reorderEvents(events.map(event => event.id)).subscribe(() => {
+        console.debug('Timeline: Events were reordered')
+        this.eventMoved.emit();
+      });
       return;
     }
 
@@ -89,7 +102,7 @@ export class CaseTimelineCard {
 
     console.debug('Timeline: moving event %d to case %d', draggedEvent.id, targetCase.id)
 
-    const movedEvent: JournalEvent = {...draggedEvent, case_id: targetCase.id};
+    const movedEvent: JournalEvent = {...draggedEvent, case_id: targetCase.id, priority: null};
 
     this.#journalEventService.saveJournalEvent(movedEvent).subscribe(() => {
       console.debug('Timeline: Event was moved')

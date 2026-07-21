@@ -36,5 +36,12 @@ export class JournalEventService {
       this.#endpointUrl + '/' + id
     );
   }
+
+  reorderEvents(eventIds: number[]) {
+    return this.#httpClient.put(
+      this.#endpointUrl + '/reorder',
+      {event_ids: eventIds}
+    );
+  }
 }
 

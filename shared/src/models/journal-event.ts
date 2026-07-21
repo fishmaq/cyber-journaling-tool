@@ -15,6 +15,7 @@ export interface JournalEvent extends BasicDbModel {
     timestamp: Date,
     title: string,
     details: string,
+    priority: number | null,
     services: Service[],
     services_ids: number[],
 }
