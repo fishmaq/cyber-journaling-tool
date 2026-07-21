@@ -10,8 +10,8 @@ RUN npm install -g typescript
 RUN npm install && tsc
 
 WORKDIR /app/cyber-journaling-backend
-RUN npm install && npm run build:ts
-RUN npm run build
+RUN npm install && npm run build
+RUN npm run build:ts
 
 EXPOSE 3000
 
