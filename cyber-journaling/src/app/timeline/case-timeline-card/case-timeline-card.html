@@ -14,6 +14,17 @@
         </header>
       </div>
       <div class="case-card-event-button">
+        @if (journalCase().case_state?.name !== 'Closed') {
+          <div class="close-case-button" (click)="closeCase()">
+            <mat-icon aria-hidden="false" aria-label="Close case" fontIcon="check_circle"></mat-icon>
+            Close Case
+          </div>
+        } @else {
+          <div class="reopen-case-button" (click)="reopenCase()">
+            <mat-icon aria-hidden="false" aria-label="Reopen case" fontIcon="replay"></mat-icon>
+            Reopen Case
+          </div>
+        }
         <div class="new-event-button" (click)="createEvent(journalCase().id)">
           <mat-icon aria-hidden="false" aria-label="Create" fontIcon="add"></mat-icon>
           New Event

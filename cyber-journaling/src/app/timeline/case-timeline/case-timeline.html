@@ -14,6 +14,7 @@
         <case-timeline-card
           [journalCase]="journalCase"
           (eventCreated)="this.loadData()"
+          (caseStateChanged)="this.loadData()"
         />
       }
     }
