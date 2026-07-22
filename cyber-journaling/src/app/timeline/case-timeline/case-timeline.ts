@@ -95,17 +95,6 @@ export class CaseTimeline implements OnInit, OnDestroy {
     this.searchTerm.set((event.target as HTMLInputElement).value);
   }
 
-  #matchesSearch(journalCase: JournalCase, search: string) {
-    const caseNumber = 'case-' + journalCase.id.toString().padStart(5, '0');
-    const eventText = (journalCase.journal_event ?? [])
-      .map((event) => `${event.title ?? ''} ${event.details ?? ''}`)
-      .join(' ');
-    const haystack = [journalCase.title ?? '', journalCase.id.toString(), caseNumber, eventText]
-      .join(' ')
-      .toLowerCase();
-    return haystack.includes(search);
-  }
-
   ngOnDestroy(): void {
     // cleanup interval
     if (this.intervalReference) {
