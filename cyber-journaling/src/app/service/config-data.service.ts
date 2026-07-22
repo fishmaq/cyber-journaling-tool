@@ -19,7 +19,6 @@ export class ConfigDataService {
 
   presenterMode = false;
 
-  // TODO: use undefined
   readonly selectedTeamId = signal<number | undefined>(undefined);
 
   async load(): Promise<void> {
