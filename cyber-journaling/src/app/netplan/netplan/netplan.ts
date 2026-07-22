@@ -1,4 +1,4 @@
-import {Component, inject, OnDestroy, OnInit, signal} from '@angular/core';
+import {Component, computed, effect, inject, OnDestroy, OnInit, signal} from '@angular/core';
 import {Team} from 'shared';
 import {firstValueFrom} from 'rxjs';
 import {NetplanService} from '../../service/netplan.service';
@@ -7,9 +7,7 @@ import {ConfigDataService} from '../../service/config-data.service';
 
 @Component({
   selector: 'netplan',
-  imports: [
-    NetplanTeamCard
-  ],
+  imports: [NetplanTeamCard],
   templateUrl: './netplan.html',
   styleUrl: './netplan.scss',
 })
@@ -18,8 +16,8 @@ export class Netplan implements OnInit, OnDestroy {
 
   netplanList = signal<Team[]>([]);
 
-  #netplanService = inject(NetplanService)
-  #configDataService = inject(ConfigDataService)
+  #netplanService = inject(NetplanService);
+  #configDataService = inject(ConfigDataService);
 
   async ngOnInit() {
     this.intervalReference = setInterval(async () => {
@@ -29,15 +27,19 @@ export class Netplan implements OnInit, OnDestroy {
     }, 10000);
 
     // load data from the service on component init
-    await this.loadData()
+    await this.loadData();
   }
 
+  teamFilterChangedEffect = effect(async () => {
+    this.#configDataService.selectedTeamId();
+    console.debug('Netplan: #configDataService.selectedTeamId changed, reloading data...');
+    await this.loadData();
+  });
+
   async loadData() {
-    const data = await firstValueFrom(
-      this.#netplanService.getNetplans()
-    );
-    console.debug('Netplan: #netplanService.getNetplans():')
-    console.debug(data)
+    const data = await firstValueFrom(this.#netplanService.getNetplans());
+    console.debug('Netplan: #netplanService.getNetplans():');
+    console.debug(data);
 
     this.sortData(data);
 
@@ -45,16 +47,16 @@ export class Netplan implements OnInit, OnDestroy {
   }
 
   sortData(list: Team[]) {
-    list.map(team => {
+    list.map((team) => {
       if (team.netplan_group) {
-        team.netplan_group!.sort((a, b) => (a.priority ?? 0) - (b.priority ?? 0))
-        team.netplan_group.map(netplanGroup => {
+        team.netplan_group!.sort((a, b) => (a.priority ?? 0) - (b.priority ?? 0));
+        team.netplan_group.map((netplanGroup) => {
           if (netplanGroup.host) {
-            netplanGroup.host!.sort((a, b) => (a.priority ?? 0) - (b.priority ?? 0))
+            netplanGroup.host!.sort((a, b) => (a.priority ?? 0) - (b.priority ?? 0));
           }
-        })
+        });
       }
-    })
+    });
   }
 
   ngOnDestroy(): void {

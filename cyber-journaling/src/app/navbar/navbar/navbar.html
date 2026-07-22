@@ -1,13 +1,24 @@
 <ng-container>
   <div class="navbar">
     <div class="navbar-left">
-      <button class="nav-button nav-title" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+      <button class="nav-button nav-title" routerLink="/" routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }">
         CyberJournaling
         <mat-icon [fontIcon]="'psychology'"></mat-icon>
       </button>
     </div>
 
     <div class="navbar-right">
+      <mat-form-field class="team-filter" appearance="outline" subscriptSizing="dynamic">
+        <mat-select [value]="configDataService.selectedTeamId() ?? ALL_TEAMS"
+                    (selectionChange)="teamChanged($event.value)">
+          <mat-option [value]="ALL_TEAMS">All Teams</mat-option>
+          @for (team of configDataService.config()?.teamList ?? []; track team.id) {
+            <mat-option [value]="team.id">{{ team.name.toUpperCase() }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
       <mat-slide-toggle (change)="presenterModeChanged($event.checked)" labelPosition="before">Presenter Mode
       </mat-slide-toggle>
       <div>|</div>

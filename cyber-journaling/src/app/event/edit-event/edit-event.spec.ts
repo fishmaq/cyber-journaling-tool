@@ -49,6 +49,7 @@ describe('EditEvent', () => {
 
     component.formGroup.setValue({
       title: 'new title',
+      timestamp: '',
       details: 'x',
       case_id: 1,
       event_type_id: 1,

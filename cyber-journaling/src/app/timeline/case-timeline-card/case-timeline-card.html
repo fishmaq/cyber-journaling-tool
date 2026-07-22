@@ -14,6 +14,17 @@
         </header>
       </div>
       <div class="case-card-event-button">
+        @if (journalCase().case_state?.name !== 'Closed') {
+          <div class="close-case-button" (click)="closeCase()">
+            <mat-icon aria-hidden="false" aria-label="Close case" fontIcon="check_circle"></mat-icon>
+            Close Case
+          </div>
+        } @else {
+          <div class="reopen-case-button" (click)="reopenCase()">
+            <mat-icon aria-hidden="false" aria-label="Reopen case" fontIcon="replay"></mat-icon>
+            Reopen Case
+          </div>
+        }
         <div class="new-event-button" (click)="createEvent(journalCase().id)">
           <mat-icon aria-hidden="false" aria-label="Create" fontIcon="add"></mat-icon>
           New Event
@@ -22,25 +33,31 @@
     </div>
 
     <div class="case-card-timeline">
-      @if (!journalCase().journal_event ||journalCase().journal_event!.length === 0) {
-
-        <p class="case-card-empty">
-          No Events found.
-        </p>
-      } @else {
-        <div class="case-card-track">
+      <div class="case-card-track"
+           cdkDropList
+           cdkDropListOrientation="horizontal"
+           [cdkDropListData]="journalCase()"
+           [cdkDropListEnterPredicate]="sameTeamPredicate"
+           (cdkDropListDropped)="onEventDropped($event)">
+        @if (!journalCase().journal_event || journalCase().journal_event!.length === 0) {
+          <p class="case-card-empty">
+            No Events found.
+          </p>
+        } @else {
           @for (event of journalCase().journal_event; let i = $index; let last = $last; track event.id) {
-            <event-timeline-card
-              [journalEvent]="event"
-              [index]="i"
-              [isLast]="last"
-            />
+            <div class="event-drag-item" cdkDrag [cdkDragData]="event">
+              <event-timeline-card
+                [journalEvent]="event"
+                [index]="i"
+                [isLast]="last"
+              />
+            </div>
             @if (!last) {
               <div class="event-track"></div>
             }
           }
-        </div>
-      }
+        }
+      </div>
     </div>
   </article>
 </ng-container>

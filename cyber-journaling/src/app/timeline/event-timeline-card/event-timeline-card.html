@@ -1,9 +1,8 @@
 <div class="event-card">
-
   <div class="event-card-badge-wrapper">
-    <span class="event-card-badge">
+    <div class="event-card-badge bold">
       {{ journalEvent().timestamp | date:'dd.MM.yyyy HH:mm' }}
-    </span>
+    </div>
     <span class="event-card-badge">
       {{ journalEvent().event_type!.name }}
     </span>
@@ -31,5 +30,4 @@
       }
     </div>
   }
-
 </div>

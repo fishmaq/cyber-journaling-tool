@@ -5,6 +5,19 @@
   padding-bottom: 12px;
 }
 
+.timeline-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.timeline-search {
+  width: 20rem;
+  max-width: 90%;
+}
+
 .timeline-wrapper{
   display: flex;
   width: 90%;
