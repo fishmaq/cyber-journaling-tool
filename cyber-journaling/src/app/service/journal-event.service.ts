@@ -17,7 +17,11 @@ export class JournalEventService {
     return this.#httpClient.get<JournalEvent[]>(this.#endpointUrl).pipe(
       map((journalEvents) => {
         return journalEvents.filter((journalEvent) => {
-          if (!this.#configDataService.selectedTeamId() || !journalEvent.journal_case || !journalEvent.journal_case.team_id) {
+          if (
+            !this.#configDataService.selectedTeamId() ||
+            !journalEvent.journal_case ||
+            !journalEvent.journal_case.team_id
+          ) {
             return true;
           } else {
             return journalEvent.journal_case.team_id === this.#configDataService.selectedTeamId();
@@ -38,10 +42,5 @@ export class JournalEventService {
 
   deleteJournalEvent(id: number) {
     return this.#httpClient.delete(this.#endpointUrl + '/' + id);
-  }
-
-  // TODO: rename to rearrange
-  reorderEvents(eventIds: number[]) {
-    return this.#httpClient.put(this.#endpointUrl + '/reorder', { event_ids: eventIds });
   }
 }

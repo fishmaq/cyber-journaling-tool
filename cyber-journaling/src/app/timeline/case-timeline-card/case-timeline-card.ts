@@ -1,22 +1,17 @@
-import {Component, inject, input, output} from '@angular/core';
-import {JournalCase, JournalCaseState, JournalEvent} from 'shared';
-import {EventTimelineCard} from '../event-timeline-card/event-timeline-card';
-import {MatIcon} from '@angular/material/icon';
-import {CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray} from '@angular/cdk/drag-drop';
-import {JournalEventCrudPopupService} from '../../service/journal-event-crud-popup.service';
-import {JournalEventService} from '../../service/journal-event.service';
-import {JournalCaseService} from '../../service/journal-case.service';
-import {ConfigDataService} from '../../service/config-data.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { Component, inject, input, output } from '@angular/core';
+import { JournalCase, JournalCaseState, JournalEvent } from 'shared';
+import { EventTimelineCard } from '../event-timeline-card/event-timeline-card';
+import { MatIcon } from '@angular/material/icon';
+import { CdkDrag, CdkDragDrop, CdkDropList } from '@angular/cdk/drag-drop';
+import { JournalEventCrudPopupService } from '../../service/journal-event-crud-popup.service';
+import { JournalEventService } from '../../service/journal-event.service';
+import { JournalCaseService } from '../../service/journal-case.service';
+import { ConfigDataService } from '../../service/config-data.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'case-timeline-card',
-  imports: [
-    EventTimelineCard,
-    MatIcon,
-    CdkDropList,
-    CdkDrag
-  ],
+  imports: [EventTimelineCard, MatIcon, CdkDropList, CdkDrag],
   templateUrl: './case-timeline-card.html',
   styleUrl: './case-timeline-card.scss',
 })
@@ -32,42 +27,37 @@ export class CaseTimelineCard {
     return sourceCase?.team_id === targetCase?.team_id;
   };
 
-  #journalEventCrudPopupService = inject(JournalEventCrudPopupService)
-  #journalEventService = inject(JournalEventService)
-  #journalCaseService = inject(JournalCaseService)
-  #configDataService = inject(ConfigDataService)
-  #snackbar = inject(MatSnackBar)
+  #journalEventCrudPopupService = inject(JournalEventCrudPopupService);
+  #journalEventService = inject(JournalEventService);
+  #journalCaseService = inject(JournalCaseService);
+  #configDataService = inject(ConfigDataService);
+  #snackbar = inject(MatSnackBar);
 
   async createEvent(id: number) {
-    console.debug('createEvent() %d', id)
+    console.debug('createEvent() %d', id);
 
     // use new empty JournalEvent
     const newEvent: JournalEvent | undefined =
-      await this.#journalEventCrudPopupService.handleDialogue(
-        {case_id:this.journalCase()!.id} as JournalEvent
-      )
+      await this.#journalEventCrudPopupService.handleDialogue({
+        case_id: this.journalCase()!.id,
+      } as JournalEvent);
 
     if (newEvent !== undefined) {
       console.debug('Timeline: The dialogue was closed with data:');
-      console.debug(newEvent)
+      console.debug(newEvent);
 
-      console.debug('Timeline: Sending data to backend...')
-      this.#journalEventService
-        .saveJournalEvent(newEvent)
-        .subscribe(async () => {
-          // wait until the data is saved and then refresh the list
-          console.debug('Timeline: Data was saved:')
-          console.debug(newEvent)
-          this.eventCreated.emit();
+      console.debug('Timeline: Sending data to backend...');
+      this.#journalEventService.saveJournalEvent(newEvent).subscribe(async () => {
+        // wait until the data is saved and then refresh the list
+        console.debug('Timeline: Data was saved:');
+        console.debug(newEvent);
+        this.eventCreated.emit();
 
-          this.#snackbar.open('Event was saved successfully!',
-            '',
-            {
-              duration: 3000,
-              panelClass: ['snackbar-success']
-            }
-          );
+        this.#snackbar.open('Event was saved successfully!', '', {
+          duration: 3000,
+          panelClass: ['snackbar-success'],
         });
+      });
     } else {
       // do nothing and just log
       console.debug('Timeline: The dialogue was canceled!');
@@ -76,19 +66,7 @@ export class CaseTimelineCard {
 
   onEventDropped(dropEvent: CdkDragDrop<JournalCase>) {
     if (dropEvent.previousContainer === dropEvent.container) {
-      if (dropEvent.previousIndex === dropEvent.currentIndex) {
-        return;
-      }
-
-      const events = [...(this.journalCase().journal_event ?? [])];
-      moveItemInArray(events, dropEvent.previousIndex, dropEvent.currentIndex);
-
-      console.debug('Timeline: reordering events in case %d', this.journalCase().id)
-
-      this.#journalEventService.reorderEvents(events.map(event => event.id)).subscribe(() => {
-        console.debug('Timeline: Events were reordered')
-        this.eventMoved.emit();
-      });
+      // only allow moving to other cases (no horizontal movement)
       return;
     }
 
@@ -100,32 +78,30 @@ export class CaseTimelineCard {
       return;
     }
 
-    console.debug('Timeline: moving event %d to case %d', draggedEvent.id, targetCase.id)
+    console.debug('Timeline: moving event %d to case %d', draggedEvent.id, targetCase.id);
 
-    const movedEvent: JournalEvent = {...draggedEvent, case_id: targetCase.id, priority: null};
+    const movedEvent: JournalEvent = { ...draggedEvent, case_id: targetCase.id };
 
     this.#journalEventService.saveJournalEvent(movedEvent).subscribe(() => {
-      console.debug('Timeline: Event was moved')
+      console.debug('Timeline: Event was moved');
       this.eventMoved.emit();
 
-      this.#snackbar.open('Event was moved successfully!',
-        '',
-        {
-          duration: 3000,
-          panelClass: ['snackbar-success']
-        }
-      );
+      this.#snackbar.open('Event was moved successfully!', '', {
+        duration: 3000,
+        panelClass: ['snackbar-success'],
+      });
     });
   }
 
   closeCase() {
-    console.debug('closeCase() %d', this.journalCase()!.id)
-    const closedState = this.#configDataService.config()?.caseStateList
-      .find(state => state.name === 'Closed');
+    console.debug('closeCase() %d', this.journalCase()!.id);
+    const closedState = this.#configDataService
+      .config()
+      ?.caseStateList.find((state) => state.name === 'Closed');
 
     if (closedState === undefined) {
-      console.debug('Timeline: Could not find the "Closed" case state')
-      this.#snackbar.open('Could not find the "Closed" case state.', '', {duration: 3000});
+      console.debug('Timeline: Could not find the "Closed" case state');
+      this.#snackbar.open('Could not find the "Closed" case state.', '', { duration: 3000 });
       return;
     }
 
@@ -133,14 +109,17 @@ export class CaseTimelineCard {
   }
 
   reopenCase() {
-    console.debug('reopenCase() %d', this.journalCase()!.id)
+    console.debug('reopenCase() %d', this.journalCase()!.id);
 
-    const openState = this.#configDataService.config()?.caseStateList
-      .find(state => state.name !== 'Closed');
+    const openState = this.#configDataService
+      .config()
+      ?.caseStateList.find((state) => state.name !== 'Closed');
 
     if (openState === undefined) {
-      console.debug('Timeline: Could not find a state to reopen the case with')
-      this.#snackbar.open('Could not find a state to reopen the case with.', '', {duration: 3000});
+      console.debug('Timeline: Could not find a state to reopen the case with');
+      this.#snackbar.open('Could not find a state to reopen the case with.', '', {
+        duration: 3000,
+      });
       return;
     }
 
@@ -151,20 +130,17 @@ export class CaseTimelineCard {
     const updatedCase: JournalCase = {
       ...this.journalCase(),
       case_state_id: caseState.id,
-      case_state: caseState
+      case_state: caseState,
     };
 
     this.#journalCaseService.saveJournalCase(updatedCase).subscribe(() => {
-      console.debug('Timeline: Case state was updated to %s', caseState.name)
+      console.debug('Timeline: Case state was updated to %s', caseState.name);
       this.caseStateChanged.emit();
 
-      this.#snackbar.open(successMessage,
-        '',
-        {
-          duration: 3000,
-          panelClass: ['snackbar-success']
-        }
-      );
+      this.#snackbar.open(successMessage, '', {
+        duration: 3000,
+        panelClass: ['snackbar-success'],
+      });
     });
   }
 }

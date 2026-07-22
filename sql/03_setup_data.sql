@@ -20,8 +20,7 @@ CREATE TABLE data.journal_event
     case_id           INTEGER REFERENCES data.journal_case (id) ON DELETE CASCADE,
     timestamp         TIMESTAMP,
     title             VARCHAR(255),
-    details           VARCHAR(2048),
-    priority          INTEGER
+    details           VARCHAR(2048)
 );
 
 

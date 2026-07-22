@@ -65,23 +65,6 @@ router.put("/", async (req, res) => {
     return res.status(200).send();
 });
 
-// TODO: rename to rearrange
-router.put("/reorder", async (req, res) => {
-    // set priority = position for each event id, in the given order
-    const eventIds: number[] = req.body.event_ids ?? [];
-
-    await prisma.$transaction(
-        eventIds.map((id, index) =>
-            prisma.journal_event.update({
-                where: {id},
-                data: {priority: index}
-            })
-        )
-    );
-
-    return res.status(200).send();
-});
-
 router.delete("/:id", async (req, res) => {
     await prisma.journal_event.delete({
         where: {
