@@ -14,10 +14,10 @@
   </div>
 
   <div class="timeline-wrapper" cdkDropListGroup>
-    @if (this.journalCasesFiltered().length === 0) {
+    @if (this.journalCases().length === 0) {
       <div class="case-timeline-empty">No Cases found.</div>
     } @else {
-      @for (journalCase of this.journalCasesFiltered(); track journalCase.id) {
+      @for (journalCase of this.journalCases(); track journalCase.id) {
         <case-timeline-card
           [journalCase]="journalCase"
           (eventCreated)="this.loadData()"

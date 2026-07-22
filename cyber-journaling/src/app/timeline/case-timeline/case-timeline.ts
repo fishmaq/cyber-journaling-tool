@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import { Component, effect, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { JournalCase } from 'shared';
 import { CaseTimelineCard } from '../case-timeline-card/case-timeline-card';
 import { JournalCaseService } from '../../service/journal-case.service';
@@ -11,11 +11,20 @@ import { CdkDropListGroup } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'case-timeline',
-  imports: [CaseTimelineCard, MatSlideToggle, MatFormField, MatInput, MatLabel, MatIcon, CdkDropListGroup],
+  imports: [
+    CaseTimelineCard,
+    MatSlideToggle,
+    MatFormField,
+    MatInput,
+    MatLabel,
+    MatIcon,
+    CdkDropListGroup,
+  ],
   templateUrl: './case-timeline.html',
   styleUrl: './case-timeline.scss',
 })
 export class CaseTimeline implements OnInit, OnDestroy {
+  // reference is needed for removing the interval on ngOnDestroy
   intervalReference = 0;
   showClosedCase = signal(false);
   searchTerm = signal('');
@@ -25,17 +34,10 @@ export class CaseTimeline implements OnInit, OnDestroy {
   #journalCaseService = inject(JournalCaseService);
   #configDataService = inject(ConfigDataService);
 
-  journalCasesFiltered = computed(() => {
-    const selectedTeamId = this.#configDataService.selectedTeamId();
-    const showClosedCase = this.showClosedCase();
-    const search = this.searchTerm().trim().toLowerCase();
-    return this.journalCases().filter((journalCase) => {
-      const matchesTeam = selectedTeamId == null || journalCase.team_id === selectedTeamId;
-      const matchesState =
-        showClosedCase || journalCase.case_state === undefined || journalCase.case_state.name !== 'Closed';
-      const matchesSearch = search === '' || this.#matchesSearch(journalCase, search);
-      return matchesTeam && matchesState && matchesSearch;
-    });
+  teamFilterChangedEffect = effect(async () => {
+    this.#configDataService.selectedTeamId();
+    console.debug('Timeline: #configDataService.selectedTeamId changed, reloading data...');
+    await this.loadData();
   });
 
   async ngOnInit() {
@@ -47,6 +49,7 @@ export class CaseTimeline implements OnInit, OnDestroy {
     await this.loadData();
   }
 
+  // TODO: what is this? --> shitty naming
   async refreshForPresenterMode() {
     if (this.#configDataService.presenterMode) {
       await this.loadData();
@@ -55,7 +58,7 @@ export class CaseTimeline implements OnInit, OnDestroy {
 
   async loadData() {
     const data = await firstValueFrom(this.#journalCaseService.getJournalCases());
-    console.debug('CaseTimeline: #journalCaseService.getJournalCases():');
+    console.debug('Timeline: #journalCaseService.getJournalCases():');
     console.debug(data);
 
     this.journalCases.set(data);
@@ -84,13 +87,6 @@ export class CaseTimeline implements OnInit, OnDestroy {
     }
   });
 
-  ngOnDestroy(): void {
-    // cleanup interval
-    if (this.intervalReference) {
-      clearInterval(this.intervalReference);
-    }
-  }
-
   caseVisibilityChanged(checked: boolean) {
     this.showClosedCase.set(checked);
   }
@@ -102,14 +98,18 @@ export class CaseTimeline implements OnInit, OnDestroy {
   #matchesSearch(journalCase: JournalCase, search: string) {
     const caseNumber = 'case-' + journalCase.id.toString().padStart(5, '0');
     const eventText = (journalCase.journal_event ?? [])
-      .map(event => `${event.title ?? ''} ${event.details ?? ''}`)
+      .map((event) => `${event.title ?? ''} ${event.details ?? ''}`)
       .join(' ');
-    const haystack = [
-      journalCase.title ?? '',
-      journalCase.id.toString(),
-      caseNumber,
-      eventText
-    ].join(' ').toLowerCase();
+    const haystack = [journalCase.title ?? '', journalCase.id.toString(), caseNumber, eventText]
+      .join(' ')
+      .toLowerCase();
     return haystack.includes(search);
+  }
+
+  ngOnDestroy(): void {
+    // cleanup interval
+    if (this.intervalReference) {
+      clearInterval(this.intervalReference);
+    }
   }
 }

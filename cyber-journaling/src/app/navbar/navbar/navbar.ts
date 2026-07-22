@@ -33,6 +33,6 @@ export class Navbar {
   }
 
   teamChanged(value: number) {
-    this.configDataService.selectedTeamId.set(value === this.ALL_TEAMS ? null : value);
+    this.configDataService.selectedTeamId.set(value === this.ALL_TEAMS ? undefined : value);
   }
 }

@@ -19,7 +19,8 @@ export class ConfigDataService {
 
   presenterMode = false;
 
-  readonly selectedTeamId = signal<number | null>(null);
+  // TODO: use undefined
+  readonly selectedTeamId = signal<number | undefined>(undefined);
 
   async load(): Promise<void> {
     // wait for data

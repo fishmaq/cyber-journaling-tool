@@ -34,9 +34,11 @@ router.post("/", async (req, res) => {
 router.put("/", async (req, res) => {
     let event = req.body;
     let services_ids = req.body.services_ids;
+
     if (event.timestamp) {
         event.timestamp = new Date(event.timestamp);
     }
+
     // update fields
     await prisma.journal_event.update({
         data: removeFkFieldsEvent(event),
@@ -63,6 +65,7 @@ router.put("/", async (req, res) => {
     return res.status(200).send();
 });
 
+// TODO: rename to rearrange
 router.put("/reorder", async (req, res) => {
     // set priority = position for each event id, in the given order
     const eventIds: number[] = req.body.event_ids ?? [];
