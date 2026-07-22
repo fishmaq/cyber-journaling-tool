@@ -1,4 +1,4 @@
-import { Component, effect, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import { Component, computed, effect, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { JournalCase } from 'shared';
 import { CaseTimelineCard } from '../case-timeline-card/case-timeline-card';
 import { JournalCaseService } from '../../service/journal-case.service';
@@ -30,8 +30,27 @@ export class CaseTimeline implements OnInit, OnDestroy {
   searchTerm = signal('');
 
   journalCases = signal<JournalCase[]>([]);
+  journalCasesFiltered = computed(() => {
+    this.showClosedCase();
+    return (
+      this.journalCases()
+        // Closed Filter
+        .filter((journalCase) => {
+          if (journalCase.case_state === undefined || this.showClosedCase()) {
+            return true;
+          } else {
+            return journalCase.case_state.name !== 'Closed';
+          }
+        })
+        // searchTerm Filter
+        .filter((journalCase) => {
+          return this.searchTerm() ? journalCase.title!.includes(this.searchTerm()) : true;
+        })
+    );
+  });
 
   #journalCaseService = inject(JournalCaseService);
+
   #configDataService = inject(ConfigDataService);
 
   teamFilterChangedEffect = effect(async () => {
@@ -42,18 +61,13 @@ export class CaseTimeline implements OnInit, OnDestroy {
 
   async ngOnInit() {
     this.intervalReference = setInterval(async () => {
-      await this.refreshForPresenterMode();
+      if (this.#configDataService.presenterMode) {
+        await this.loadData();
+      }
     }, 10000);
 
     // load data from the service on component init
     await this.loadData();
-  }
-
-  // TODO: what is this? --> shitty naming
-  async refreshForPresenterMode() {
-    if (this.#configDataService.presenterMode) {
-      await this.loadData();
-    }
   }
 
   async loadData() {

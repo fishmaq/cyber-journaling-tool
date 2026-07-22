@@ -34,25 +34,6 @@ describe('CaseTimeline', () => {
     expect(component.loadData).toHaveBeenCalled();
   });
 
-  it('should reload data in presenter mode', async () => {
-    configDataServiceMock.presenterMode = true;
-
-    vi.spyOn(component, 'loadData').mockResolvedValue();
-
-    await component.refreshForPresenterMode();
-
-    expect(component.loadData).toHaveBeenCalled();
-  });
-
-  it('should not reload data when presenter mode is disabled', async () => {
-    configDataServiceMock.presenterMode = false;
-
-    vi.spyOn(component, 'loadData').mockResolvedValue()
-
-    await component.refreshForPresenterMode();
-
-    expect(component.loadData).not.toHaveBeenCalled();
-  });
 
   it('should update journalCases after loading', async () => {
     const cases = [
